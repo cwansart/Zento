@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace Zento\Events;
 
 abstract class Event
 {

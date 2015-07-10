@@ -1,5 +1,5 @@
 suites:
     main:
-        namespace: App
-        psr4_prefix: App
+        namespace: Zento
+        psr4_prefix: Zento
         src_path: app

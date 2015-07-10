@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace Zento\Jobs;
 
 use Illuminate\Bus\Queueable;
 

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', 'SomeRandomString'),
+    'key' => env('APP_KEY', 'heid3baiqu4Ohshaafo7AiLahNg3faaW'),
 
     'cipher' => 'AES-256-CBC',
 
@@ -140,9 +140,9 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Zento\Providers\AppServiceProvider::class,
+        Zento\Providers\EventServiceProvider::class,
+        Zento\Providers\RouteServiceProvider::class,
 
     ],
 

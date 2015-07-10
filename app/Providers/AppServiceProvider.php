@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Zento\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

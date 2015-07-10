@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Zento\Http\Controllers\Auth;
 
-use App\User;
+use Zento\User;
 use Validator;
-use App\Http\Controllers\Controller;
+use Zento\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 

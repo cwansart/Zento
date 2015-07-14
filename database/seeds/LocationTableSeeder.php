@@ -51,5 +51,32 @@ class LocationTableSeeder extends Seeder {
             'housenr' => '8',
             'country' => 'Deutschland'
         ]);
+
+        Location::create([
+            'name' => 'Jahnhalle',
+            'zip' => 79312,
+            'city' => 'Emmendingen',
+            'street' => 'Jahnstraße',
+            'housenr' => '7',
+            'country' => 'Deutschland'
+        ]);
+
+        Location::create([
+            'name' => 'Grundschulhalle',
+            'zip' => 79312,
+            'city' => 'Wasser',
+            'street' => 'Hauptstraße',
+            'housenr' => '54',
+            'country' => 'Deutschland'
+        ]);
+
+        Location::create([
+            'name' => null,
+            'zip' => 6960,
+            'city' => 'Hvide Sande',
+            'street' => '',
+            'housenr' => '',
+            'country' => 'Dänemark'
+        ]);
     }
 }

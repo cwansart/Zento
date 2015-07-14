@@ -17,6 +17,8 @@ class CreateExamResultsTable extends Migration
             $table->integer('exam_id');
             $table->integer('user_id');
             $table->string('result');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

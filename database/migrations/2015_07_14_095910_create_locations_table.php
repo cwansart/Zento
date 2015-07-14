@@ -21,6 +21,7 @@ class CreateLocationsTable extends Migration
             $table->string('housenr');
             $table->string('country');
             $table->softDeletes();
+            $table->timestamps();
         });
 
     }

@@ -35,7 +35,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function address()
     {
-        return $this->hasOne('Zento\Location');
+        return $this->belongsTo('Zento\Location', 'location_id');
     }
 
     public function group()
@@ -43,7 +43,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->belongsTo('Zento\Group');
     }
 
-    public function exams()
+    public function results()
     {
         return $this->hasMany('Zento\ExamResult');
     }

@@ -8,7 +8,7 @@ class Exam extends Model
 {
     public function location()
     {
-        return $this->hasOne('Zento\Location');
+        return $this->belongsTo('Zento\Location');
     }
 
     public function results()

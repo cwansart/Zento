@@ -17,6 +17,7 @@ class CreateExamsTable extends Migration
             $table->date('date');
             $table->integer('location_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

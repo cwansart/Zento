@@ -20,6 +20,7 @@ class CreateLocationsTable extends Migration
             $table->string('street');
             $table->string('housenr');
             $table->string('country');
+            $table->softDeletes();
         });
 
     }

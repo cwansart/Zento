@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->integer('group_id')->unsigned();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
 
     }

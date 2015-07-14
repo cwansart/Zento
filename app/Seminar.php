@@ -8,7 +8,7 @@ class Seminar extends Model
 {
     public function location()
     {
-        return $this->hasOne('App\Location');
+        return $this->hasOne('Zento\Location');
     }
 
 }

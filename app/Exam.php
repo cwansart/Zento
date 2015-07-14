@@ -8,11 +8,11 @@ class Exam extends Model
 {
     public function location()
     {
-        return $this->hasOne('App\Location');
+        return $this->hasOne('Zento\Location');
     }
 
     public function results()
     {
-        return $this->hasMany('App\ExamResult');
+        return $this->hasMany('Zento\ExamResult');
     }
 }

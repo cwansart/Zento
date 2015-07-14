@@ -35,16 +35,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     public function address()
     {
-        return $this->hasOne('App\Location');
+        return $this->hasOne('Zento\Location');
     }
 
     public function group()
     {
-        return $this->belongsTo('App\Group');
+        return $this->belongsTo('Zento\Group');
     }
 
     public function exams()
     {
-        return $this->hasMany('App\ExamResult');
+        return $this->hasMany('Zento\ExamResult');
     }
 }

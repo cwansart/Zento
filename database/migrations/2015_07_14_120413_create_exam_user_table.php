@@ -12,7 +12,7 @@ class CreateExamUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('exams', function (Blueprint $table) {
+        Schema::create('exam_user', function (Blueprint $table) {
             $table->increments('id');
             $table->date('date');
             $table->integer('location_id');

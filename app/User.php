@@ -47,4 +47,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->hasMany('Zento\ExamResult');
     }
+
+    public function seminars()
+    {
+        return $this->belongsToMany('Zento\Seminar');
+    }
 }

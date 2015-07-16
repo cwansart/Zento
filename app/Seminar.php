@@ -11,4 +11,9 @@ class Seminar extends Model
         return $this->hasOne('Zento\Location');
     }
 
+    public function  users()
+    {
+        return $this->belongsToMany('Zento\User');
+    }
+
 }

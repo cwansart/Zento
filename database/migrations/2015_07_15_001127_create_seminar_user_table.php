@@ -12,7 +12,7 @@ class CreateSeminarUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('seminar_users', function (Blueprint $table) {
+        Schema::create('seminar_user', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('seminar_id');
             $table->integer('user_id');
@@ -28,6 +28,6 @@ class CreateSeminarUserTable extends Migration
      */
     public function down()
     {
-        Schema::drop('seminar_users');
+        Schema::drop('seminar_user');
     }
 }

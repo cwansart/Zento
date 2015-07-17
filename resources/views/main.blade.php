@@ -5,6 +5,7 @@
 
     {!! HTML::style('bootstrap/css/bootstrap.min.css') !!}
     {!! HTML::style('bootstrap/css/bootstrap-theme.min.css') !!}
+    {!! HTML::script('jquery-1.11.3.min.js') !!}
     {!! HTML::script('bootstrap/js/bootstrap.min.js') !!}
 
 </head>

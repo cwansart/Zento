@@ -17,6 +17,7 @@
             <img style="max-width: 42px; max-height: 42px;" src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-8/128/Accept-icon.png" alt="">
 
     </li>
+
     <li role="presentation" class="{!! Request::is('users') ? 'active' : '' !!}">{!! HTML::linkRoute('users.index', 'Benutzer') !!}</li>
     <li role="presentation" class="{!! Request::is('exams') ? 'active' : '' !!}">{!! HTML::linkRoute('exams.index', 'Prüfungen') !!}</li>
 </ul>

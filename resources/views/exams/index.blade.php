@@ -1,7 +1,19 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: christian
- * Date: 17.07.15
- * Time: 13:10
- */
+@extends('main')
+
+@section('title', 'Prüfungsübersicht')
+
+@section('content')
+
+    <div class="container">
+        <ul>
+            @foreach($exams as $exam)
+
+                <li>{!! $exam !!}</li>
+
+            @endforeach
+        </ul>
+    </div>
+
+    {!! $exams->render() !!}
+
+@endsection

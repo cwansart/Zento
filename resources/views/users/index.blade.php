@@ -4,6 +4,7 @@
 
 @section('content')
 
+    <div class="container">
     <ul>
     @foreach($users as $user)
 
@@ -11,5 +12,8 @@
 
     @endforeach
     </ul>
+    </div>
+
+    {!! $users->render() !!}
 
 @endsection

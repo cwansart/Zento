@@ -11,8 +11,12 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
-Route::resource('hello', 'HelloController');
+// set default site
+Route::get('/', 'UserController@index');
+
+Route::resource('users', 'UserController');
+

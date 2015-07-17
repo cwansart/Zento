@@ -2,8 +2,7 @@
 
 namespace Zento\Http\Controllers;
 
-//use Illuminate\Http\Request;
-use Request;
+use Illuminate\Http\Request;
 
 use Zento\Http\Requests;
 use Zento\Http\Controllers\Controller;
@@ -16,11 +15,12 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $users = User::paginate(15);
 
-        return Request::ajax() ? $users : view('users.index')->with('users', $users);
+        // returns users as JSON if
+        return $request->ajax() ? $users : view('users.index')->with('users', $users);
     }
 
     /**

@@ -10,11 +10,17 @@
 
 </head>
 <body>
-<nav class="navbar navbar-default">
-    <ul class="nav nav-tabs nav-justified">
-        <li>{!! HTML::linkRoute('users.index', 'Benutzer') !!}</li>
-    </ul>
-</nav>
+
+<ul class="nav nav-tabs">
+    <li>
+        {{-- we could add the application logo here, if we will keep this  --}}
+            <img style="max-width: 42px; max-height: 42px;" src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-8/128/Accept-icon.png" alt="">
+
+    </li>
+    <li role="presentation" class="{!! Request::is('users') ? 'active' : '' !!}">{!! HTML::linkRoute('users.index', 'Benutzer') !!}</li>
+    <li role="presentation" class="{!! Request::is('exams') ? 'active' : '' !!}">{!! HTML::linkRoute('exams.index', 'Prüfungen') !!}</li>
+</ul>
+
 <div class="container">
     @yield('content')
 </div>

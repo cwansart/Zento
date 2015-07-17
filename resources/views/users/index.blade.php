@@ -5,13 +5,13 @@
 @section('content')
 
     <div class="container">
-    <ul>
-    @foreach($users as $user)
+        <ul>
+            @foreach($users as $user)
 
-        <li>{!! $user->firstname !!}, {!! $user->lastname !!}</li>
+                <li>{!! $user->firstname !!}, {!! $user->lastname !!}</li>
 
-    @endforeach
-    </ul>
+            @endforeach
+        </ul>
     </div>
 
     {!! $users->render() !!}

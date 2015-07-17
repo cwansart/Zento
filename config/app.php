@@ -145,6 +145,7 @@ return [
         Zento\Providers\RouteServiceProvider::class,
 
         Illuminate\Html\HtmlServiceProvider::class,
+        \Zento\Providers\MacroServiceProvider::class,
 
     ],
 

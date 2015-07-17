@@ -18,8 +18,8 @@
 
     </li>
 
-    <li role="presentation" class="{!! Request::is('users') ? 'active' : '' !!}">{!! HTML::linkRoute('users.index', 'Benutzer') !!}</li>
-    <li role="presentation" class="{!! Request::is('exams') ? 'active' : '' !!}">{!! HTML::linkRoute('exams.index', 'Prüfungen') !!}</li>
+    <li role="presentation" class="{!! HTML::isActive('users') !!}">{!! HTML::linkRoute('users.index', 'Benutzer') !!}</li>
+    <li role="presentation" class="{!! HTML::isActive('exams') !!}">{!! HTML::linkRoute('exams.index', 'Prüfungen') !!}</li>
 </ul>
 
 <div class="container">

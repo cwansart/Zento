@@ -49,9 +49,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        return $request->ajax() ? $user : view('users.show')->with('user', $user);
     }
 
     /**

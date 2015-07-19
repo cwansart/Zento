@@ -33,6 +33,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $hidden = ['password', 'remember_token'];
 
+    /**
+     * The attributes that are stored as 'date' in the database.
+     *
+     * @var array
+     */
+    protected $dates = ['birthday', 'entry_date'];
+
     public function address()
     {
         return $this->belongsTo('Zento\Location', 'location_id');
@@ -51,5 +58,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function seminars()
     {
         return $this->belongsToMany('Zento\Seminar');
+    }
+
+    public function addressStr()
+    {
+        return //$this->firstname.' '.$this->lastname.'<br>'.
+               $this->address->street.' '.$this->address->housenr.'<br>'.
+               $this->address->zip.' '.$this->address->city.'<br>'.
+               $this->address->country;
     }
 }

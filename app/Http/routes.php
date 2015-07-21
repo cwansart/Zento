@@ -20,6 +20,7 @@ Route::get('/', 'UserController@index');
 
 Route::resource('users', 'UserController');
 Route::resource('exams', 'ExamController');
+Route::resource('seminars', 'SeminarController');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

@@ -15,4 +15,12 @@ class Exam extends Model
     {
         return $this->hasMany('Zento\ExamResult');
     }
+
+    public function addressStr()
+    {
+        return
+            $this->location->street.' '.$this->location->housenr.'<br>'.
+            $this->location->zip.' '.$this->location->city.'<br>'.
+            $this->location->country;
+    }
 }

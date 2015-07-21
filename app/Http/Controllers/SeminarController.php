@@ -49,9 +49,10 @@ class SeminarController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        $seminarUsers = Seminar::find($id)->users;
+        return $request->ajax() ? $seminarUsers : view('seminars.show')->with('seminarUsers', $seminarUsers);
     }
 
     /**

@@ -5,13 +5,22 @@
 @section('content')
 
     <div class="container">
-        <ul>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Vorname</th>
+                <th>Nachname</th>
+            </tr>
+            </thead>
+            <tbody>
             @foreach($users as $user)
-
-                <li>{!! $user->firstname !!}, {!! $user->lastname !!}</li>
-
+                <tr class="clickable-row" data-href="{{ action('UserController@show', [$user->id]) }}">
+                    <td>{!! $user->firstname !!}</td>
+                    <td>{!! $user->lastname !!}</td>
+                </tr>
             @endforeach
-        </ul>
+            </tbody>
+        </table>
     </div>
 
     {!! $users->render() !!}

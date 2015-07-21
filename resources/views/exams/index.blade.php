@@ -8,13 +8,13 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <td>Datum</td>
-                    <td>Ort</td>
+                    <th>Datum</th>
+                    <th>Ort</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($exams as $exam)
-                    <tr>
+                    <tr class="clickable-row" data-href="{{ action('ExamController@show', [$exam->id]) }}">
                         <td>{!! $exam->date !!}</td>
                         <td>{!! $exam->addressStr() !!}</td>
                     </tr>

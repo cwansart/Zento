@@ -8,12 +8,19 @@ class Seminar extends Model
 {
     public function location()
     {
-        return $this->hasOne('Zento\Location');
+        return $this->belongsTo('Zento\Location');
     }
 
-    public function  users()
+    public function users()
     {
         return $this->belongsToMany('Zento\User');
     }
 
+    public function addressStr()
+    {
+        return
+            $this->location->street.' '.$this->location->housenr.'<br>'.
+            $this->location->zip.' '.$this->location->city.'<br>'.
+            $this->location->country;
+    }
 }

@@ -15,10 +15,10 @@
             </thead>
             <tbody>
                 @foreach($seminars as $seminar)
-                    <tr>
+                    <tr class="clickable-row" data-href="{{ action('SeminarController@show', [$seminar->id]) }}">
                         <td>{!! $seminar->date !!}</td>
                         <td>{!! $seminar->title !!}</td>
-                        <td>{!! $seminar->location_id !!}</td>
+                        <td>{!! $seminar->addressStr() !!}</td>
                     </tr>
                 @endforeach
             </tbody>

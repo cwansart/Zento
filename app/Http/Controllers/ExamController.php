@@ -4,6 +4,7 @@ namespace Zento\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Zento\ExamResult;
 use Zento\Http\Requests;
 use Zento\Http\Controllers\Controller;
 
@@ -48,9 +49,10 @@ class ExamController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        $results = ExamResult::where('exam_id', '=', $id)->get();
+        return $request->ajax() ? $results : view('exams.show')->with('results', $results);
     }
 
     /**

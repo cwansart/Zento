@@ -16,4 +16,13 @@
 
     {!! $users->render() !!}
 
+    {{--
+        Wir sollten hier noch überlegen, ob wir den Dialog nicht mittels jQuery einblenden lassen sollten als modaler Dialog.
+        {!! Form::button('Benutzer hinzufügen', array('class' => 'btn btn-primary', 'id' => 'users_index_create_button')) !!}
+     --}}
+    
+    <hr>
+
+    @include('users.create')
+
 @endsection

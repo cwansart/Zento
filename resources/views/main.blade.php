@@ -7,6 +7,18 @@
     {!! HTML::style('bootstrap/css/bootstrap-theme.min.css') !!}
     {!! HTML::script('jquery-1.11.3.min.js') !!}
     {!! HTML::script('bootstrap/js/bootstrap.min.js') !!}
+    {!! HTML::script('bootstrap/js/moment.js') !!}
+    {!! HTML::script('bootstrap/js/bootstrap.datetimepicker.js') !!}
+    {!! HTML::script('bootstrap/js/bootstrap.datetimepicker-de.js') !!}
+    <script>
+        $(document).ready(function() {
+            $('.datetimepicker').datetimepicker({
+                language: 'de',
+                pickTime: false,
+                format: 'DD.mm.yyyy'
+            });
+        });
+    </script>
 
 </head>
 <body>

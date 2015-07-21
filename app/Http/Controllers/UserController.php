@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Zento\Http\Requests;
 use Zento\Http\Controllers\Controller;
 use Zento\User;
+use Zento\Group;
 
 class UserController extends Controller
 {
@@ -18,9 +19,14 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $users = User::paginate(15);
+        $groups = Group::all();
+        $groupsArray = array();
+        foreach($groups as $group) {
+            $groupsArray[$group->id] = $group->name;
+        }
 
-        // returns users as JSON if
-        return $request->ajax() ? $users : view('users.index')->with('users', $users);
+        // returns users as JSON if requested by $.getJSON
+        return $request->ajax() ? $users : view('users.index')->with('users', $users)->with('groups', $groupsArray);
     }
 
     /**
@@ -41,6 +47,7 @@ class UserController extends Controller
     public function store()
     {
         //
+        return '';
     }
 
     /**

@@ -5,13 +5,22 @@
 @section('content')
 
     <div class="container">
-        <ul>
-            @foreach($exams as $exam)
-
-                <li>{!! $exam !!}</li>
-
-            @endforeach
-        </ul>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td>Datum</td>
+                    <td>Ort</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($exams as $exam)
+                    <tr>
+                        <td>{!! $exam->date !!}</td>
+                        <td>{!! $exam->addressStr() !!}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 
     {!! $exams->render() !!}

@@ -5,6 +5,7 @@
 @section('content')
 
     <div class="container">
+        @if(count($users))
         <table class="table table-hover">
             <thead>
             <tr>
@@ -21,6 +22,9 @@
             @endforeach
             </tbody>
         </table>
+        @else
+            Noch keine Benutzer vorhanden!
+        @endif
     </div>
 
     {!! $users->render() !!}

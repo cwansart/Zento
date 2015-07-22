@@ -32,4 +32,8 @@
 
     {!! $seminars->render() !!}
 
+    <hr>
+
+    @include('seminars.create')
+
 @endsection

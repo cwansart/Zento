@@ -29,4 +29,8 @@
 
     {!! $exams->render() !!}
 
+    <hr>
+
+    @include('exams.create')
+
 @endsection

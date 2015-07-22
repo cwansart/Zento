@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Exam extends Model
 {
+    /**
+     * The attributes that are stored as 'date' in the database.
+     *
+     * @var array
+     */
+    protected $dates = ['date'];
+
     public function location()
     {
         return $this->belongsTo('Zento\Location');

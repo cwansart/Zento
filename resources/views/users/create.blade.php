@@ -71,12 +71,19 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        {!! Form::label('group_id', 'Gruppe', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-6">
-                            {!! Form::select('group_id', $groups, null, ['class' => 'form-control']) !!}
+                        <div class="form-group">
+                            {!! Form::label('group_id', 'Gruppe', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-6">
+                                {!! Form::select('group_id', $groups, null, ['class' => 'form-control']) !!}
+                            </div>
                         </div>
-                    </div>
+
+                        <div class="form-group">
+                            {!! Form::label('active', 'Aktives Miglied?', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-6">
+                                {!! Form::checkbox('active', 1, true, ['class' => 'form-control']) !!}
+                            </div>
+                        </div>
 
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">

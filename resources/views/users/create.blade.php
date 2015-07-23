@@ -78,12 +78,19 @@
                             </div>
                         </div>
 
+
                         <div class="form-group">
-                            {!! Form::label('active', 'Aktives Miglied?', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-4"></div>
+
                             <div class="col-md-6">
-                                {!! Form::checkbox('active', 1, true, ['class' => 'form-control']) !!}
+                                <div class="checkbox">
+                                    <label>
+                                        {!! Form::checkbox('active', 1, true) !!} Aktives Mitglied?
+                                    </label>
+                                </div>
                             </div>
                         </div>
+
 
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">

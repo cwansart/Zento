@@ -24,7 +24,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['firstname', 'lastname', 'email', 'password', 'birthday', 'entry_date', 'location_id', 'active', 'group_id', 'created_at', 'updated_at'];
+    protected $fillable = [
+        'firstname',
+        'lastname',
+        'email',
+        'password',
+        'birthday',
+        'entry_date',
+        'location_id',
+        'active',
+        'group_id',
+        'created_at',
+        'updated_at'
+    ];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -39,6 +51,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $dates = ['birthday', 'entry_date'];
+
+    static public $rules = [
+        'firstname' => 'required|min:2|alpha',
+        'lastname' => 'required|min:2|alpha',
+        'email' => 'required|email',
+        'password' => 'min:4',
+        'birthday' => 'date|required',
+        'entry_date' => 'date|required',
+    ];
 
     public function address()
     {

@@ -19,14 +19,14 @@
                     <div class="form-group">
                         {!! Form::label('firstname', 'Vorname', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
-                            {!! Form::input('firstname', 'text', null, ['class' => 'form-control', 'placeholder' => 'Vorname', 'required']) !!}
+                            {!! Form::input('text', 'firstname', null, ['class' => 'form-control', 'placeholder' => 'Vorname', 'required']) !!}
                         </div>
                     </div>
 
                     <div class="form-group">
                         {!! Form::label('lastname', 'Nachname', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
-                            {!! Form::input('lastname', 'text', null, ['class' => 'form-control', 'placeholder' => 'Nachname', 'required']) !!}
+                            {!! Form::input('text', 'lastname', null, ['class' => 'form-control', 'placeholder' => 'Nachname', 'required']) !!}
                         </div>
                     </div>
 
@@ -48,7 +48,7 @@
                         {!! Form::label('birthday', 'Geburtstag', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
                             <div class="input-group date datetimepicker" data-date-format="DD.MM.YYYY">
-                                {!! Form::input('birthday', 'text', null, ['class' => 'form-control', 'placeholder' => 'z. B. 01.07.1985']) !!}
+                                {!! Form::input('text', 'birthday', null, ['class' => 'form-control', 'placeholder' => 'z. B. 01.07.1985']) !!}
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"</span>
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                         {!! Form::label('entry_date', 'Eintrittsdatum', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
                             <div class="input-group date datetimepicker" data-date-format="DD.MM.YYYY">
-                                {!! Form::input('entry_date', 'text', null, ['class' => 'form-control', 'placeholder' => 'z. B. '.date('d.m.Y')]) !!}
+                                {!! Form::input('text', 'entry_date', null, ['class' => 'form-control', 'placeholder' => 'z. B. '.date('d.m.Y')]) !!}
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"</span>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                     <div class="form-group">
                         {!! Form::label('location', 'Adresse', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
-                            {!! Form::input('location', 'text', null, ['class' => 'form-control', 'placeholder' => 'Musterstr. 1, 12345 Musterstadt', 'required']) !!}
+                            {!! Form::input('text', 'location', null, ['class' => 'form-control', 'placeholder' => 'Musterstr. 1, 12345 Musterstadt', 'required']) !!}
                         </div>
                     </div>
 

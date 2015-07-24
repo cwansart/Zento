@@ -10,6 +10,7 @@ use Zento\User;
 use Zento\Group;
 use Zento\Location;
 use Validator;
+use \Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -63,6 +64,7 @@ class UserController extends Controller
             ->where('city', '=', $request->input('city'))
             ->where('country', '=', $request->input('country'));
         if(!$location->exists()) {
+            echo "if";
             // create location if it doesn't exist
             $location = Location::create([
                 // do we really need a name in a location? We'll leave it blank for now...
@@ -75,15 +77,15 @@ class UserController extends Controller
             ]);
         } else {
             // we need to call get() otherwise we'd have an query object
-            $location = $location->get();
+            $location = $location->first();
         }
 
         $user = new User();
         $user->firstname = $request->input('firstname');
         $user->lastname = $request->input('lastname');
         $user->email = $request->input('email'); // TODO: what'll happen if email is already taken? Perhaps we need to catch an exception here..
-        $user->birthday = $request->input('birthday');
-        $user->entry_date = $request->input('entry_date');
+        $user->birthday = Carbon::createFromFormat('d.m.Y', $request->input('birthday')); // TODO: We should find a more localized friendly version; this way only the German date format works.
+        $user->entry_date = Carbon::createFromFormat('d.m.Y', $request->input('entry_date')); // TODO: same here
         $user->location_id = $location->id;
         $user->active = $request->input('active');
         $user->group_id = $request->input('group_id'); // TODO: We need to check if group_id exists

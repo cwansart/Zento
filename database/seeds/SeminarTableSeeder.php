@@ -20,25 +20,25 @@ class SeminarTableSeeder extends Seeder
 
         Seminar::create([
             'location_id' => 7,
-            'title' => 'Dänemark Traingscamp 2011',
+            'title' => 'Dänemark Trainingscamp 2011',
             'date' => Carbon::createFromDate(2011,8,1)
         ]);
 
         Seminar::create([
             'location_id' => 7,
-            'title' => 'Dänemark Traingscamp 2012',
+            'title' => 'Dänemark Trainingscamp 2012',
             'date' => Carbon::createFromDate(2012,8,1)
         ]);
 
         Seminar::create([
             'location_id' => 7,
-            'title' => 'Dänemark Traingscamp 2013',
+            'title' => 'Dänemark Trainingscamp 2013',
             'date' => Carbon::createFromDate(2014,4,1)
         ]);
 
         Seminar::create([
             'location_id' => 7,
-            'title' => 'Dänemark Traingscamp 2014',
+            'title' => 'Dänemark Trainingscamp 2014',
             'date' => Carbon::createFromDate(2014,4,1)
         ]);
 

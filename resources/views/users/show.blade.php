@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Benutzerdetails')
+@section('title', 'Benutzerdetails'.' '.$user->firstname.' '.$user->lastname)
 
 @section('content')
 

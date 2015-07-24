@@ -1,11 +1,11 @@
 @extends('main')
 
-@section('title', 'Prüflinge')
+@section('title', 'Prüflinge'.' '.'vom'.' '.$results->first()->exam->date->format('d.m.Y'))
 
 @section('content')
 
     <div class="container">
-        <h1>Prüflinge</h1>
+        <h1>Prüflinge vom {!! $results->first()->exam->date->format('d.m.Y') !!}</h1>
         @if(count($results))
             <table class="table table-hover">
                 <thead>

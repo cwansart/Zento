@@ -1,11 +1,11 @@
 @extends('main')
 
-@section('title', 'Teilnehmer')
+@section('title', 'Teilnehmer'.' "'.$title.'"')
 
 @section('content')
 
     <div class="container">
-        <h1>Teilnehmer</h1>
+        <h1>Teilnehmer des Seminars "{!! $title !!}"</h1>
         @if(count($seminarUsers))
             <table class="table table-hover">
                 <thead>

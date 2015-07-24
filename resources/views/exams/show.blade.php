@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Prüflinge'.' '.'vom'.' '.$results->first()->exam->date->format('d.m.Y'))
+@section('title', 'Prüflinge'.' '.$results->first()->exam->date->format('d.m.Y'))
 
 @section('content')
 

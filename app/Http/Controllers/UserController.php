@@ -110,7 +110,12 @@ class UserController extends Controller
     public function show(Request $request, $id)
     {
         $user = User::find($id);
-        return $request->ajax() ? $user : view('users.show')->with('user', $user);
+        $seminars = $user->seminars()->get();
+        $exams = $user->results()->get();
+        return $request->ajax() ? $user : view('users.show')
+            ->with('user', $user)
+            ->with('seminars', $seminars)
+            ->with('exams', $exams);
     }
 
     /**

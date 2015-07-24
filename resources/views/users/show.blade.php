@@ -6,6 +6,7 @@
 
     <br>
     <div class="container">
+        <h1>Benutzerdetails</h1>
         <table class="table table-hover">
             <tr>
                 <td>Vorname:</td>
@@ -42,6 +43,52 @@
                 <td>{!! $user->active ? 'Ja' : 'Nein' !!}</td>
             </tr>
         </table>
+
+        <h3>Seminarteilnahmen</h3>
+        @if(count($seminars))
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Datum</th>
+                        <th>Titel</th>
+                        <th>Ort</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($seminars as $seminar)
+                        <tr class="clickable-row" data-href="{{ action('SeminarController@show', [$seminar->id]) }}">
+                            <td>{!! $seminar->date->format('d.m.Y') !!}</td>
+                            <td>{!! $seminar->title !!}</td>
+                            <td>{!! $seminar->addressStr() !!}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @else
+            Keine Seminarteilnahmen vorhanden
+        @endif
+
+        <h3>Prüfungsteilnahmen</h3>
+        @if(count($exams))
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Datum</th>
+                        <th>Ergebnis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($exams as $exam)
+                        <tr class="clickable-row" data-href="{{ action('ExamController@show', [$exam->exam->id]) }}">
+                            <td>{!! $exam->exam->date->format('d.m.Y') !!}</td>
+                            <td>{!! $exam->result !!}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @else
+            <p>Keine Prüfungen vorhanden</p>
+        @endif
 
         {!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}
 

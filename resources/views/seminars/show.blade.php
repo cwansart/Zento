@@ -5,6 +5,7 @@
 @section('content')
 
     <div class="container">
+        <h1>Teilnehmer</h1>
         @if(count($seminarUsers))
             <table class="table table-hover">
                 <thead>

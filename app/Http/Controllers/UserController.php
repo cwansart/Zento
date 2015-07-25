@@ -57,6 +57,7 @@ class UserController extends Controller
                 ->withInput();
         }
 
+        // TODO: extract this block to the Location model
         // check if given location exists; use or create otherwise.
         $location = Location::where('street', '=', $request->input('street'))
             ->where('housenr', '=', $request->input('housenr'))
@@ -64,7 +65,6 @@ class UserController extends Controller
             ->where('city', '=', $request->input('city'))
             ->where('country', '=', $request->input('country'));
         if(!$location->exists()) {
-            echo "if";
             // create location if it doesn't exist
             $location = Location::create([
                 // do we really need a name in a location? We'll leave it blank for now...

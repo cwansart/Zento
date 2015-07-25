@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Teilnehmer'.' „'.$title.'“')
+@section('title', 'Teilnehmer „'.$title.'“')
 
 @section('content')
 

@@ -16,12 +16,7 @@
                     @endif
 
                     {!! Form::open(array('class' => 'form-horizontal', 'method' => 'POST', 'route' => 'exams.store')) !!}
-                    <div class="form-group">
-                        {!! Form::label('location', 'Adresse', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-6">
-                            {!! Form::input('text', 'location', null, ['class' => 'form-control', 'placeholder' => 'Musterstr. 1, 12345 Musterstadt', 'required']) !!}
-                        </div>
-                    </div>
+                    @include('location_input')
 
                     {{-- TODO: Müssen wir hier nicht besser datetime verwenden? Falls ja, müssen wir auch die Migration
                                anpassen und dort dateTime() anstelle von date() verwenden. --}}

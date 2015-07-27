@@ -15,7 +15,7 @@
                     <th>Ergebnis</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="userslist">
                 @foreach($results as $result)
                     <tr class="clickable-row" data-href="{{ action('UserController@show', [$result->user->id]) }}">
                         <td>{!! $result->user->firstname !!}</td>
@@ -46,6 +46,7 @@
     <script>
         $(document).ready(function() {
            $('.select2').select2({
+               language: 'de',
                ajax: {
                    url: '{!! action('UserController@index') !!}',
                    dataType: 'json',
@@ -58,11 +59,9 @@
                        };
                    },
                    processResults: function(data, page) {
-                       //console.log(data);
-                       //console.log(page);
-                       //console.log(data);
+                       console.log(data.data);
                        return {
-                           results: data
+                           results: data.data
                         }
                    }
                },
@@ -73,24 +72,20 @@
                templateResult: function(user) {
                    if(user.loading) return user.text;
 
-                   //console.log(user);
-                   console.log('blub');
-
                    return '<div class="clearfix"><div>'+user.firstname+'</div></div>';
-                   /*return "<tr>"
-                           +"<td>"+users.firstname+"</td>"
-                           +"<td>"+users.lastname+"</td>"
-                           +"<td>"+users.birthday+"</td>"
-                           +"</tr>";*/
                },
                templateSelection: function(user) {
-                   console.log(user);
                    return user.firstname || user.text;
                }
            });
 
             $('.select2').on('select2:select', function(e) {
-
+                var user = e.params.data;
+                $('#userslist').append('<tr class="clickable-row" data-href="/users/'+user.id+'">'
+                        +'<td>'+user.firstname+'</td>'
+                        +'<td>'+user.lastname+'</td>'
+                        +'<td>'+user.birthday+'</td>'
+                        +'</tr>')
             });
         });
     </script>

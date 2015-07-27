@@ -4,6 +4,7 @@ namespace Zento\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Auth;
 use Zento\Http\Requests;
 use Zento\Http\Controllers\Controller;
 use Zento\User;
@@ -157,5 +158,14 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Shows the view to change the profile of logged in user
+     */
+    public function editProfile(Request $request)
+    {
+        $user = Auth::user();
+        return $request->ajax() ? $user : view('users.edit')->with('user', $user);
     }
 }

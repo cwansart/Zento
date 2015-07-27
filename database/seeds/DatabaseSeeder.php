@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call('SeminarTableSeeder');
         $this->call('ExamResultTableSeeder');
         $this->call('SeminarUserTableSeeder');
+        $this->call('AppointmentTableSeeder');
         $this->command->info('Seeding complete!');
 
         Model::reguard();

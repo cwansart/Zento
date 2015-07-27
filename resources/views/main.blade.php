@@ -5,12 +5,14 @@
 
     {!! HTML::style('bootstrap/css/bootstrap.min.css') !!}
     {!! HTML::style('bootstrap/css/bootstrap-theme.min.css') !!}
+    {!! HTML::style('select2/css/select2.min.css') !!}
     {!! HTML::style('css/main.css') !!}
     {!! HTML::script('jquery-1.11.3.min.js') !!}
     {!! HTML::script('bootstrap/js/bootstrap.min.js') !!}
     {!! HTML::script('bootstrap/js/moment.js') !!}
     {!! HTML::script('bootstrap/js/bootstrap.datetimepicker.js') !!}
     {!! HTML::script('bootstrap/js/bootstrap.datetimepicker-de.js') !!}
+    {!! HTML::script('select2/js/select2.min.js') !!}
     {!! HTML::script('js/main.js') !!}
     <script>
         $(document).ready(function() {

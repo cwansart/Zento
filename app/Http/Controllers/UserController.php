@@ -21,7 +21,15 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::paginate(15);
+        if (!empty($request->get('q'))) {
+            $searchterm = $request->get('q');
+            $users = User::where('firstname', 'LIKE', '%'.$searchterm.'%')
+                ->where('lastname', 'LIKE', '%'.$searchterm.'%')
+                ->where('email', 'LIKE', '%'.$searchterm.'%')
+                ->paginate(15);
+        } else {
+            $users = User::paginate(15);
+        }
         $groups = Group::all();
         $groupsArray = array();
         foreach($groups as $group) {

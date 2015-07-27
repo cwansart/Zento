@@ -10,6 +10,7 @@ use Zento\Http\Controllers\Controller;
 
 use Zento\Location;
 use Zento\Exam;
+use Zento\User;
 use Validator;
 
 class ExamController extends Controller
@@ -92,7 +93,8 @@ class ExamController extends Controller
     public function show(Request $request, $id)
     {
         $results = ExamResult::where('exam_id', '=', $id)->get();
-        return $request->ajax() ? $results : view('exams.show')->with('results', $results);
+        $users = User::all();
+        return $request->ajax() ? $results : view('exams.show')->with('results', $results)->with('users', $users);
     }
 
     /**

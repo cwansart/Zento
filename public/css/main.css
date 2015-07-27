@@ -1,3 +1,9 @@
 .clickable-row {
     cursor: pointer;
 }
+
+.navbar-right {
+    right: auto;
+    left: 0;
+    margin-right: 0px;
+}

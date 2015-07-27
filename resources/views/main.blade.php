@@ -36,6 +36,12 @@
     <li role="presentation" class="{!! HTML::isActive('exams') !!}">{!! HTML::linkRoute('exams.index', 'Prüfungen') !!}</li>
     <li role="presentation" class="{!! HTML::isActive('seminars') !!}">{!! HTML::linkRoute('seminars.index', 'Seminare') !!}</li>
     <li role="presentation" class="{!! HTML::isActive('appointments') !!}">{!! HTML::linkRoute('appointments.index', 'Termine') !!}</li>
+
+    <ul class="nav nav-tabs navbar-right">
+        <a href="/edit_profile">
+            <img style="max-width: 42px; max-height: 42px;" src="images/avatar-default.png" alt="Selfhtml">
+        </a>
+    </ul>
 </ul>
 
 <div class="container">

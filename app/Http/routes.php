@@ -23,6 +23,8 @@ Route::resource('exams', 'ExamController');
 Route::resource('seminars', 'SeminarController');
 Route::resource('appointments', 'AppointmentController');
 
+Route::get('/edit_profile', 'UserController@editProfile');
+
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController'

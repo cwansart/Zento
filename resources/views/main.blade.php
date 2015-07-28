@@ -46,7 +46,7 @@
 
     <ul class="nav nav-tabs navbar-right">
         <a href="/edit_profile">
-            <img style="max-width: 42px; max-height: 42px;" src="/images/avatar-default.png" alt="Selfhtml">
+            <img style="max-width: 40px; max-height: 40px;" src="/images/avatar-default.png" alt="Selfhtml">
         </a>
     </ul>
 </ul>

@@ -7,6 +7,7 @@
     {!! HTML::style('bootstrap/css/bootstrap-theme.min.css') !!}
     {!! HTML::style('select2/css/select2.min.css') !!}
     {!! HTML::style('css/main.css') !!}
+    {!! HTML::style('fullcalendar-2.3.2/fullcalendar.css') !!}
     {!! HTML::script('jquery-1.11.3.min.js') !!}
     {!! HTML::script('bootstrap/js/bootstrap.min.js') !!}
     {!! HTML::script('bootstrap/js/moment.js') !!}
@@ -14,6 +15,9 @@
     {!! HTML::script('bootstrap/js/bootstrap.datetimepicker-de.js') !!}
     {!! HTML::script('select2/js/select2.min.js') !!}
     {!! HTML::script('js/main.js') !!}
+    {!! HTML::script('fullcalendar-2.3.2/lib/moment.min.js') !!}
+    {!! HTML::script('fullcalendar-2.3.2/fullcalendar.js') !!}
+
     <script>
         $(document).ready(function() {
             $('.datetimepicker').datetimepicker({
@@ -21,6 +25,10 @@
                 pickTime: false,
                 format: 'DD.mm.yyyy'
             });
+
+            $('#calendar').fullCalendar({
+                // put your options and callbacks here
+            })
         });
     </script>
 

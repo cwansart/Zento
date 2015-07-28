@@ -25,9 +25,11 @@
                 @endforeach
                     <tr>
                         <td colspan="3">
+                            {!! Form::open(array('class' => 'form-horizontal', 'method' => 'PUT', 'route' => 'exams.update')) !!}
                             <select class="form-control select2">
                                 <option value="-1">Benutzer hinzufügen...</option>
                             </select>
+                            {!! Form::close() !!}
                         </td>
                     </tr>
                 </tbody>

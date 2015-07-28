@@ -25,8 +25,8 @@ class UserController extends Controller
         if (!empty($request->get('q'))) {
             $searchterm = $request->get('q');
             $users = User::where('firstname', 'LIKE', '%'.$searchterm.'%')
-                ->where('lastname', 'LIKE', '%'.$searchterm.'%')
-                ->where('email', 'LIKE', '%'.$searchterm.'%')
+                ->orWhere('lastname', 'LIKE', '%'.$searchterm.'%')
+                ->orWhere('email', 'LIKE', '%'.$searchterm.'%')
                 ->paginate(15);
         } else {
             $users = User::paginate(15);

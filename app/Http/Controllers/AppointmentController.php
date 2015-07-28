@@ -4,6 +4,7 @@ namespace Zento\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use DB;
 use Zento\Appointment;
 use Zento\Http\Requests;
 use Zento\Http\Controllers\Controller;
@@ -17,7 +18,7 @@ class AppointmentController extends Controller
      */
     public function index(Request $request)
     {
-        $appointments = Appointment::paginate(15);
+        $appointments = DB::table('appointments')->select('title', 'date as start', 'end_date as end')->get();
 
         // returns seminars as JSON if
         return $request->ajax() ? $appointments : view('appointments.index')->with('appointments', $appointments);

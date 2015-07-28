@@ -17,6 +17,7 @@
     {!! HTML::script('js/main.js') !!}
     {!! HTML::script('fullcalendar-2.3.2/lib/moment.min.js') !!}
     {!! HTML::script('fullcalendar-2.3.2/fullcalendar.js') !!}
+    {!! HTML::script('fullcalendar-2.3.2/lang/de.js') !!}
 
     <script>
         $(document).ready(function() {
@@ -25,10 +26,6 @@
                 pickTime: false,
                 format: 'DD.mm.yyyy'
             });
-
-            $('#calendar').fullCalendar({
-                // put your options and callbacks here
-            })
         });
     </script>
 
@@ -49,7 +46,7 @@
 
     <ul class="nav nav-tabs navbar-right">
         <a href="/edit_profile">
-            <img style="max-width: 42px; max-height: 42px;" src="images/avatar-default.png" alt="Selfhtml">
+            <img style="max-width: 42px; max-height: 42px;" src="/images/avatar-default.png" alt="Selfhtml">
         </a>
     </ul>
 </ul>

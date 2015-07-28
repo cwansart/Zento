@@ -4,15 +4,24 @@
 
 @section('content')
 
+    <br>
+
     <div class="container">
-        <h1>Termine</h1>
 
         <div id='calendar'></div>
 
     </div>
 
-    {!! $appointments->render() !!}
-
     <hr>
+
+    <script>
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
+                // put your options and callbacks here
+                events: '{!! action('AppointmentController@index') !!}'
+            });
+            $('#calendar').fullCalendar( 'rerenderEvents' );
+        });
+    </script>
 
 @endsection

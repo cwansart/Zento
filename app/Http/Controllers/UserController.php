@@ -120,7 +120,8 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $seminars = $user->seminars()->get();
-        $exams = $user->results()->get();
+        //$exams = $user->results()->get();
+        $exams = $user->exams;
         return $request->ajax() ? $user : view('users.show')
             ->with('user', $user)
             ->with('seminars', $seminars)

@@ -7,17 +7,16 @@
  */
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
-use Zento\ExamResult;
 
 
-class ExamResultTableSeeder extends Seeder
+class ExamUserTableSeeder extends Seeder
 {
 
     public function run()
     {
-        DB::table('exam_results')->delete();
+        DB::table('exam_user')->delete();
 
-        ExamResult::create([
+        /*ExamResult::create([
             'exam_id' => 1,
             'user_id' => 1,
             'result' => '4. Kyu'
@@ -135,6 +134,6 @@ class ExamResultTableSeeder extends Seeder
             'exam_id' => 9,
             'user_id' => 3,
             'result' => '3. Kyu'
-        ]);
+        ]);*/
     }
 }

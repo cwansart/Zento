@@ -71,9 +71,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->belongsTo('Zento\Group');
     }
 
-    public function results()
+    public function exams()
     {
-        return $this->hasMany('Zento\ExamResult');
+        return $this->belongsToMany('Zento\Exam')->withPivot('result');
     }
 
     public function seminars()

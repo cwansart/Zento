@@ -4,12 +4,12 @@ namespace Zento\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Zento\ExamResult;
 use Zento\Http\Requests;
 use Zento\Http\Controllers\Controller;
 
 use Zento\Location;
 use Zento\Exam;
+use Zento\Seminar;
 use Zento\User;
 use Validator;
 
@@ -92,9 +92,9 @@ class ExamController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $results = ExamResult::where('exam_id', '=', $id)->get();
+        //$results = ExamResult::where('exam_id', '=', $id)->get();
         $users = User::all();
-        return $request->ajax() ? $results : view('exams.show')->with('results', $results)->with('users', $users);
+        return $request->ajax() ? $results : view('exams.show')->with('results', $results)->with('users', $users)->with('examId', $id);
     }
 
     /**
@@ -114,8 +114,12 @@ class ExamController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
+        $result = ExamResult::where('exam_id', '=', $id)->get();
+        $user = User::find($request->input('userid'));
+
+        dd($result);
         //
     }
 

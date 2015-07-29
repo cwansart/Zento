@@ -31,9 +31,9 @@ class Exam extends Model
         return $this->belongsTo('Zento\Location');
     }
 
-    public function results()
+    public function users()
     {
-        return $this->hasMany('Zento\ExamResult');
+        return $this->belongsToMany('Zento\User')->withPivot('result');
     }
 
     public function addressStr()

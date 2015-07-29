@@ -25,8 +25,8 @@
                 @endforeach
                     <tr>
                         <td colspan="3">
-                            {!! Form::open(array('class' => 'form-horizontal', 'method' => 'PUT', 'route' => 'exams.update')) !!}
-                            <select class="form-control select2">
+                            {!! Form::open(array('id' => 'add-exam-form', 'class' => 'form-horizontal', 'method' => 'PUT', 'route' => array('exams.update', $examId))) !!}
+                            <select class="form-control select2" id="userid" name="userid">
                                 <option value="-1">Benutzer hinzufügen...</option>
                             </select>
                             {!! Form::close() !!}
@@ -74,7 +74,7 @@
                templateResult: function(user) {
                    if(user.loading) return user.text;
 
-                   return '<div class="clearfix"><div>'+user.firstname+'</div></div>';
+                   return '<div class="clearfix"><div>'+user.firstname+' '+ user.lastname +' ('+ user.birthday +')</div></div>';
                },
                templateSelection: function(user) {
                    return user.firstname || user.text;
@@ -82,12 +82,7 @@
            });
 
             $('.select2').on('select2:select', function(e) {
-                var user = e.params.data;
-                $('#userslist').append('<tr class="clickable-row" data-href="/users/'+user.id+'">'
-                        +'<td>'+user.firstname+'</td>'
-                        +'<td>'+user.lastname+'</td>'
-                        +'<td>'+user.birthday+'</td>'
-                        +'</tr>')
+                $('#add-exam-form').submit();
             });
         });
     </script>

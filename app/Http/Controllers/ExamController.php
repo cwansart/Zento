@@ -116,11 +116,13 @@ class ExamController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $result = ExamResult::where('exam_id', '=', $id)->get();
+        $exam = Exam::find($id);
         $user = User::find($request->input('userid'));
 
-        dd($result);
-        //
+        $exam->users()->attach($user);
+        $exam->users()->updateExistingPivot($user->id, ['result' => '9. Kyu']);
+
+        return redirect()->action('ExamController@show', [$user->id])->with('status', $user->firstname.' '.$user->lastname.' hinzugefügt');
     }
 
     /**

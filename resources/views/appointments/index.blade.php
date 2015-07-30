@@ -18,7 +18,11 @@
         $(document).ready(function() {
             $('#calendar').fullCalendar({
                 // put your options and callbacks here
-                events: '{!! action('AppointmentController@index') !!}'
+                events: '{!! action('AppointmentController@index') !!}',
+
+                dayClick: function(date, jsEvent, view) {
+                    window.location.href = '/appointments/' + date._d.toLocaleDateString();
+                }
             });
             $('#calendar').fullCalendar( 'rerenderEvents' );
         });

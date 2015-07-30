@@ -20,24 +20,28 @@ class AppointmentTableSeeder extends Seeder
         Appointment::create([
             'title' => 'Training',
             'date' => Carbon::now(),
+            'all_day' => false,
             'location_id' => 5
         ]);
 
         Appointment::create([
             'title' => 'Training',
             'date' => Carbon::now()->addWeekdays(2),
+            'all_day' => true,
             'location_id' => 5
         ]);
 
         Appointment::create([
             'title' => 'Training',
             'date' => Carbon::now()->addWeekdays(4),
+            'all_day' => true,
             'location_id' => 5
         ]);
 
         Appointment::create([
             'title' => 'Training',
             'date' => Carbon::now()->addWeekdays(-1),
+            'all_day' => true,
             'location_id' => 5
         ]);
 
@@ -45,7 +49,15 @@ class AppointmentTableSeeder extends Seeder
             'title' => 'Lehrgang Dänemark',
             'date' => Carbon::now()->addWeekdays(7),
             'end_date' => Carbon::now()->addWeekdays(14),
-            'location_id' => 5
+            'all_day' => false,
+            'location_id' => 7
+        ]);
+
+        Appointment::create([
+            'title' => 'Training',
+            'date' => Carbon::now()->addWeekdays(9),
+            'all_day' => false,
+            'location_id' => 6
         ]);
     }
 }

@@ -17,6 +17,7 @@ class CreateAppointmentsTable extends Migration
             $table->string('title');
             $table->date('date');
             $table->date('end_date')->nullable();
+            $table->boolean('all_day');
             $table->integer('location_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();

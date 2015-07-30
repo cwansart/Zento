@@ -4,10 +4,10 @@ namespace Zento\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
 use DB;
 use Zento\Appointment;
 use Zento\Http\Requests;
-use Zento\Http\Controllers\Controller;
 
 class AppointmentController extends Controller
 {
@@ -18,9 +18,11 @@ class AppointmentController extends Controller
      */
     public function index(Request $request)
     {
-        $appointments = DB::table('appointments')->select('title', 'date as start', 'end_date as end')->get();
+        $appointments = DB::table('appointments')
+            ->select('title', 'date as start', 'end_date as end', 'all_day as allDay')
+            ->get();
 
-        // returns seminars as JSON if
+        // returns appointments as JSON if
         return $request->ajax() ? $appointments : view('appointments.index')->with('appointments', $appointments);
     }
 
@@ -50,9 +52,27 @@ class AppointmentController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show($id)
+    public function show(Request $request, $date)
     {
-        //
+        $appointments = Appointment::where('date', '=', new \DateTime($date))
+            ->orWhereNotNull('end_date')
+            ->where('date', '<=', new \DateTime($date))
+            ->where('end_date', '>=', new \DateTime($date))->get();
+
+        if(Carbon::parse($date)->format('d.m.y') == Carbon::now()->format('d.m.y')) {
+            $date = "Heute";
+        } elseif(Carbon::parse($date)->format('d.m.y') == Carbon::now()->addDay()->format('d.m.y')) {
+            $date = "Morgen";
+        } elseif(Carbon::parse($date)->format('d.m.y') == Carbon::now()->addDay(-1)->format('d.m.y')) {
+            $date = "Gestern";
+        } else {
+        $date = 'am '.Carbon::parse($date)->format('d.m.y');
+        }
+
+        // returns appointments as JSON if
+        return $request->ajax() ? $appointments : view('appointments.show')
+            ->with('appointments', $appointments)
+            ->with('date', $date);
     }
 
     /**

@@ -9,7 +9,8 @@ class Appointment extends Model
     protected $fillable = [
         'title',
         'date',
-        'end_date'
+        'end_date',
+        'all_day'
     ];
 
     /**
@@ -30,7 +31,7 @@ class Appointment extends Model
         'zip' => 'digits:5|required', // are there any zipcodes that have more than 5 digits?
         'city' => 'min:2|alpha|required',
         'date' => 'date|required',
-        'end_date' => 'date',
+        'end_date' => 'date'
     ];
 
     public function location()

@@ -17,8 +17,7 @@ class MacroServiceProvider extends ServiceProvider
     {
         HTML::macro('isActive', function($name)
         {
-            if(Request::path() == '/' && $name == 'users') return 'active';
-            return Request::is($name) ? 'active' : '';
+            return ((preg_match('/^'.$name.'/', Request::path())) || (Request::path() == '/' && $name == 'users')) ? 'active' : '';
         });
     }
 

@@ -43,4 +43,9 @@ class Exam extends Model
             $this->location->zip.' '.$this->location->city.'<br>'.
             $this->location->country;
     }
+
+    public function getFormattedDate()
+    {
+        return $this->date->format('d.m.Y');
+    }
 }

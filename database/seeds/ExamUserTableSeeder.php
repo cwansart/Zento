@@ -7,6 +7,8 @@
  */
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
+use Zento\Exam;
+use Zento\User;
 
 
 class ExamUserTableSeeder extends Seeder
@@ -16,124 +18,62 @@ class ExamUserTableSeeder extends Seeder
     {
         DB::table('exam_user')->delete();
 
-        /*ExamResult::create([
-            'exam_id' => 1,
-            'user_id' => 1,
-            'result' => '4. Kyu'
-        ]);
+        $exam = Exam::find(1);
+        $exam->users()->attach(User::find(1));
+        $exam->users()->attach(User::find(2));
+        $exam->users()->attach(User::find(3));
+        $exam->users()->updateExistingPivot(1, ['result' => '4. Kyu']);
+        $exam->users()->updateExistingPivot(2, ['result' => '8. Kyu']);
+        $exam->users()->updateExistingPivot(3, ['result' => '9. Kyu']);
 
-        ExamResult::create([
-            'exam_id' => 1,
-            'user_id' => 2,
-            'result' => '8. Kyu'
-        ]);
+        $exam = Exam::find(2);
+        $exam->users()->attach(User::find(1));
+        $exam->users()->attach(User::find(2));
+        $exam->users()->attach(User::find(3));
+        $exam->users()->updateExistingPivot(1, ['result' => '3. Kyu']);
+        $exam->users()->updateExistingPivot(2, ['result' => '7. Kyu']);
+        $exam->users()->updateExistingPivot(3, ['result' => '8. Kyu']);
 
-        ExamResult::create([
-            'exam_id' => 1,
-            'user_id' => 3,
-            'result' => '9. Kyu'
-        ]);
+        $exam = Exam::find(3);
+        $exam->users()->attach(User::find(1));
+        $exam->users()->attach(User::find(2));
+        $exam->users()->attach(User::find(3));
+        $exam->users()->updateExistingPivot(1, ['result' => '2. Kyu']);
+        $exam->users()->updateExistingPivot(2, ['result' => '6. Kyu']);
+        $exam->users()->updateExistingPivot(3, ['result' => '7. Kyu']);
 
-        ExamResult::create([
-            'exam_id' => 2,
-            'user_id' => 1,
-            'result' => '3. Kyu'
-        ]);
+        $exam = Exam::find(4);
+        $exam->users()->attach(User::find(1));
+        $exam->users()->attach(User::find(2));
+        $exam->users()->attach(User::find(3));
+        $exam->users()->updateExistingPivot(1, ['result' => '1. Kyu']);
+        $exam->users()->updateExistingPivot(2, ['result' => '5. Kyu']);
+        $exam->users()->updateExistingPivot(3, ['result' => '6. Kyu']);
 
-        ExamResult::create([
-            'exam_id' => 2,
-            'user_id' => 2,
-            'result' => '7. Kyu'
-        ]);
+        $exam = Exam::find(5);
+        $exam->users()->attach(User::find(2));
+        $exam->users()->attach(User::find(3));
+        $exam->users()->attach(User::find(4));
+        $exam->users()->updateExistingPivot(2, ['result' => '4. Kyu']);
+        $exam->users()->updateExistingPivot(3, ['result' => '5. Kyu']);
+        $exam->users()->updateExistingPivot(4, ['result' => '9. Kyu']);
 
-        ExamResult::create([
-            'exam_id' => 2,
-            'user_id' => 3,
-            'result' => '8. Kyu'
-        ]);
+        $exam = Exam::find(6);
+        $exam->users()->attach(User::find(3));
+        $exam->users()->attach(User::find(1));
+        $exam->users()->updateExistingPivot(3, ['result' => '4. Kyu']);
+        $exam->users()->updateExistingPivot(1, ['result' => '1. Dan']);
 
-        ExamResult::create([
-            'exam_id' => 3,
-            'user_id' => 1,
-            'result' => '2. Kyu'
-        ]);
+        $exam = Exam::find(7);
+        $exam->users()->attach(User::find(2));
+        $exam->users()->updateExistingPivot(2, ['result' => '3. Kyu']);
 
-        ExamResult::create([
-            'exam_id' => 3,
-            'user_id' => 2,
-            'result' => '6. Kyu'
-        ]);
+        $exam = Exam::find(8);
+        $exam->users()->attach(User::find(2));
+        $exam->users()->updateExistingPivot(2, ['result' => '2. Kyu']);
 
-        ExamResult::create([
-            'exam_id' => 3,
-            'user_id' => 3,
-            'result' => '7. Kyu'
-        ]);
-
-        ExamResult::create([
-            'exam_id' => 4,
-            'user_id' => 1,
-            'result' => '1. Kyu'
-        ]);
-
-        ExamResult::create([
-            'exam_id' => 4,
-            'user_id' => 2,
-            'result' => '5. Kyu'
-        ]);
-
-        ExamResult::create([
-            'exam_id' => 4,
-            'user_id' => 3,
-            'result' => '6. Kyu'
-        ]);
-
-        ExamResult::create([
-            'exam_id' => 5,
-            'user_id' => 2,
-            'result' => '4. Kyu'
-        ]);
-
-        ExamResult::create([
-            'exam_id' => 5,
-            'user_id' => 3,
-            'result' => '5. Kyu'
-        ]);
-
-        ExamResult::create([
-            'exam_id' => 5,
-            'user_id' => 4,
-            'result' => '9. Kyu'
-        ]);
-
-        ExamResult::create([
-            'exam_id' => 6,
-            'user_id' => 3,
-            'result' => '4. Kyu'
-        ]);
-
-        ExamResult::create([
-            'exam_id' => 6,
-            'user_id' => 1,
-            'result' => '1. Dan'
-        ]);
-
-        ExamResult::create([
-            'exam_id' => 7,
-            'user_id' => 2,
-            'result' => '3. Kyu'
-        ]);
-
-        ExamResult::create([
-            'exam_id' => 8,
-            'user_id' => 2,
-            'result' => '2. Kyu'
-        ]);
-
-        ExamResult::create([
-            'exam_id' => 9,
-            'user_id' => 3,
-            'result' => '3. Kyu'
-        ]);*/
+        $exam = Exam::find(9);
+        $exam->users()->attach(User::find(3));
+        $exam->users()->updateExistingPivot(3, ['result' => '3. Kyu']);
     }
 }

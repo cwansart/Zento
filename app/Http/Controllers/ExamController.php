@@ -92,9 +92,9 @@ class ExamController extends Controller
      */
     public function show(Request $request, $id)
     {
-        //$results = ExamResult::where('exam_id', '=', $id)->get();
-        $users = User::all();
-        return $request->ajax() ? $results : view('exams.show')->with('results', $results)->with('users', $users)->with('examId', $id);
+        $exam = Exam::find($id);
+        $users = $exam->users;
+        return $request->ajax() ? $users : view('exams.show')->with('exam', $exam)->with('users', $users);
     }
 
     /**

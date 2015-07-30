@@ -79,9 +79,9 @@
                 </thead>
                 <tbody>
                     @foreach($exams as $exam)
-                        <tr class="clickable-row" data-href="{{ action('ExamController@show', [$exam->exam->id]) }}">
-                            <td>{!! $exam->exam->date->format('d.m.Y') !!}</td>
-                            <td>{!! $exam->result !!}</td>
+                        <tr class="clickable-row" data-href="{{ action('ExamController@show', [$exam->id]) }}">
+                            <td>{!! $exam->getFormattedDate() !!}</td>
+                            <td>{!! $exam->pivot->result !!}</td>
                         </tr>
                     @endforeach
                 </tbody>

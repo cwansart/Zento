@@ -1,12 +1,12 @@
 @extends('main')
 
-@section('title', 'Prüflinge '.$results->first()->exam->date->format('d.m.Y'))
+@section('title', 'Prüflinge vom '.$exam->getFormattedDate())
 
 @section('content')
 
     <div class="container">
-        <h1>Prüflinge vom {!! $results->first()->exam->date->format('d.m.Y') !!}</h1>
-        @if(count($results))
+        <h1>Prüflinge vom {!! $exam->getFormattedDate() !!}</h1>
+        @if(count($users))
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -16,16 +16,16 @@
                 </tr>
                 </thead>
                 <tbody id="userslist">
-                @foreach($results as $result)
-                    <tr class="clickable-row" data-href="{{ action('UserController@show', [$result->user->id]) }}">
-                        <td>{!! $result->user->firstname !!}</td>
-                        <td>{!! $result->user->lastname !!}</td>
-                        <td>{!! $result->result !!}</td>
+                @foreach($users as $user)
+                    <tr class="clickable-row" data-href="{{ action('UserController@show', [$user->id]) }}">
+                        <td>{!! $user->firstname !!}</td>
+                        <td>{!! $user->lastname !!}</td>
+                        <td>{!! $user->pivot->result !!}</td>
                     </tr>
                 @endforeach
                     <tr>
                         <td colspan="3">
-                            {!! Form::open(array('id' => 'add-exam-form', 'class' => 'form-horizontal', 'method' => 'PUT', 'route' => array('exams.update', $examId))) !!}
+                            {!! Form::open(array('id' => 'add-exam-form', 'class' => 'form-horizontal', 'method' => 'PUT', 'route' => array('exams.update', $exam->id))) !!}
                             <select class="form-control select2" id="userid" name="userid">
                                 <option value="-1">Benutzer hinzufügen...</option>
                             </select>

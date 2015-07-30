@@ -122,7 +122,7 @@ class ExamController extends Controller
         $exam->users()->attach($user);
         $exam->users()->updateExistingPivot($user->id, ['result' => '9. Kyu']);
 
-        return redirect()->action('ExamController@show', [$user->id])->with('status', $user->firstname.' '.$user->lastname.' hinzugefügt');
+        return redirect()->action('ExamController@show', $id)->with('status', $user->firstname.' '.$user->lastname.' hinzugefügt');
     }
 
     /**

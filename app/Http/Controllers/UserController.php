@@ -107,7 +107,7 @@ class UserController extends Controller
         $user->save();
         // TODO: pass a message to the view to inform about success.
 
-        return redirect(action('UserController@index'));
+        return redirect(action('UserController@index'))->with('status', 'Benutzer '.$user->firstname.' '.$user->lastname.' wurde hinzugefügt.');
     }
 
     /**

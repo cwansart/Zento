@@ -81,7 +81,7 @@ class ExamController extends Controller
         $exam->save();
 
         // TODO: add success information to view
-        return redirect(action('ExamController@index'));
+        return redirect(action('ExamController@index'))->with('status', 'Prüfung wurde hinzugefügt.');
     }
 
     /**

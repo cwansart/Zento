@@ -5,6 +5,12 @@
 @section('content')
 
     <div class="container">
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
+
         <h1>Benutzerliste</h1>
         @if(count($users))
         <table class="table table-hover">

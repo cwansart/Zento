@@ -79,7 +79,7 @@ class SeminarController extends Controller
         $seminar->save();
 
         // TODO: add success information to view
-        return redirect(action('SeminarController@index'));
+        return redirect(action('SeminarController@index'))->with('status', 'Seminar wurde hinzugefügt.');
     }
 
     /**

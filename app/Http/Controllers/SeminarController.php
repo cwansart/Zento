@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Zento\Http\Requests;
 use Zento\Http\Controllers\Controller;
 use Zento\Seminar;
+use Zento\User;
 
 class SeminarController extends Controller
 {
@@ -90,11 +91,13 @@ class SeminarController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $seminarUsers = Seminar::find($id)->users;
+        $seminar = Seminar::find($id);
+        $seminarUsers = $seminar->users;
         $title = Seminar::find($id)->title;
         return $request->ajax() ? $seminarUsers : view('seminars.show')
             ->with('seminarUsers', $seminarUsers)
-            ->with('title', $title);
+            ->with('title', $title)
+            ->with('seminar', $seminar);
     }
 
     /**
@@ -114,9 +117,14 @@ class SeminarController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        //
+        $seminar = Seminar::find($id);
+        $user = User::find($request->input('userid'));
+
+        $seminar->users()->attach($user);
+
+        return redirect()->action('SeminarController@show', $id)->with('status', $user->firstname.' '.$user->lastname.' hinzugefügt');
     }
 
     /**

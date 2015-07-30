@@ -10,7 +10,7 @@
                 {{ session('status') }}
             </div>
         @endif
-        
+
         <h1>Seminarübersicht</h1>
         @if(count($seminars))
 

@@ -22,15 +22,29 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        if (!empty($request->get('q'))) {
-            $searchterm = $request->get('q');
-            $users = User::where('firstname', 'LIKE', '%'.$searchterm.'%')
-                ->orWhere('lastname', 'LIKE', '%'.$searchterm.'%')
-                ->orWhere('email', 'LIKE', '%'.$searchterm.'%')
-                ->paginate(15);
-        } else {
-            $users = User::paginate(15);
+        $orderBy = $order = null;
+        if(!empty($request->get('orderBy')) && strpos($request->get('orderBy'), ':') !== false) {
+            list($orderBy, $order) = explode(':', $request->get('orderBy'));
         }
+        switch($orderBy) {
+            case 'id':
+            case 'firstname':
+            case 'lastname':
+                break;
+            default:
+                $orderBy = 'id';
+                break;
+        }
+        switch($order) {
+            case 'ASC':
+            case 'DESC':
+                break;
+            default:
+                $order = 'ASC';
+                break;
+        }
+
+        $users = User::orderBy($orderBy, $order)->paginate(15);
         $groups = Group::all();
         $groupsArray = array();
         foreach($groups as $group) {

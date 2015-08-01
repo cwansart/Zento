@@ -69,7 +69,7 @@
                 templateResult: function(user) {
                     if(user.loading) return user.text;
 
-                    return '<div class="clearfix"><div>'+user.firstname+' '+ user.lastname +' ('+ user.birthday +')</div></div>';
+                    return '<div class="clearfix"><div>'+user.firstname+' '+ user.lastname +', '+ user.email +' ('+ user.birthday +')</div></div>';
                 },
                 templateSelection: function(user) {
                     return user.firstname || user.text;

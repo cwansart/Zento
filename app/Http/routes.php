@@ -15,6 +15,10 @@
     return view('welcome');
 });*/
 
+// special routes
+Route::get('/exams/get_unreg_users/{id}', 'ExamController@getUnregisterdUsers');
+Route::get('/seminars/get_unreg_users/{id}', 'SeminarController@getUnregisterdUsers');
+
 // set default site
 Route::get('/', 'UserController@index');
 
@@ -24,6 +28,7 @@ Route::resource('seminars', 'SeminarController');
 Route::resource('appointments', 'AppointmentController');
 
 Route::get('/edit_profile', 'UserController@editProfile');
+
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

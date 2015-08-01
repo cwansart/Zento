@@ -135,4 +135,27 @@ class ExamController extends Controller
     {
         //
     }
+
+    /**
+     * Gets users that are not attached to the exam with $examid.
+     *
+     * @param Request $request
+     * @param $examid
+     * @return mixed
+     */
+    public function getUnregisterdUsers(Request $request, $examid)
+    {
+        if(!empty($request->get('q'))) {
+            $searchterm = $request->get('q');
+            $users = User::whereNotIn('id', Exam::find($examid)->users->lists('id'))
+                ->where(function($query) use($searchterm) {
+                    $query->where('firstname', 'LIKE', '%'.$searchterm.'%')
+                        ->orWhere('lastname', 'LIKE', '%'.$searchterm.'%')
+                        ->orWhere('email', 'LIKE', '%'.$searchterm.'%');
+                })->get();
+            return $users;
+        }
+
+        return '';
+    }
 }

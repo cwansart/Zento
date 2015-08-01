@@ -137,4 +137,29 @@ class SeminarController extends Controller
     {
         //
     }
+
+
+    /**
+     * Gets users that are not attached to the seminar with $seminarid.
+     *
+     * @param Request $request
+     * @param $seminarid
+     * @return mixed
+     */
+    public function getUnregisterdUsers(Request $request, $seminarid)
+    {
+        if(!empty($request->get('q'))) {
+            $searchterm = $request->get('q');
+            $users = User::whereNotIn('id', Seminar::find($seminarid)->users->lists('id'))
+                ->where(function($query) use($searchterm) {
+                    $query->where('firstname', 'LIKE', '%'.$searchterm.'%')
+                        ->orWhere('lastname', 'LIKE', '%'.$searchterm.'%')
+                        ->orWhere('email', 'LIKE', '%'.$searchterm.'%');
+                })->get();
+            return $users;
+        }
+
+
+        return '';
+    }
 }

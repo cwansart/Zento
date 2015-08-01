@@ -66,7 +66,6 @@
                        };
                    },
                    processResults: function(data, page) {
-                       console.log(data);
                        return {
                            results: data
                         }
@@ -78,8 +77,8 @@
                minimumInputLength: 1,
                templateResult: function(user) {
                    if(user.loading) return user.text;
-
-                   return '<div class="clearfix"><div>'+user.firstname+' '+ user.lastname +', '+ user.email +' ('+ user.birthday +')</div></div>';
+                   var birthday = new Date(user.birthday.split(' ')[0]);
+                   return '<div class="clearfix"><div>'+user.firstname+' '+ user.lastname +', '+ user.email +' ('+ birthday.toLocaleDateString() +')</div></div>';
                },
                templateSelection: function(user) {
                    return user.firstname || user.text;

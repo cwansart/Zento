@@ -2,6 +2,7 @@
 ```
 $ git clone git@github.com:cwansart/Zento.git
 $ cd Zento
+$ composer install
 $ cp .env.example .env
 $ php artisan key:generate
 ```

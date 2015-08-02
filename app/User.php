@@ -33,6 +33,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         'entry_date',
         'location_id',
         'active',
+        'is_admin',
         'group_id',
         'created_at',
         'updated_at'
@@ -59,6 +60,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         'password' => 'min:4',
         'birthday' => 'date|required',
         'entry_date' => 'date|required',
+        'is_admin' => 'boolean',
+        'active' => 'boolean'
     ];
 
     public function address()

@@ -111,6 +111,7 @@ class UserController extends Controller
         $user->entry_date = Carbon::createFromFormat('d.m.Y', $request->input('entry_date')); // TODO: same here
         $user->location_id = $location->id;
         $user->active = $request->input('active');
+        $user->is_admin = $request->input('is_admin');
         $user->group_id = $request->input('group_id'); // TODO: We need to check if group_id exists
 
         // we need to check if the password is empty. If so, we just skip the password field so it'll be nulled
@@ -181,5 +182,11 @@ class UserController extends Controller
     {
         $user = Auth::user();
         return $request->ajax() ? $user : view('users.edit')->with('user', $user);
+    }
+
+    public function admins(Request $request)
+    {
+        $admins = User::where('is_admin', '=', true)->get();
+        return view('users.admins')->with('admins', $admins);
     }
 }

@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->date('entry_date');
             $table->integer('location_id')->unsigned();
             $table->boolean('active');
+            $table->boolean('is_admin');
             $table->integer('group_id')->unsigned();
             $table->rememberToken();
             $table->timestamps();

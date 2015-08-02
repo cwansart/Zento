@@ -26,6 +26,7 @@ class UserTableSeeder extends Seeder {
             'entry_date' => Carbon::createFromDate(2000,1,1),
             'location_id' => 1,
             'active' => true,
+            'is_admin' => true,
             'group_id' => 1,
         ]);
 
@@ -38,6 +39,7 @@ class UserTableSeeder extends Seeder {
             'entry_date' => Carbon::createFromDate(2004,1,1),
             'location_id' => 1,
             'active' => true,
+            'is_admin' => false,
             'group_id' => 2,
         ]);
 
@@ -50,6 +52,7 @@ class UserTableSeeder extends Seeder {
             'entry_date' => Carbon::createFromDate(1998,1, 27),
             'location_id' => 2,
             'active' => true,
+            'is_admin' => false,
             'group_id' => 1,
         ]);
 
@@ -62,6 +65,7 @@ class UserTableSeeder extends Seeder {
             'entry_date' => Carbon::createFromDate(2011,12,20),
             'location_id' => 3,
             'active' => false,
+            'is_admin' => false,
             'group_id' => 1,
         ]);
 
@@ -74,6 +78,7 @@ class UserTableSeeder extends Seeder {
             'entry_date' => Carbon::createFromDate(2013,8,15),
             'location_id' => 4,
             'active' => false,
+            'is_admin' => false,
             'group_id' => 2,
         ]);
     }

@@ -41,6 +41,8 @@
 
     <hr>
 
+    @if(Auth::user()->is_admin)
     @include('seminars.create')
+    @endif
 
 @endsection

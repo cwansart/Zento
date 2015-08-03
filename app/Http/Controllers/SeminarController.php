@@ -41,6 +41,10 @@ class SeminarController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Auth::user()->is_admin) {
+            return redirect('seminars.index');
+        }
+
         $validator = Validator::make($request->all(), Seminar::$rules);
         //dd($request);
 

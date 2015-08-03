@@ -43,6 +43,10 @@ class ExamController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Auth::user()->is_admin) {
+            return redirect('exams.index');
+        }
+
         $validator = Validator::make($request->all(), Exam::$rules);
         //dd($request);
 

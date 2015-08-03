@@ -38,6 +38,8 @@
 
     <hr>
 
+    @if(Auth::user()->is_admin)
     @include('exams.create')
+    @endif
 
 @endsection

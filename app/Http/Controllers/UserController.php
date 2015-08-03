@@ -72,6 +72,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Auth::user()->is_admin)
+        {
+            return redirect('users.index');
+        }
+
         $validator = Validator::make($request->all(), User::$rules);
 
         if ($validator->fails()) {

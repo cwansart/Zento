@@ -43,6 +43,8 @@
     
     <hr>
 
+    @if(Auth::user()->is_amin)
     @include('users.create')
+    @endif
 
 @endsection

@@ -43,7 +43,7 @@
     
     <hr>
 
-    @if(Auth::user()->is_amin)
+    @if(Auth::user()->is_admin)
     @include('users.create')
     @endif
 

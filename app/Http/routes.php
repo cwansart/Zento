@@ -25,6 +25,7 @@ Route::get('/', 'UserController@index');
 Route::resource('users', 'UserController');
 Route::resource('exams', 'ExamController');
 Route::resource('seminars', 'SeminarController');
+Route::get('/appointments/{id}', 'AppointmentController@showEvent')->where('id', '[0-9]+');
 Route::resource('appointments', 'AppointmentController');
 
 Route::get('/edit_profile', 'UserController@editProfile');

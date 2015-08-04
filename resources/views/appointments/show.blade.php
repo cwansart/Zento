@@ -17,19 +17,19 @@
                 </thead>
                 <tbody>
                     @foreach($appointments as $appointment)
-                        <tr>
+                        <tr class="clickable-row" data-href="{{ action('AppointmentController@showEvent', [$appointment->id]) }}">
                             <td>{!! $appointment->title !!}</td>
                             @if($appointment->all_day)
                                 <td>{!! $appointment->date->format('d.m.y') !!}</td>
                             @else
-                                <td>{!! $appointment->date->format('d.m.y, h:m') !!}</td>
+                                <td>{!! $appointment->date->format('d.m.y, H:i') !!}</td>
                             @endif
 
                             @if($appointment->end_date)
                                 @if($appointment->all_day)
                                     <td>{!! $appointment->end_date->format('d.m.y') !!}</td>
                                 @else
-                                    <td>{!! $appointment->end_date->format('d.m.y, h:m') !!}</td>
+                                    <td>{!! $appointment->end_date->format('d.m.y, H:i') !!}</td>
                                 @endif
                             @else
                                 <td> - </td>

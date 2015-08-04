@@ -15,8 +15,8 @@ class CreateAppointmentsTable extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->date('date');
-            $table->date('end_date')->nullable();
+            $table->dateTime('date');
+            $table->dateTime('end_date')->nullable();
             $table->boolean('all_day');
             $table->integer('location_id')->unsigned()->nullable();
             $table->timestamps();

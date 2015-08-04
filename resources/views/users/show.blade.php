@@ -21,7 +21,7 @@
                 <td>{!! $user->addressStr() !!}</td>
             </tr>
             <tr>
-                <td>Email:</td>
+                <td>E-Mail:</td>
                 <td>{!! $user->email !!}</td>
             </tr>
             <tr>

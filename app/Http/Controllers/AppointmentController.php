@@ -19,7 +19,7 @@ class AppointmentController extends Controller
     public function index(Request $request)
     {
         $appointments = DB::table('appointments')
-            ->select('id', 'title', 'date as start', 'end_date as end', 'all_day as allDay')
+            ->select('id', 'title', 'date as start', 'end_date as end', 'all_day as allDay', 'color')
             ->get();
 
         // returns appointments as JSON if

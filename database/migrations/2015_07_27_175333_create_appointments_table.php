@@ -19,6 +19,7 @@ class CreateAppointmentsTable extends Migration
             $table->dateTime('end_date')->nullable();
             $table->boolean('all_day');
             $table->integer('location_id')->unsigned()->nullable();
+            $table->string('color');
             $table->timestamps();
             $table->softDeletes();
         });

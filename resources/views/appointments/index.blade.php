@@ -8,7 +8,7 @@
 
     <div class="container">
         <div id='calendar'></div>
-
+        @include('appointments.create')
     </div>
 
     <hr>

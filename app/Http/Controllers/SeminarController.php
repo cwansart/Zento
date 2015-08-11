@@ -8,6 +8,7 @@ use Zento\Http\Requests;
 use Zento\Http\Controllers\Controller;
 use Zento\Seminar;
 use Zento\User;
+use Auth;
 
 class SeminarController extends Controller
 {
@@ -123,6 +124,10 @@ class SeminarController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(!Auth::user()->is_admin) {
+            return redirect('seminars.index');
+        }
+
         $seminar = Seminar::find($id);
         $user = User::find($request->input('userid'));
 

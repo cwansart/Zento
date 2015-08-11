@@ -39,6 +39,7 @@
                         <td>{!! $user->pivot->result !!}</td>
                     </tr>
                 @endforeach
+                @if(Auth::user()->is_admin)
                     <tr>
                         <td colspan="2">
 
@@ -56,7 +57,7 @@
 
                         </td>
                     </tr>
-
+                @endif
                 </tbody>
             </table>
                 {!! Form::close() !!}

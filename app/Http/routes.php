@@ -29,6 +29,7 @@ Route::get('/appointments/{id}', 'AppointmentController@showEvent')->where('id',
 Route::resource('appointments', 'AppointmentController');
 
 Route::get('/edit_profile', 'UserController@editProfile');
+Route::get('/logout', 'UserController@logout');
 
 
 Route::controllers([

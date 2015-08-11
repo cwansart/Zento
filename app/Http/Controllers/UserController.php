@@ -194,4 +194,10 @@ class UserController extends Controller
         $admins = User::where('is_admin', '=', true)->get();
         return view('users.admins')->with('admins', $admins);
     }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/');
+    }
 }

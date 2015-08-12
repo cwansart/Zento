@@ -3,7 +3,6 @@
 }
 
 .navbar-right {
-    right: auto;
-    left: 0;
-    margin-right: 0px;
+
+    margin: -55px 0px 0px;
 }

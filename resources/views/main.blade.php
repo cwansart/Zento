@@ -41,6 +41,9 @@
     <li role="presentation" class="{!! HTML::isActive('appointments') !!}">{!! HTML::linkRoute('appointments.index', 'Termine') !!}</li>
 </ul>
 <ul class="navbar-right">
+        <li role="presentation">
+            <a href="/logout">Abmelden</a>
+        </li>
         <a href="/edit_profile">
             <img style="max-width: 40px; max-height: 40px;" src="/Zento/public/images/avatar-default.png" alt="Selfhtml">
         </a>

@@ -12,6 +12,7 @@ use Zento\Exam;
 use Zento\Seminar;
 use Zento\User;
 use Validator;
+use Auth;
 
 class ExamController extends Controller
 {
@@ -98,7 +99,11 @@ class ExamController extends Controller
     {
         $exam = Exam::find($id);
         $users = $exam->users;
-        return $request->ajax() ? $users : view('exams.show')->with('exam', $exam)->with('users', $users);
+        return $request->ajax() ? $users :
+            view('exams.show')
+                ->with('exam', $exam)
+                ->with('users', $users)
+                ->with('results', Exam::$results);
     }
 
     /**
@@ -120,11 +125,24 @@ class ExamController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(!Auth::user()->is_admin) {
+            return redirect()->action('ExamController@show', $id);
+        }
+
+        $validator = Validator::make($request->all(), Exam::$updateRules);
+
+        if ($validator->fails()) {
+            return redirect(action('ExamController@show', $id))
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $exam = Exam::find($id);
         $user = User::find($request->input('userid'));
+        $result = Exam::$results[$request->input('result')];
 
         $exam->users()->attach($user);
-        $exam->users()->updateExistingPivot($user->id, ['result' => '9. Kyu']);
+        $exam->users()->updateExistingPivot($user->id, ['result' => $result]);
 
         return redirect()->action('ExamController@show', $id)->with('status', $user->firstname.' '.$user->lastname.' hinzugefügt');
     }

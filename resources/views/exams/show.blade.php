@@ -10,8 +10,19 @@
                 {{ session('status') }}
             </div>
         @endif
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    Es gab ein paar Probleme.<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         <h1>Prüflinge vom {!! $exam->getFormattedDate() !!}</h1>
         @if(count($users))
+                {!! Form::open(array('id' => 'add-exam-form', 'class' => 'form-horizontal', 'method' => 'PUT', 'route' => array('exams.update', $exam->id))) !!}
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -28,17 +39,28 @@
                         <td>{!! $user->pivot->result !!}</td>
                     </tr>
                 @endforeach
+                @if(Auth::user()->is_admin)
                     <tr>
-                        <td colspan="3">
-                            {!! Form::open(array('id' => 'add-exam-form', 'class' => 'form-horizontal', 'method' => 'PUT', 'route' => array('exams.update', $exam->id))) !!}
+                        <td colspan="2">
+
                             <select class="form-control select2" id="userid" name="userid">
                                 <option value="-1">Benutzer hinzufügen...</option>
                             </select>
-                            {!! Form::close() !!}
+                        </td>
+                        <td>
+                            <select class="form-control" id="result" name="result" disabled>
+                                <option value="-1">Note auswählen...</option>
+                                @foreach($results as $id => $name)
+                                    <option value="{!! $id !!}">{!! $name !!}</option>
+                                @endforeach
+                            </select>
+
                         </td>
                     </tr>
+                @endif
                 </tbody>
             </table>
+                {!! Form::close() !!}
         @else
             <p>Noch keine Ergebnisse eingetragen!</p>
         @endif
@@ -86,6 +108,10 @@
            });
 
             $('.select2').on('select2:select', function(e) {
+                $('#result').prop('disabled', false).focus();
+            });
+
+            $('#result').on('change', function(e) {
                 $('#add-exam-form').submit();
             });
         });

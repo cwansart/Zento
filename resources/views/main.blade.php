@@ -3,8 +3,8 @@
 <head>
     <title>@yield('title')</title>
 
-    {!! HTML::style('bootstrap/css/bootstrap.min.css') !!}
-    {!! HTML::style('bootstrap/css/bootstrap-theme.min.css') !!}
+    {!! HTML::style('bootstrap/css/bootstrap.css') !!}
+    {!! HTML::style('bootstrap/css/bootstrap-theme.css') !!}
     {!! HTML::style('select2/css/select2.min.css') !!}
     {!! HTML::style('css/main.css') !!}
     {!! HTML::style('fullcalendar-2.3.2/fullcalendar.css') !!}
@@ -32,25 +32,20 @@
 
 </head>
 <body>
-
+<div class="page-header">
+	<img src="/Zento/public/images/zento.png" alt="">
 <ul class="nav nav-tabs">
-    <li>
-        {{-- we could add the application logo here, if we will keep this  --}}
-            <img style="max-width: 42px; max-height: 42px;" src="http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-8/128/Accept-icon.png" alt="">
-
-    </li>
-
     <li role="presentation" class="{!! HTML::isActive('users') !!}">{!! HTML::linkRoute('users.index', 'Benutzer') !!}</li>
     <li role="presentation" class="{!! HTML::isActive('exams') !!}">{!! HTML::linkRoute('exams.index', 'Prüfungen') !!}</li>
     <li role="presentation" class="{!! HTML::isActive('seminars') !!}">{!! HTML::linkRoute('seminars.index', 'Seminare') !!}</li>
     <li role="presentation" class="{!! HTML::isActive('appointments') !!}">{!! HTML::linkRoute('appointments.index', 'Termine') !!}</li>
-
-    <ul class="nav nav-tabs navbar-right">
-        <a href="/edit_profile">
-            <img style="max-width: 40px; max-height: 40px;" src="/images/avatar-default.png" alt="Selfhtml">
-        </a>
-    </ul>
 </ul>
+<ul class="navbar-right">
+        <a href="/edit_profile">
+            <img style="max-width: 40px; max-height: 40px;" src="/Zento/public/images/avatar-default.png" alt="Selfhtml">
+        </a>
+</ul>
+</div>
 
 <div class="container">
     @yield('content')

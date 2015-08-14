@@ -33,21 +33,21 @@
 </head>
 <body>
 <div class="page-header">
-	<img src="/Zento/public/images/zento.png" alt="">
-<ul class="nav nav-tabs">
-    <li role="presentation" class="{!! HTML::isActive('users') !!}">{!! HTML::linkRoute('users.index', 'Benutzer') !!}</li>
-    <li role="presentation" class="{!! HTML::isActive('exams') !!}">{!! HTML::linkRoute('exams.index', 'Prüfungen') !!}</li>
-    <li role="presentation" class="{!! HTML::isActive('seminars') !!}">{!! HTML::linkRoute('seminars.index', 'Seminare') !!}</li>
-    <li role="presentation" class="{!! HTML::isActive('appointments') !!}">{!! HTML::linkRoute('appointments.index', 'Termine') !!}</li>
-</ul>
-<ul class="navbar-right">
+    <img src="{!! asset('images/zento.png') !!}" alt="">
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="{!! HTML::isActive('users') !!}">{!! HTML::linkRoute('users.index', 'Benutzer') !!}</li>
+        <li role="presentation" class="{!! HTML::isActive('exams') !!}">{!! HTML::linkRoute('exams.index', 'Prüfungen') !!}</li>
+        <li role="presentation" class="{!! HTML::isActive('seminars') !!}">{!! HTML::linkRoute('seminars.index', 'Seminare') !!}</li>
+        <li role="presentation" class="{!! HTML::isActive('appointments') !!}">{!! HTML::linkRoute('appointments.index', 'Termine') !!}</li>
+    </ul>
+    <ul class="navbar-right">
         <li role="presentation">
-            <a href="/logout">Abmelden</a>
+            <a href="{!! action('UserController@logout') !!}">Abmelden</a>
         </li>
         <a href="/edit_profile">
-            <img style="max-width: 40px; max-height: 40px;" src="/Zento/public/images/avatar-default.png" alt="Selfhtml">
+            <img style="max-width: 40px; max-height: 40px;" src="{!! asset('images/avatar-default.png') !!}" alt="Selfhtml">
         </a>
-</ul>
+    </ul>
 </div>
 
 <div class="container">

@@ -5,6 +5,7 @@
 
     {!! HTML::style('bootstrap/css/bootstrap.css') !!}
     {!! HTML::style('bootstrap/css/bootstrap-theme.css') !!}
+    {!! HTML::style('bootstrap/css/bootstrap.datetimepicker.css') !!}
     {!! HTML::style('select2/css/select2.min.css') !!}
     {!! HTML::style('fullcalendar-2.3.2/fullcalendar.css') !!}
     {!! HTML::style('css/main.css') !!}

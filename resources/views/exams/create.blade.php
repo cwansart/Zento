@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Seminar erstellen</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Prüfung erstellen</button>
 
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -7,7 +7,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Seminar erstellen</h4>
+                <h4 class="modal-title">Prüfung erstellen</h4>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
@@ -25,9 +25,7 @@
 
                         {!! Form::open(array('class' => 'form-horizontal', 'method' => 'POST', 'route' => 'exams.store')) !!}
                         @include('location_input')
-
-                        {{-- TODO: Müssen wir hier nicht besser datetime verwenden? Falls ja, müssen wir auch die Migration
-                                   anpassen und dort dateTime() anstelle von date() verwenden. --}}
+                            
                         <div class="form-group">
                             {!! Form::label('date', 'Datum', ['class' => 'col-md-4 control-label']) !!}
                             <div class="col-md-6">

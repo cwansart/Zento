@@ -1,21 +1,13 @@
 @extends('main')
 
-@section('title', 'Benutzerdetails'.' '.$user->firstname.' '.$user->lastname)
+@section('title', 'Benutzerdetails'.' von '.$user->firstname.' '.$user->lastname)
 
 @section('content')
 
     <br>
     <div class="container">
-        <h1>Benutzerdetails</h1>
+        <h1>{!! $user->firstname !!} {!! $user->lastname !!}</h1>
         <table class="table table-hover">
-            <tr>
-                <td>Vorname:</td>
-                <td>{!! $user->firstname !!}</td>
-            </tr>
-            <tr>
-                <td>Nachname:</td>
-                <td>{!! $user->lastname !!}</td>
-            </tr>
             <tr>
                 <td>Adresse:</td>
                 <td>{!! $user->addressStr() !!}</td>

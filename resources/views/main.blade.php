@@ -45,7 +45,7 @@
         <li role="presentation">
             <a href="{!! action('UserController@logout') !!}">Abmelden</a>
         </li>
-        <a href="/edit_profile">
+        <a href="{!! action('UserController@editProfile') !!}">
             <img style="max-width: 40px; max-height: 40px;" src="{!! asset('images/avatar-default.png') !!}" alt="Selfhtml">
         </a>
     </ul>

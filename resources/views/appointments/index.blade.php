@@ -21,11 +21,11 @@
                 events: '{!! action('AppointmentController@index') !!}',
 
                 dayClick: function (date, jsEvent, view) {
-                    window.location.href = '/appointments/' + date._d.toLocaleDateString();
+                    window.location.href = '{!! url('appointments') !!}/' + date._d.toLocaleDateString();
                 },
 
                 eventClick: function (event, jsEvent, view) {
-                    window.location.href = '/appointments/' + event.id;
+                    window.location.href = '{!! url('appointments') !!}/'  + event.id;
                 },
 
                 timeFormat: 'HH:mm'

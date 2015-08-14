@@ -190,7 +190,15 @@ class UserController extends Controller
     public function editProfile(Request $request)
     {
         $user = Auth::user();
-        return $request->ajax() ? $user : view('users.edit')->with('user', $user);
+        $groups = Group::all();
+        $groupsArray = array();
+        foreach($groups as $group) {
+            $groupsArray[$group->id] = $group->name;
+        }
+        return $request->ajax() ? $user :
+            view('users.editProfile')
+                ->with('user', $user)
+                ->with('groups', $groupsArray);
     }
 
     public function admins(Request $request)

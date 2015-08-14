@@ -32,6 +32,7 @@
 
 </head>
 <body>
+@if(Auth::check())
 <div class="page-header">
     <img src="{!! asset('images/zento.png') !!}" alt="">
     <ul class="nav nav-tabs">
@@ -49,6 +50,7 @@
         </a>
     </ul>
 </div>
+@endif
 
 <div class="container">
     @yield('content')

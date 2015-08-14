@@ -52,7 +52,11 @@ class UserController extends Controller
         }
 
         // returns users as JSON if requested by $.getJSON
-        return $request->ajax() ? $users : view('users.index')->with('users', $users)->with('groups', $groupsArray);
+        return $request->ajax() ? $users :
+            view('users.index')
+                ->with('users', $users)
+                ->with('groups', $groupsArray)
+                ->with('sortBy', $request->get('orderBy'));
     }
 
     /**

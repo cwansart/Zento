@@ -6,8 +6,8 @@
     {!! HTML::style('bootstrap/css/bootstrap.css') !!}
     {!! HTML::style('bootstrap/css/bootstrap-theme.css') !!}
     {!! HTML::style('select2/css/select2.min.css') !!}
-    {!! HTML::style('css/main.css') !!}
     {!! HTML::style('fullcalendar-2.3.2/fullcalendar.css') !!}
+    {!! HTML::style('css/main.css') !!}
     {!! HTML::script('jquery-1.11.3.min.js') !!}
     {!! HTML::script('bootstrap/js/bootstrap.min.js') !!}
     {!! HTML::script('bootstrap/js/moment.js') !!}

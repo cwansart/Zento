@@ -3,6 +3,7 @@
 namespace Zento\Http\Middleware;
 
 use Closure;
+use Auth;
 
 class AdminMiddleware
 {

@@ -10,6 +10,12 @@
 
         <div class="container-fluid">
             <div class="row">
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
                 @if (count($errors) > 0)
                     <div class="alert alert-danger">
                         Es gab ein paar Probleme.<br><br>
@@ -21,38 +27,46 @@
                     </div>
                 @endif
 
-                    <div class="alert alert-danger" id="password-error-info" role="alert" style="display:none;">
-                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                        <span class="sr-only">Fehler:</span>
-                        Die eingegebenen Passwörter stimmen nicht überein!
-                    </div>
+                <div class="alert alert-danger" id="password-error-info" role="alert" style="display:none;">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Fehler:</span>
+                    Die eingegebenen Passwörter stimmen nicht überein!
+                </div>
 
-                {!! Form::open(array('class' => 'form-horizontal', 'method' => 'PUT', 'route' => ['users.update', $user->id])) !!}
+                {!! Form::open(array('class' => 'form-horizontal', 'method' => 'PUT', 'action' => ['UserController@updateProfile', $user->id], 'autocomplete' => 'off')) !!}
+                {{-- This is a little bugfix to turn off autocompletion for the email address and password fields. --}}
+                <input type="text" style="display:none">
+                <input type="password" style="display:none">
+
                 <div class="form-group">
                     {!! Form::label('email', 'Email-Adresse', ['class' => 'col-md-4 control-label']) !!}
                     <div class="col-md-6">
-                        {!! Form::input('email', 'email', $user->email, ['class' => 'form-control', 'placeholder' => 'Email-Adresse']) !!}
+                        {!! Form::input('email', 'email', null, ['class' => 'form-control', 'placeholder' => 'derzeitig: '.$user->email]) !!}
+                        <div class="help-block">
+                            E-Mail-Feld leer lassen, um aktuelle E-Mail-Adresse beizubehalten.
+                        </div>
                     </div>
                 </div>
 
 
 
-                    <div class="form-group" id="password-group1">
-                        {!! Form::label('password', 'Passwort', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-6">
-                            {!! Form::input('password', 'password', '', ['class' => 'form-control', 'placeholder' => 'Passwort']) !!}
-                        </div>
+                <div class="form-group" id="password-group1">
+                    {!! Form::label('password', 'Passwort', ['class' => 'col-md-4 control-label']) !!}
+                    <div class="col-md-6">
+                        {!! Form::input('password', 'password', '', ['class' => 'form-control', 'placeholder' => 'Passwort']) !!}
                     </div>
+                </div>
+                <input type="password" style="display:none">
 
-                    <div class="form-group" id="password-group2">
-                        {!! Form::label('password2', 'Passwort wiederholen', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-6">
-                            {!! Form::input('password', 'password2', '', ['class' => 'form-control', 'placeholder' => 'Passwort wiederholen']) !!}
-                            <div class="help-block">
-                                Passwort-Felder leer lassen, um aktuelles Passwort beizubehalten!
-                            </div>
+                <div class="form-group" id="password-group2">
+                    {!! Form::label('password2', 'Passwort wiederholen', ['class' => 'col-md-4 control-label']) !!}
+                    <div class="col-md-6">
+                        {!! Form::input('password', 'password2', '', ['class' => 'form-control', 'placeholder' => 'Passwort wiederholen']) !!}
+                        <div class="help-block">
+                            Passwort-Felder leer lassen, um aktuelles Passwort beizubehalten.
                         </div>
                     </div>
+                </div>
 
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-4">
@@ -68,7 +82,6 @@
 
     <script>
         $(function() {
-            $('[data-toggle="popover"]').popover();
         });
 
         $("form").submit(function (e) {

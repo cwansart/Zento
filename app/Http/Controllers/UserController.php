@@ -213,4 +213,38 @@ class UserController extends Controller
         Auth::logout();
         return redirect('/');
     }
+
+    /**
+     * Updates the profile
+     *
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+    public function updateProfile(Request $request)
+    {
+        $rules = User::$editProfileRules;
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return redirect(action('UserController@editProfile'))
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // check if the passwords match
+        if($request->get('password') != $request->get('password2')) {
+            return redirect(action('UserController@editProfile'))
+                ->withErrors(['password' => 'Die eigegebenen Passwörter stimmen nicht überein!'])
+                ->withInput();
+        }
+
+        $user = Auth::user();
+        $user->email = empty($request->get('email')) ? $user->email : $request->get('email');
+        $user->password = empty($request->get('password')) ? $user->password : Hash::make($request->get('password'));
+        $user->save();
+
+        return redirect(action('UserController@editProfile'))
+            ->with('status', 'Benutzerdaten erfolgreich aktualisiert!');
+    }
 }

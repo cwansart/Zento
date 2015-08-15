@@ -10,4 +10,19 @@ class Group extends Model
     {
         return $this->hasMany('Zento\User');
     }
+
+    /**
+     * Returns an array that contains the group id as key and the group name as value.
+     *
+     * @return array
+     */
+    public static function groupsArray()
+    {
+        $groups = Group::all();
+        $groupsArray = array();
+        foreach($groups as $group) {
+            $groupsArray[$group->id] = $group->name;
+        }
+        return $groupsArray;
+    }
 }

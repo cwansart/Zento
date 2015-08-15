@@ -21,6 +21,12 @@
                     </div>
                 @endif
 
+                    <div class="alert alert-danger" id="password-error-info" role="alert" style="display:none;">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Fehler:</span>
+                        Die eingegebenen Passwörter stimmen nicht überein!
+                    </div>
+
                 {!! Form::open(array('class' => 'form-horizontal', 'method' => 'PUT', 'route' => ['users.update', $user->id])) !!}
                 <div class="form-group">
                     {!! Form::label('email', 'Email-Adresse', ['class' => 'col-md-4 control-label']) !!}
@@ -29,17 +35,22 @@
                     </div>
                 </div>
 
-                    <div class="form-group">
+
+
+                    <div class="form-group" id="password-group1">
                         {!! Form::label('password', 'Passwort', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
                             {!! Form::input('password', 'password', '', ['class' => 'form-control', 'placeholder' => 'Passwort']) !!}
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="password-group2">
                         {!! Form::label('password2', 'Passwort wiederholen', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
                             {!! Form::input('password', 'password2', '', ['class' => 'form-control', 'placeholder' => 'Passwort wiederholen']) !!}
+                            <div class="help-block">
+                                Passwort-Felder leer lassen, um aktuelles Passwort beizubehalten!
+                            </div>
                         </div>
                     </div>
 
@@ -56,12 +67,19 @@
     </div>
 
     <script>
+        $(function() {
+            $('[data-toggle="popover"]').popover();
+        });
+
         $("form").submit(function (e) {
             e.preventDefault();
             if($('#password').val() == $('#password2').val()) {
                 this.submit();
             } else {
-                // TODO: highlight the fields and a message that hey don't equal. Perhaps with a popover? ;-)
+                $('#password-group1').addClass('has-error');
+                $('#password-group2').addClass('has-error');
+                $('#password-error-info').show();
+                $('#password2').focus();
             }
         });
     </script>

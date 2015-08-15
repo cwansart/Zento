@@ -31,7 +31,7 @@ Route::resource('appointments', 'AppointmentController');
 Route::get('/edit_profile', 'UserController@editProfile');
 Route::put('/edit_profile', 'UserController@updateProfile');
 Route::get('/logout', 'UserController@logout');
-
+Route::delete('/exams/{examid}/{userid}', 'ExamController@destroyResult');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

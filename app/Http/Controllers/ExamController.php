@@ -180,4 +180,13 @@ class ExamController extends Controller
 
         return '';
     }
+
+    public function destroyResult($examid, $userid)
+    {
+        $user = User::find($userid);
+        $exam = Exam::find($examid);
+        $exam->users()->detach($user);
+        return redirect(action('ExamController@show', [$examid]))
+            ->with('status', 'Benutzer wurde aus Prüfung entfernt!');
+    }
 }

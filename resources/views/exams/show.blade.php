@@ -21,13 +21,15 @@
             </div>
         @endif
         <h1>Prüflinge vom {!! $exam->getFormattedDate() !!}</h1>
-        {!! Form::open(array('id' => 'add-exam-form', 'class' => 'form-horizontal', 'method' => 'PUT', 'route' => array('exams.update', $exam->id))) !!}
         <table class="table table-hover">
             <thead>
             <tr>
                 <th>Vorname</th>
                 <th>Nachname</th>
                 <th>Ergebnis</th>
+                @if(Auth::user()->is_admin)
+                    <th>Aktion</th>
+                @endif
             </tr>
             </thead>
             <tbody id="userslist">
@@ -36,9 +38,17 @@
                     <td>{!! $user->firstname !!}</td>
                     <td>{!! $user->lastname !!}</td>
                     <td>{!! $user->pivot->result !!}</td>
+                    @if(Auth::user()->is_admin)
+                        <td>
+                            {!! Form::open(['action' => ['ExamController@destroyResult', $exam->id, $user->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}
+                            {!! Form::submit('Löschen', ['class' => 'btn btn-danger btn-sm']) !!}
+                            {!! Form::close() !!}
+                        </td>
+                    @endif
                 </tr>
             @endforeach
             @if(Auth::user()->is_admin)
+                {!! Form::open(array('id' => 'add-exam-form', 'class' => 'form-horizontal', 'method' => 'PUT', 'route' => array('exams.update', $exam->id))) !!}
                 <tr>
                     <td colspan="2">
 
@@ -56,10 +66,11 @@
 
                     </td>
                 </tr>
+                {!! Form::close() !!}
             @endif
             </tbody>
         </table>
-        {!! Form::close() !!}
+
 
 
         {!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}

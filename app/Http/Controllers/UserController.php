@@ -185,6 +185,18 @@ class UserController extends Controller
         //
     }
 
+    public function admins(Request $request)
+    {
+        $admins = User::where('is_admin', '=', true)->get();
+        return view('users.admins')->with('admins', $admins);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/');
+    }
+
     /**
      * Shows the view to change the profile of logged in user
      */
@@ -200,18 +212,6 @@ class UserController extends Controller
             view('users.editProfile')
                 ->with('user', $user)
                 ->with('groups', $groupsArray);
-    }
-
-    public function admins(Request $request)
-    {
-        $admins = User::where('is_admin', '=', true)->get();
-        return view('users.admins')->with('admins', $admins);
-    }
-
-    public function logout()
-    {
-        Auth::logout();
-        return redirect('/');
     }
 
     /**

@@ -5,12 +5,13 @@ namespace Zento\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Auth;
+use Hash;
+use Validator;
 use Zento\Http\Requests;
 use Zento\Http\Controllers\Controller;
 use Zento\User;
 use Zento\Group;
 use Zento\Location;
-use Validator;
 use \Carbon\Carbon;
 
 class UserController extends Controller
@@ -120,12 +121,12 @@ class UserController extends Controller
         $user->entry_date = Carbon::createFromFormat('d.m.Y', $request->input('entry_date')); // TODO: same here
         $user->location_id = $location->id;
         $user->active = $request->input('active');
-        $user->is_admin = $request->input('is_admin');
+        $user->is_admin = empty($request->input('is_admin')) ? false : empty($request->input('is_admin'));
         $user->group_id = $request->input('group_id'); // TODO: We need to check if group_id exists
 
         // we need to check if the password is empty. If so, we just skip the password field so it'll be nulled
-        if(empty($request->input('password'))) {
-            $user->password = $request->input('password');
+        if(!empty($request->input('password'))) {
+            $user->password = Hash::make($request->input('password'));
         }
 
         $user->save();

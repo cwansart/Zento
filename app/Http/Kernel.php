@@ -29,5 +29,6 @@ class Kernel extends HttpKernel
         'auth' => \Zento\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \Zento\Http\Middleware\RedirectIfAuthenticated::class,
+        'admin' => \Zento\Http\Middleware\AdminMiddleware::class,
     ];
 }

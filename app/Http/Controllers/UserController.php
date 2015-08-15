@@ -155,7 +155,17 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+
+        // we need to add and adjust some data so it'll be filled in the input fields
+        $user['street'] = $user->address->street;
+        $user['housenr'] = $user->address->housenr;
+        $user['zip'] = $user->address->zip;
+        $user['city'] = $user->address->city;
+
+        return view('users.edit')
+            ->with('user', $user)
+            ->with('groups', Group::groupsArray());
     }
 
     /**

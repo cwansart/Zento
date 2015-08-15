@@ -16,6 +16,11 @@ use Auth;
 
 class ExamController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin', ['only' => ['edit', 'store', 'update', 'destroy', 'destroyResult']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -44,10 +49,6 @@ class ExamController extends Controller
      */
     public function store(Request $request)
     {
-        if(!Auth::user()->is_admin) {
-            return redirect('exams.index');
-        }
-
         $validator = Validator::make($request->all(), Exam::$rules);
         //dd($request);
 
@@ -125,10 +126,6 @@ class ExamController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(!Auth::user()->is_admin) {
-            return redirect()->action('ExamController@show', $id);
-        }
-
         $validator = Validator::make($request->all(), Exam::$updateRules);
 
         if ($validator->fails()) {

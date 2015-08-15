@@ -18,7 +18,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin', ['only' => ['edit', 'store', 'update']]);
+        $this->middleware('admin', ['only' => ['edit', 'store', 'update', 'destroy']]);
     }
 
     /**
@@ -209,7 +209,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+        return redirect(action('UserController@index'))
+            ->with('status', 'Benutzer erfolgreich gelöscht!');
     }
 
     public function admins(Request $request)

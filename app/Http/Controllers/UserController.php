@@ -16,6 +16,11 @@ use \Carbon\Carbon;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin', ['only' => ['edit', 'store', 'update']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -72,11 +77,6 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        if(!Auth::user()->is_admin)
-        {
-            return redirect('users.index');
-        }
-
         $validator = Validator::make($request->all(), User::$rules);
 
         if ($validator->fails()) {

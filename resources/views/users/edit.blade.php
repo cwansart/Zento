@@ -77,6 +77,17 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <div class="col-md-4"></div>
+
+            <div class="col-md-6">
+                <div class="checkbox">
+                    <label>
+                        {!! Form::checkbox('active') !!} Aktives Mitglied?
+                    </label>
+                </div>
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-4"></div>
@@ -84,12 +95,11 @@
             <div class="col-md-6">
                 <div class="checkbox">
                     <label>
-                        {!! Form::checkbox('active', 1, true) !!} Aktives Mitglied?
+                        {!! Form::checkbox('is_admin') !!} Administrator?
                     </label>
                 </div>
             </div>
         </div>
-
 
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">

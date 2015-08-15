@@ -174,9 +174,31 @@ class UserController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $rules = User::$rules;
+
+        // Just a little fix when the mail address is the same. Otherwise
+        // it'd throw an error saying that the mail address already exists.
+        if($request->get('email') == $user->email) {
+            $rules['email'] = 'required|email';
+        }
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect(action('UserController@edit', [$id]))
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $newData = $request->all();
+        $newData['birthday'] = Carbon::createFromFormat('d.m.Y', $newData['birthday']);
+        $newData['entry_date'] = Carbon::createFromFormat('d.m.Y', $newData['entry_date']);
+        $user->update($newData);
+
+        return redirect(action('UserController@index'))
+            ->with('status', 'Profil von '.$user->firstname.' '.$user->lastname.' aktualisiert!');
     }
 
     /**

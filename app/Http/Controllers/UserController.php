@@ -46,17 +46,12 @@ class UserController extends Controller
         }
 
         $users = User::orderBy($orderBy, $order)->paginate(15);
-        $groups = Group::all();
-        $groupsArray = array();
-        foreach($groups as $group) {
-            $groupsArray[$group->id] = $group->name;
-        }
 
         // returns users as JSON if requested by $.getJSON
         return $request->ajax() ? $users :
             view('users.index')
                 ->with('users', $users)
-                ->with('groups', $groupsArray)
+                ->with('groups', Group::groupsArray())
                 ->with('sortBy', $request->get('orderBy'));
     }
 
@@ -203,15 +198,10 @@ class UserController extends Controller
     public function editProfile(Request $request)
     {
         $user = Auth::user();
-        $groups = Group::all();
-        $groupsArray = array();
-        foreach($groups as $group) {
-            $groupsArray[$group->id] = $group->name;
-        }
         return $request->ajax() ? $user :
             view('users.editProfile')
                 ->with('user', $user)
-                ->with('groups', $groupsArray);
+                ->with('groups', Group::groupsArray());
     }
 
     /**

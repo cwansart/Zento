@@ -18,11 +18,11 @@
             </tr>
             <tr>
                 <td>Geburtstag:</td>
-                <td>{!! $user->birthday->format('d.m.Y') !!}</td>
+                <td>{!! $user->birthday !!}</td>
             </tr>
             <tr>
                 <td>Eintrittsdatum:</td>
-                <td>{!! $user->entry_date->format('d.m.Y') !!}</td>
+                <td>{!! $user->entry_date !!}</td>
             </tr>
             @if($user->group)
                 <tr>

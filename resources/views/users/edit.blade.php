@@ -52,7 +52,7 @@
             {!! Form::label('birthday', 'Geburtstag', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
                 <div class="input-group date datetimepicker" data-date-format="DD.MM.YYYY">
-                    {!! Form::input('text', 'birthday', $user->birthday->format('d.m.Y'), ['class' => 'form-control', 'placeholder' => 'z. B. 01.07.1985']) !!}
+                    {!! Form::input('text', 'birthday', null, ['class' => 'form-control', 'placeholder' => 'z. B. 01.07.1985']) !!}
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                 </div>
             </div>
@@ -62,7 +62,7 @@
             {!! Form::label('entry_date', 'Eintrittsdatum', ['class' => 'col-md-4 control-label']) !!}
             <div class="col-md-6">
                 <div class="input-group date datetimepicker" data-date-format="DD.MM.YYYY">
-                    {!! Form::input('text', 'entry_date', $user->entry_date->format('d.m.Y'), ['class' => 'form-control', 'placeholder' => 'z. B. '.date('d.m.Y')]) !!}
+                    {!! Form::input('text', 'entry_date', null, ['class' => 'form-control', 'placeholder' => 'z. B. '.date('d.m.Y')]) !!}
                     <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                 </div>
             </div>

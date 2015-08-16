@@ -98,4 +98,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                $this->address->zip.' '.$this->address->city.'<br>'.
                $this->address->country;
     }
+
+    public function getBirthdayAttribute($birthday)
+    {
+        return \Carbon\Carbon::parse($birthday)->format('d.m.Y');
+    }
+
+    public function getEntryDateAttribute($entryDate)
+    {
+        return \Carbon\Carbon::parse($entryDate)->format('d.m.Y');
+    }
 }

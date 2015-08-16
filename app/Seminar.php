@@ -44,4 +44,9 @@ class Seminar extends Model
             $this->location->zip.' '.$this->location->city.'<br>'.
             $this->location->country;
     }
+
+    public function getDateAttribute($date)
+    {
+        return \Carbon\Carbon::parse($date)->format('d.m.Y');
+    }
 }

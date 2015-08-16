@@ -49,7 +49,7 @@
                 <tbody>
                     @foreach($seminars as $seminar)
                         <tr class="clickable-row" data-href="{{ action('SeminarController@show', [$seminar->id]) }}">
-                            <td>{!! $seminar->date->format('d.m.Y') !!}</td>
+                            <td>{!! $seminar->date !!}</td>
                             <td>{!! $seminar->title !!}</td>
                             <td>{!! $seminar->addressStr() !!}</td>
                         </tr>

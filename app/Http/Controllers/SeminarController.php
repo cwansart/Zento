@@ -8,7 +8,9 @@ use Zento\Http\Requests;
 use Zento\Http\Controllers\Controller;
 use Zento\Seminar;
 use Zento\User;
+use Zento\Location;
 use Auth;
+use Validator;
 
 class SeminarController extends Controller
 {

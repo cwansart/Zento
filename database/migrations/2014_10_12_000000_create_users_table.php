@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password', 60)->nullable();
             $table->date('birthday');
             $table->date('entry_date');
-            $table->integer('location_id')->unsigned();
+            $table->integer('location_id')->unsigned()->default(1);
             $table->boolean('active');
             $table->boolean('is_admin');
             $table->integer('group_id')->unsigned();

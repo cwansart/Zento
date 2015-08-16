@@ -1,5 +1,6 @@
 <?php
 
+use Zento\Location;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -23,6 +24,17 @@ class CreateLocationsTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+
+        // We need to ensure that there's at least one location, because the users table
+        // defaults to id 1
+        Location::create([
+            'name' => null,
+            'zip' => 1337,
+            'city' => 'Musterstadt',
+            'street' => 'Mustertraße',
+            'housenr' => '42',
+            'country' => 'Musterland'
+        ]);
 
     }
 

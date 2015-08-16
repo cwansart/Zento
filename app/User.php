@@ -108,4 +108,25 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return \Carbon\Carbon::parse($entryDate)->format('d.m.Y');
     }
+
+    public function setBirthdayAttribute($birthday)
+    {
+        $this->attributes['birthday'] = \Carbon\Carbon::createFromFormat('d.m.Y', $birthday);
+    }
+
+    public function setEntryDateAttribute($entryDate)
+    {
+        $this->attributes['entry_date'] = \Carbon\Carbon::createFromFormat('d.m.Y', $entryDate);
+    }
+
+    public function setIsAdminAttribute($isAdmin)
+    {
+        $this->attributes['is_admin'] = empty($isAdmin) ? false : $isAdmin;
+    }
+
+
+    public function setActiveAttribute($active)
+    {
+        $this->attributes['active'] = empty($active) ? false : $active;
+    }
 }

@@ -112,12 +112,12 @@ class UserController extends Controller
         $user = new User();
         $user->firstname = $request->input('firstname');
         $user->lastname = $request->input('lastname');
-        $user->email = $request->input('email'); // TODO: what'll happen if email is already taken? Perhaps we need to catch an exception here..
-        $user->birthday = Carbon::createFromFormat('d.m.Y', $request->input('birthday')); // TODO: We should find a more localized friendly version; this way only the German date format works.
-        $user->entry_date = Carbon::createFromFormat('d.m.Y', $request->input('entry_date')); // TODO: same here
+        $user->email = $request->input('email');
+        $user->birthday = $request->input('birthday');
+        $user->entry_date = $request->input('entry_date');
         $user->location_id = $location->id;
         $user->active = $request->input('active');
-        $user->is_admin = empty($request->input('is_admin')) ? false : empty($request->input('is_admin'));
+        $user->is_admin = $request->input('is_admin');
         $user->group_id = $request->input('group_id'); // TODO: We need to check if group_id exists
 
         // we need to check if the password is empty. If so, we just skip the password field so it'll be nulled
@@ -126,7 +126,6 @@ class UserController extends Controller
         }
 
         $user->save();
-        // TODO: pass a message to the view to inform about success.
 
         return redirect(action('UserController@index'))->with('status', 'Benutzer '.$user->firstname.' '.$user->lastname.' wurde hinzugefügt.');
     }

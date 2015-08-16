@@ -83,7 +83,7 @@ class SeminarController extends Controller
         }
 
         $seminar = new Seminar();
-        $seminar->date = \Carbon\Carbon::createFromFormat('d.m.Y', $request->input('date')); // TODO: We should find a more localized friendly version; this way only the German date format works.
+        $seminar->date = $request->input('date');
         $seminar->title = $request->input('title');
         $seminar->location_id = $location->id;
         $seminar->save();

@@ -24,17 +24,7 @@
                         @endif
 
                         {!! Form::open(array('class' => 'form-horizontal', 'method' => 'POST', 'route' => 'exams.store')) !!}
-                        @include('location_input')
-                            
-                        <div class="form-group">
-                            {!! Form::label('date', 'Datum', ['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-6">
-                                <div class="input-group date datetimepicker" data-date-format="DD.MM.YYYY">
-                                    {!! Form::input('text', 'date', null, ['class' => 'form-control', 'placeholder' => 'z. B. 01.07.1985']) !!}
-                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                                </div>
-                            </div>
-                        </div>
+                        @include('exams._form')
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">

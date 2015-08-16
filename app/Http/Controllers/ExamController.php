@@ -18,6 +18,7 @@ class ExamController extends Controller
 {
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('admin', ['only' => ['edit', 'store', 'update', 'destroy', 'destroyResult']]);
     }
 

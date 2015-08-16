@@ -83,7 +83,7 @@ class ExamController extends Controller
         }
 
         $exam = new Exam();
-        $exam->date = \Carbon\Carbon::createFromFormat('d.m.Y', $request->input('date')); // TODO: We should find a more localized friendly version; this way only the German date format works.
+        $exam->date = $request->input('date');
         $exam->location_id = $location->id;
         $exam->save();
 

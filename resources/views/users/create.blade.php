@@ -43,3 +43,10 @@
 
     </div>
 </div>
+@if(count($errors))
+    <script>
+        $(function() {
+            $('#myModal').modal('show');
+        });
+    </script>
+@endif

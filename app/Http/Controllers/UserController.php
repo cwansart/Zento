@@ -119,12 +119,7 @@ class UserController extends Controller
         $user->active = $request->input('active');
         $user->is_admin = $request->input('is_admin');
         $user->group_id = $request->input('group_id'); // TODO: We need to check if group_id exists
-
-        // we need to check if the password is empty. If so, we just skip the password field so it'll be nulled
-        if(!empty($request->input('password'))) {
-            $user->password = Hash::make($request->input('password'));
-        }
-
+        $user->password = $request->input('password');
         $user->save();
 
         return redirect(action('UserController@index'))->with('status', 'Benutzer '.$user->firstname.' '.$user->lastname.' wurde hinzugefügt.');
@@ -266,7 +261,7 @@ class UserController extends Controller
 
         $user = Auth::user();
         $user->email = empty($request->get('email')) ? $user->email : $request->get('email');
-        $user->password = empty($request->get('password')) ? $user->password : Hash::make($request->get('password'));
+        $user->password = $request->get('password');
         $user->save();
 
         return redirect(action('UserController@editProfile'))

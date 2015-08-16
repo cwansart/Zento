@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Hash;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
@@ -124,9 +125,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         $this->attributes['is_admin'] = empty($isAdmin) ? false : $isAdmin;
     }
 
-
     public function setActiveAttribute($active)
     {
         $this->attributes['active'] = empty($active) ? false : $active;
+    }
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = empty($password) ? false : Hash::make($password);
     }
 }

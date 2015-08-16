@@ -12,6 +12,12 @@ use Auth;
 
 class SeminarController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware('admin', ['only' => ['edit', 'store', 'update', 'destroy', 'removeUser']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -42,10 +48,6 @@ class SeminarController extends Controller
      */
     public function store(Request $request)
     {
-        if(!Auth::user()->is_admin) {
-            return redirect('seminars.index');
-        }
-
         $validator = Validator::make($request->all(), Seminar::$rules);
         //dd($request);
 
@@ -97,11 +99,9 @@ class SeminarController extends Controller
     public function show(Request $request, $id)
     {
         $seminar = Seminar::find($id);
-        $seminarUsers = $seminar->users;
-        $title = Seminar::find($id)->title;
-        return $request->ajax() ? $seminarUsers : view('seminars.show')
-            ->with('seminarUsers', $seminarUsers)
-            ->with('title', $title)
+        $users = $seminar->users;
+        return view('seminars.show')
+            ->with('users', $users)
             ->with('seminar', $seminar);
     }
 
@@ -124,10 +124,6 @@ class SeminarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(!Auth::user()->is_admin) {
-            return redirect('seminars.index');
-        }
-
         $seminar = Seminar::find($id);
         $user = User::find($request->input('userid'));
 
@@ -170,5 +166,21 @@ class SeminarController extends Controller
 
 
         return '';
+    }
+
+    /**
+     * Removes a specific user from a specified seminar.
+     *
+     * @param $seminarid
+     * @param $userid
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function removeUser($seminarid, $userid)
+    {
+        $user = User::find($userid);
+        $seminar = Seminar::find($seminarid);
+        $seminar->users()->detach($user);
+        return redirect(action('SeminarController@show', [$seminarid]))
+            ->with('status', 'Benutzer wurde aus dem Seminar entfernt!');
     }
 }

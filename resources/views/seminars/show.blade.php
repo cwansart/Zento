@@ -1,28 +1,37 @@
 @extends('main')
 
-@section('title', 'Teilnehmer „'.$title.'“')
+@section('title', 'Teilnehmer „'.$seminar->title.'“')
 
 @section('content')
 
     <div class="container">
-        <h1>Teilnehmer des Seminars „{!! $title !!}“</h1>
-        @if(count($seminarUsers))
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>Vorname</th>
-                    <th>Nachname</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($seminarUsers as $seminarUser)
-                    <tr class="clickable-row" data-href="{{ action('UserController@show', [$seminarUser->id]) }}">
-                        <td>{!! $seminarUser->firstname !!}</td>
-                        <td>{!! $seminarUser->lastname !!}</td>
-                    </tr>
-                @endforeach
-
+        <h1>Teilnehmer des Seminars „{!! $seminar->title !!}“</h1>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Vorname</th>
+                <th>Nachname</th>
                 @if(Auth::user()->is_admin)
+                    <th>Aktion</th>
+                @endif
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($users as $user)
+                <tr class="clickable-row" data-href="{{ action('UserController@show', [$user->id]) }}">
+                    <td>{!! $user->firstname !!}</td>
+                    <td>{!! $user->lastname !!}</td>
+                    @if(Auth::user()->is_admin)
+                        <td>
+                            {!! Form::open(['action' => ['SeminarController@removeUser', $seminar->id, $user->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}
+                            {!! Form::submit('Löschen', ['class' => 'btn btn-danger btn-sm']) !!}
+                            {!! Form::close() !!}
+                        </td>
+                    @endif
+                </tr>
+            @endforeach
+
+            @if(Auth::user()->is_admin)
                 <tr>
                     <td colspan="3">
                         {!! Form::open(array('id' => 'add-seminar-form', 'class' => 'form-horizontal', 'method' => 'PUT', 'route' => array('seminars.update', $seminar->id))) !!}
@@ -32,12 +41,9 @@
                         {!! Form::close() !!}
                     </td>
                 </tr>
-                @endif
-                </tbody>
-            </table>
-        @else
-            <p>Keine Benutzer im Seminar eingetragen!</p>
-        @endif
+            @endif
+            </tbody>
+        </table>
 
         {!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}
     </div>

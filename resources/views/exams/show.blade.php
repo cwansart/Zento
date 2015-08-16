@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Prüflinge vom '.$exam->getFormattedDate())
+@section('title', 'Prüflinge vom '.$exam->date)
 
 @section('content')
 
@@ -20,7 +20,7 @@
                 </ul>
             </div>
         @endif
-        <h1>Prüflinge vom {!! $exam->getFormattedDate() !!}</h1>
+        <h1>Prüflinge vom {!! $exam->date !!}</h1>
         <table class="table table-hover">
             <thead>
             <tr>

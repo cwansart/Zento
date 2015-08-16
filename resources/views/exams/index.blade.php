@@ -23,7 +23,7 @@
                 <tbody>
                     @foreach($exams as $exam)
                         <tr class="clickable-row" data-href="{{ action('ExamController@show', [$exam->id]) }}">
-                            <td>{!! $exam->date->format('d.m.Y') !!}</td>
+                            <td>{!! $exam->date !!}</td>
                             <td>{!! $exam->addressStr() !!}</td>
                         </tr>
                     @endforeach

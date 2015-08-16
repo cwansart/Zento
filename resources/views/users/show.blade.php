@@ -72,7 +72,7 @@
                 <tbody>
                     @foreach($exams as $exam)
                         <tr class="clickable-row" data-href="{{ action('ExamController@show', [$exam->id]) }}">
-                            <td>{!! $exam->getFormattedDate() !!}</td>
+                            <td>{!! $exam->date !!}</td>
                             <td>{!! $exam->pivot->result !!}</td>
                         </tr>
                     @endforeach

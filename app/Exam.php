@@ -58,8 +58,8 @@ class Exam extends Model
             $this->location->country;
     }
 
-    public function getFormattedDate()
+    public function getDateAttribute($date)
     {
-        return $this->date->format('d.m.Y');
+        return \Carbon\Carbon::parse($date)->format('d.m.Y');
     }
 }

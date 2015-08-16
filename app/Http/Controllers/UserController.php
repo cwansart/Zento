@@ -178,10 +178,7 @@ class UserController extends Controller
                 ->withInput();
         }
 
-        $newData = $request->all();
-        $newData['birthday'] = Carbon::createFromFormat('d.m.Y', $newData['birthday']);
-        $newData['entry_date'] = Carbon::createFromFormat('d.m.Y', $newData['entry_date']);
-        $user->update($newData);
+        $user->update($request->all());
 
         return redirect(action('UserController@index'))
             ->with('status', 'Profil von '.$user->firstname.' '.$user->lastname.' aktualisiert!');

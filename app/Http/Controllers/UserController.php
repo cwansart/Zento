@@ -109,17 +109,8 @@ class UserController extends Controller
             $location = $location->first();
         }
 
-        $user = new User();
-        $user->firstname = $request->input('firstname');
-        $user->lastname = $request->input('lastname');
-        $user->email = $request->input('email');
-        $user->birthday = $request->input('birthday');
-        $user->entry_date = $request->input('entry_date');
+        $user = User::create($request->all());
         $user->location_id = $location->id;
-        $user->active = $request->input('active');
-        $user->is_admin = $request->input('is_admin');
-        $user->group_id = $request->input('group_id'); // TODO: We need to check if group_id exists
-        $user->password = $request->input('password');
         $user->save();
 
         return redirect(action('UserController@index'))->with('status', 'Benutzer '.$user->firstname.' '.$user->lastname.' wurde hinzugefügt.');

@@ -31,6 +31,7 @@
                             @if(Auth::user()->is_admin)
                                 <td>
                                     {!! Form::open(['action' => ['ExamController@destroy', $exam->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}
+                                    {!! Html::linkAction('ExamController@edit', 'Bearbeiten', [$exam->id], ['class' => 'btn btn-primary btn-sm']) !!}
                                     {!! Form::submit('Löschen', ['class' => 'btn btn-danger btn-sm']) !!}
                                     {!! Form::close() !!}
                                 </td>

@@ -33,7 +33,10 @@
                             <td>{!! $seminar->addressStr() !!}</td>
                             @if(Auth::user()->is_admin)
                                 <td>
+                                    {!! Form::open(['action' => ['SeminarController@destroy', $seminar->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}
                                     {!! Html::linkAction('SeminarController@edit', 'Bearbeiten', [$seminar->id], ['class' => 'btn btn-primary btn-sm']) !!}
+                                    {!! Form::submit('Löschen', ['class' => 'btn btn-danger btn-sm']) !!}
+                                    {!! Form::close() !!}
                                 </td>
                             @endif
                         </tr>

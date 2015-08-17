@@ -32,7 +32,6 @@ Route::delete('seminars/{seminarid}/{userid}', 'SeminarController@removeUser');
 Route::resource('users', 'UserController');
 Route::resource('exams', 'ExamController');
 Route::resource('seminars', 'SeminarController');
-Route::get('appointments/{id}', 'AppointmentController@showEvent')->where('id', '[0-9]+');
 Route::resource('appointments', 'AppointmentController');
 
 Route::controllers([

@@ -1,50 +1,43 @@
 @extends('main')
 
-@section('title', 'Termine '.$date)
+@section('title', 'Termindetails')
 
 @section('content')
+
     <br>
     <div class="container">
-        <h1>Termine {!! $date !!}</h1>
-        @if(count($appointments))
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>Titel</th>
-                    <th>Von</th>
-                    <th>Bis</th>
-                </tr>
-                </thead>
-                <tbody>
-                    @foreach($appointments as $appointment)
-                        <tr class="clickable-row" data-href="{{ action('AppointmentController@showEvent', [$appointment->id]) }}">
-                            <td>{!! $appointment->title !!}</td>
-                            @if($appointment->all_day)
-                                <td>{!! $appointment->date->format('d.m.y') !!}</td>
-                            @else
-                                <td>{!! $appointment->date->format('d.m.y, H:i') !!}</td>
-                            @endif
+        <h1>Termindetails</h1>
+        <table class="table table-hover">
+            <tr>
+                <td>Titel:</td>
+                <td>{!! $event->title !!}</td>
+            </tr>
+            <tr>
+                <td>Von:</td>
+                @if($event->all_day)
+                    <td>{!! $event->date->format('d.m.y') !!}</td>
+                @else
+                    <td>{!! $event->date->format('d.m.y, H:i') !!}</td>
+                @endif
+            </tr>
+            <tr>
+                <td>Bis:</td>
+                @if($event->end_date)
+                    @if($event->all_day)
+                        <td>{!! $event->end_date->format('d.m.y') !!}</td>
+                    @else
+                        <td>{!! $event->end_date->format('d.m.y, H:i') !!}</td>
+                    @endif
+                @else
+                    <td> - </td>
+                @endif
+            </tr>
 
-                            @if($appointment->end_date)
-                                @if($appointment->all_day)
-                                    <td>{!! $appointment->end_date->format('d.m.y') !!}</td>
-                                @else
-                                    <td>{!! $appointment->end_date->format('d.m.y, H:i') !!}</td>
-                                @endif
-                            @else
-                                <td> - </td>
-                            @endif
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @else
-            <p>Keine Termine vorhanden.</p>
-        @endif
+        </table>
+
 
         {!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}
 
     </div>
-
 
 @endsection

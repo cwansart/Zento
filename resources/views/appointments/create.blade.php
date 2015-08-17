@@ -54,5 +54,14 @@
                         $('#date').val(new Date().toLocaleFormat('%d.%m.%Y'));
                         $('#end_date').val(new Date().toLocaleFormat('%d.%m.%Y'));
                     });
-        });
+
+            $('#holeDay').change(function() {
+                if( $('#holeDay').is(':checked') )
+                {
+                    $(".timepicker").addClass('hidden');
+                } else {
+                    $(".timepicker").removeClass('hidden');
+                }
+            })
+            });
     </script>

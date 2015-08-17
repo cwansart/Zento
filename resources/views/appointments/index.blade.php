@@ -35,10 +35,20 @@
             });
             $('#calendar').fullCalendar('rerenderEvents');
 
-            $('.datetimepicker').datetimepicker({
+            $('.timepicker').datetimepicker({
+                maskInput: false,
                 language: 'de',
-                format: 'DD.mm.yyyy hh:mm'
+                pickDate: false,
+                format: 'HH:mm'
             });
+
+            if ($('#holeDay').is(':checked')) {
+                $(".timepicker").addClass('hidden');
+            } else {
+                $(".timepicker").removeClass('hidden');
+            }
+
+
         });
     </script>
 

@@ -52,34 +52,11 @@ class AppointmentController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function show(Request $request, $date)
-    {
-        $appointments = Appointment::whereDate('date', '=', new \DateTime($date))
-            ->orWhereNotNull('end_date')
-            ->whereDate('date', '<=', new \DateTime($date))
-            ->whereDate('end_date', '>=', new \DateTime($date))->get();
-
-        if(Carbon::parse($date)->format('d.m.y') == Carbon::now()->format('d.m.y')) {
-            $date = "Heute";
-        } elseif(Carbon::parse($date)->format('d.m.y') == Carbon::now()->addDay()->format('d.m.y')) {
-            $date = "Morgen";
-        } elseif(Carbon::parse($date)->format('d.m.y') == Carbon::now()->addDay(-1)->format('d.m.y')) {
-            $date = "Gestern";
-        } else {
-        $date = 'am '.Carbon::parse($date)->format('d.m.y');
-        }
-
-        // returns appointments as JSON if
-        return $request->ajax() ? $appointments : view('appointments.show')
-            ->with('appointments', $appointments)
-            ->with('date', $date);
-    }
-
-    public function showEvent(Request $request, $id)
+    public function show(Request $request, $id)
     {
         $event = Appointment::where('id', '=', $id)->first();
         // returns appointments as JSON if
-        return $request->ajax() ? $event : view('appointments.showEvent')
+        return $request->ajax() ? $event : view('appointments.show')
             ->with('event', $event);
     }
 

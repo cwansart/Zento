@@ -60,28 +60,7 @@ class ExamController extends Controller
                 ->withInput();
         }
 
-        // TODO: extract this block to the Location model
-        // check if given location exists; use or create otherwise.
-        $location = Location::where('street', '=', $request->input('street'))
-            ->where('housenr', '=', $request->input('housenr'))
-            ->where('zip', '=', $request->input('zip'))
-            ->where('city', '=', $request->input('city'))
-            ->where('country', '=', $request->input('country'));
-        if(!$location->exists()) {
-            // create location if it doesn't exist
-            $location = Location::create([
-                // do we really need a name in a location? We'll leave it blank for now...
-                //'name' => $request->input('firstname').' '.$request->input('lastname'),
-                'street' => $request->input('street'),
-                'housenr' => $request->input('housenr'),
-                'zip' => $request->input('zip'),
-                'city' => $request->input('city'),
-                'country' => $request->input('country')
-            ]);
-        } else {
-            // we need to call get() otherwise we'd have an query object
-            $location = $location->first();
-        }
+        $location = Location::findOrCreate($request->all());
 
         $exam = new Exam();
         $exam->date = $request->input('date');

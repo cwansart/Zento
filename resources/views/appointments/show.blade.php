@@ -1,43 +1,52 @@
-@extends('main')
+<div class="modal fade" id="showModal" role="dialog">
+    <div class="modal-dialog">
 
-@section('title', 'Termindetails')
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Detailansicht</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                Es gab ein paar Probleme.<br><br>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
-@section('content')
+                        {!! Form::open(array('class' => 'form-horizontal', 'method' => 'POST', 'route' => 'appointments.store')) !!}
+                        @include('appointments._form')
 
-    <br>
-    <div class="container">
-        <h1>Termindetails</h1>
-        <table class="table table-hover">
-            <tr>
-                <td>Titel:</td>
-                <td>{!! $event->title !!}</td>
-            </tr>
-            <tr>
-                <td>Von:</td>
-                @if($event->all_day)
-                    <td>{!! $event->date->format('d.m.y') !!}</td>
-                @else
-                    <td>{!! $event->date->format('d.m.y, H:i') !!}</td>
-                @endif
-            </tr>
-            <tr>
-                <td>Bis:</td>
-                @if($event->end_date)
-                    @if($event->all_day)
-                        <td>{!! $event->end_date->format('d.m.y') !!}</td>
-                    @else
-                        <td>{!! $event->end_date->format('d.m.y, H:i') !!}</td>
-                    @endif
-                @else
-                    <td> - </td>
-                @endif
-            </tr>
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                {!! Form::submit('Termin anlegen', ['class' => 'btn btn-primary']) !!}
+                            </div>
+                        </div>
+                        {!! Form::close() !!}
 
-        </table>
-
-
-        {!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
 
     </div>
+</div>
 
-@endsection
+
+<script>
+    $(function() {
+        @if(count($errors))
+        $('#showModal').modal('show');
+        @endif
+    });
+</script>

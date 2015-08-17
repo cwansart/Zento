@@ -121,9 +121,10 @@ class ExamController extends Controller
                 ->withInput();
         }
 
-        $update = $request->all();
         $exam = Exam::findOrFail($id);
         $exam->update($request->all());
+        return redirect(action('ExamController@index'))
+            ->with('status', 'Prüfung vom '.$exam->date.' aktualisiert!');
     }
 
     /**

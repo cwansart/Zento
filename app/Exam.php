@@ -14,6 +14,15 @@ class Exam extends Model
     protected $dates = ['date'];
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'date',
+    ];
+
+    /**
      * Sets the validator rules.
      *
      * @var array

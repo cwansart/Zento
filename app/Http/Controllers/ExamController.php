@@ -2,6 +2,7 @@
 
 namespace Zento\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use Zento\Http\Requests;
@@ -127,22 +128,7 @@ class ExamController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), Exam::$updateRules);
-
-        if ($validator->fails()) {
-            return redirect(action('ExamController@show', $id))
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        $exam = Exam::find($id);
-        $user = User::find($request->input('userid'));
-        $result = Exam::$results[$request->input('result')];
-
-        $exam->users()->attach($user);
-        $exam->users()->updateExistingPivot($user->id, ['result' => $result]);
-
-        return redirect()->action('ExamController@show', $id)->with('status', $user->firstname.' '.$user->lastname.' hinzugefügt');
+        //
     }
 
     /**
@@ -186,5 +172,25 @@ class ExamController extends Controller
         $exam->users()->detach($user);
         return redirect(action('ExamController@show', [$examid]))
             ->with('status', 'Benutzer wurde aus Prüfung entfernt!');
+    }
+
+    public function updateExam(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), Exam::$updateRules);
+
+        if ($validator->fails()) {
+            return redirect(action('ExamController@show', $id))
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $exam = Exam::find($id);
+        $user = User::find($request->input('userid'));
+        $result = Exam::$results[$request->input('result')];
+
+        $exam->users()->attach($user);
+        $exam->users()->updateExistingPivot($user->id, ['result' => $result]);
+
+        return redirect()->action('ExamController@show', $id)->with('status', $user->firstname.' '.$user->lastname.' hinzugefügt');
     }
 }

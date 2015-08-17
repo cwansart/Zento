@@ -96,7 +96,13 @@ class ExamController extends Controller
      */
     public function edit($id)
     {
-        //
+        $exam = Exam::findOrFail($id);
+        $exam['street'] = $exam->location->street;
+        $exam['housenr'] = $exam->location->housenr;
+        $exam['zip'] = $exam->location->zip;
+        $exam['city'] = $exam->location->city;
+        return view('exams.edit')
+            ->with('exam', $exam);
     }
 
     /**
@@ -107,7 +113,17 @@ class ExamController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), Exam::$rules);
+
+        if ($validator->fails()) {
+            return redirect(action('ExamController@index'))
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $update = $request->all();
+        $exam = Exam::findOrFail($id);
+        $exam->update($request->all());
     }
 
     /**

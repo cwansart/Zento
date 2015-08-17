@@ -157,7 +157,10 @@ class UserController extends Controller
                 ->withInput();
         }
 
-        $user->update($request->all());
+        $data = $request->all();
+        $location = Location::findOrCreate($data);
+        $data['location_id'] = $location->id;
+        $user->update($data);
 
         return redirect(action('UserController@index'))
             ->with('status', 'Profil von '.$user->firstname.' '.$user->lastname.' aktualisiert!');

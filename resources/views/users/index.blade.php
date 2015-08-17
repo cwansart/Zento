@@ -32,7 +32,9 @@
                         <td>
                             {!! Form::open(['action' => ['UserController@destroy', $user->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}
                             {!! Html::linkAction('UserController@edit', 'Bearbeiten', [$user->id], ['class' => 'btn btn-primary btn-sm']) !!}
+                            @if(Auth::user()->id != $user->id)
                             {!! Form::submit('Löschen', ['class' => 'btn btn-danger btn-sm']) !!}
+                            @endif
                             {!! Form::close() !!}
                         </td>
                     @endif

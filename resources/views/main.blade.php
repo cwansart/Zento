@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>@yield('title')</title>
+    <meta charset="UTF-8">
 
     {!! HTML::style('bootstrap/css/bootstrap.css') !!}
     {!! HTML::style('bootstrap/css/bootstrap-theme.css') !!}

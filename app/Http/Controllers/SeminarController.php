@@ -115,7 +115,13 @@ class SeminarController extends Controller
      */
     public function edit($id)
     {
-        //
+        $seminar = Seminar::FindOrFail($id);
+        $seminar['street'] = $seminar->location->street;
+        $seminar['housenr'] = $seminar->location->housenr;
+        $seminar['zip'] = $seminar->location->zip;
+        $seminar['city'] = $seminar->location->city;
+        return view('seminars.edit')
+            ->with('seminar', $seminar);
     }
 
     /**
@@ -126,7 +132,18 @@ class SeminarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), Seminar::$rules);
+
+        if ($validator->fails()) {
+            return redirect(action('SeminarController@edit',$id))
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $seminar = Seminar::findOrFail($id);
+        $seminar->update($request->all());
+        return redirect(action('SeminarController@index'))
+            ->with('status', 'Seminar '.$seminar->title.' vom '.$seminar->date.' aktualisiert!');
     }
 
     /**

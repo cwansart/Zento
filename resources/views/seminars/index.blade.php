@@ -20,6 +20,9 @@
                         <th>Datum</th>
                         <th>Titel</th>
                         <th>Ort</th>
+                        @if(Auth::user()->is_admin)
+                            <th>Aktion</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -28,6 +31,11 @@
                             <td>{!! $seminar->date !!}</td>
                             <td>{!! $seminar->title !!}</td>
                             <td>{!! $seminar->addressStr() !!}</td>
+                            @if(Auth::user()->is_admin)
+                                <td>
+                                    {!! Html::linkAction('SeminarController@edit', 'Bearbeiten', [$seminar->id], ['class' => 'btn btn-primary btn-sm']) !!}
+                                </td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>

@@ -116,7 +116,7 @@ class ExamController extends Controller
         $validator = Validator::make($request->all(), Exam::$rules);
 
         if ($validator->fails()) {
-            return redirect(action('ExamController@index'))
+            return redirect(action('ExamController@edit', $id))
                 ->withErrors($validator)
                 ->withInput();
         }

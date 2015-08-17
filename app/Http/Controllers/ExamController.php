@@ -134,7 +134,10 @@ class ExamController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $exam = Exam::findOrFail($id);
+        $exam->delete();
+        return redirect(action('ExamController@index'))
+            ->with('status', 'Prüfung erfolgreich gelöscht!');
     }
 
     /**

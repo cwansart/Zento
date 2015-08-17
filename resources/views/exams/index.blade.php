@@ -18,6 +18,9 @@
                     <tr>
                         <th>Datum</th>
                         <th>Ort</th>
+                        @if(Auth::user()->is_admin)
+                            <th>Aktion</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -25,6 +28,13 @@
                         <tr class="clickable-row" data-href="{{ action('ExamController@show', [$exam->id]) }}">
                             <td>{!! $exam->date !!}</td>
                             <td>{!! $exam->addressStr() !!}</td>
+                            @if(Auth::user()->is_admin)
+                                <td>
+                                    {!! Form::open(['action' => ['ExamController@destroy', $exam->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}
+                                    {!! Form::submit('Löschen', ['class' => 'btn btn-danger btn-sm']) !!}
+                                    {!! Form::close() !!}
+                                </td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>

@@ -9,6 +9,7 @@
     <div class="container">
         <div id='calendar'></div>
         @include('appointments.create')
+        @include('appointments.show')
     </div>
 
     <hr>
@@ -24,11 +25,16 @@
                     d = new Date(date);
                     $('#date').val(d.toLocaleFormat('%d.%m.%Y'));
                     $('#end_date').val(d.toLocaleFormat('%d.%m.%Y'));
-                    $('#myModal').modal('show');
+                    $('#createModal').modal('show');
                 },
 
                 eventClick: function (event, jsEvent, view) {
-                    window.location.href = '{!! url('appointments') !!}/'  + event.id;
+                    d_start = new Date(event.start);
+                    d_end = new Date(event.end);
+                    $('#title').val(event.title);
+                    $('#date').val(d_start.toLocaleFormat('%d.%m.%Y'));
+                    $('#end_date').val(d_end.toLocaleFormat('%d.%m.%Y'));
+                    $('#showModal').modal('show');
                 },
 
                 timeFormat: 'HH:mm'
@@ -47,8 +53,6 @@
             } else {
                 $(".timepicker").removeClass('hidden');
             }
-
-
         });
     </script>
 

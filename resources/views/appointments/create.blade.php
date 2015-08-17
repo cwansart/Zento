@@ -1,6 +1,6 @@
-<button id="buttonClose" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Termin erstellen</button>
+<button id="buttonCreate" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Termin erstellen</button>
 
-<div class="modal fade" id="myModal" role="dialog">
+<div class="modal fade" id="createModal" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -48,9 +48,9 @@
     <script>
         $(function() {
             @if(count($errors))
-            $('#myModal').modal('show');
+            $('#createModal').modal('show');
             @endif
-            $('#buttonClose').on('click', function() {
+            $('#buttonCreate').on('click', function() {
                         $('#date').val(new Date().toLocaleFormat('%d.%m.%Y'));
                         $('#end_date').val(new Date().toLocaleFormat('%d.%m.%Y'));
                     });

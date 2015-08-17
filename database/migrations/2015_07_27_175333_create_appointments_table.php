@@ -16,7 +16,7 @@ class CreateAppointmentsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->dateTime('date');
-            $table->dateTime('end_date')->nullable();
+            $table->dateTime('end_date');
             $table->boolean('all_day');
             $table->integer('location_id')->unsigned()->nullable();
             $table->string('color');

@@ -21,7 +21,7 @@
                 events: '{!! action('AppointmentController@index') !!}',
 
                 dayClick: function (date, jsEvent, view) {
-                    window.location.href = '{!! url('appointments') !!}/' + date._d.toLocaleDateString();
+                    $('#myModal').modal('show');
                 },
 
                 eventClick: function (event, jsEvent, view) {

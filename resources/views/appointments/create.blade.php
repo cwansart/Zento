@@ -1,100 +1,53 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Termin erstellen</div>
-                <div class="panel-body">
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            Es gab ein paar Probleme.<br><br>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Termin erstellen</button>
 
-                    {!! Form::open(array('class' => 'form-horizontal', 'method' => 'POST', 'route' => 'appointments.store')) !!}
-                    <div class="form-group">
-                        {!! Form::label('title', 'Titel', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-6">
-                            {!! Form::input('text', 'title', null, ['class' => 'form-control', 'placeholder' => 'Titel', 'required']) !!}
-                        </div>
-                    </div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
 
-                    <div class="form-group">
-                        <div class="col-md-4"></div>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Termin erstellen</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                Es gab ein paar Probleme.<br><br>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
-                        <div class="col-md-6">
-                            <div class="checkbox">
-                                <label>
-                                    {!! Form::checkbox('holeDay', 1, true,  array('id'=>'holeDay')) !!} Ganztägig?
-                                </label>
+                        {!! Form::open(array('class' => 'form-horizontal', 'method' => 'POST', 'route' => 'appointments.store')) !!}
+                        @include('exams._form')
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                {!! Form::submit('Termin anlegen', ['class' => 'btn btn-primary']) !!}
                             </div>
                         </div>
-                    </div>
+                        {!! Form::close() !!}
 
-                    <div class="form-group time hidden">
-                        {!! Form::label('date', 'Von', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-6">
-                            <div class="input-group date datetimepicker" data-date-format="DD.MM.YYYY HH:mm">
-                                {!! Form::input('text', 'date', null, ['class' => 'form-control', 'placeholder' => 'z. B. '.date('d.m.Y H:i'), 'required']) !!}
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                            </div>
-                        </div>
                     </div>
-
-                    <div class="form-group time hidden">
-                        {!! Form::label('end_date', 'Bis', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-6">
-                            <div class="input-group date datetimepicker" data-date-format="DD.MM.YYYY HH:mm">
-                                {!! Form::input('text', 'entry_date', null, ['class' => 'form-control', 'placeholder' => 'z. B. '.date('d.m.Y H:i'), 'required']) !!}
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group date">
-                        {!! Form::label('date', 'Von', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-6">
-                            <div class="input-group date datetimepicker" data-date-format="DD.MM.YYYY">
-                                {!! Form::input('text', 'date', null, ['class' => 'form-control', 'placeholder' => 'z. B. '.date('d.m.Y'), 'required']) !!}
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group date">
-                        {!! Form::label('end_date', 'Bis', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-6">
-                            <div class="input-group date datetimepicker" data-date-format="DD.MM.YYYY">
-                                {!! Form::input('text', 'entry_date', null, ['class' => 'form-control', 'placeholder' => 'z. B. '.date('d.m.Y'), 'required']) !!}
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                            </div>
-                        </div>
-                    </div>
-                    {!! Form::close() !!}
-
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
+
     </div>
 </div>
 
-<script>
-    $(function() {
-        $('#holeDay').change(function() {
-            if( $('#holeDay').is(':checked') )
-            {
-                console.log('true');
-                $(".time").addClass('hidden');
-                $(".date").removeClass('hidden');
-            }  else {
-                console.log('false');
-                $(".date").addClass('hidden');
-                $(".time").removeClass('hidden');
-            }
-        })
-    });
-</script>
+@if(count($errors))
+    <script>
+        $(function() {
+            $('#myModal').modal('show');
+        });
+    </script>
+@endif

@@ -126,12 +126,7 @@ class SeminarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $seminar = Seminar::find($id);
-        $user = User::find($request->input('userid'));
-
-        $seminar->users()->attach($user);
-
-        return redirect()->action('SeminarController@show', $id)->with('status', $user->firstname.' '.$user->lastname.' hinzugefügt');
+        //
     }
 
     /**
@@ -184,5 +179,21 @@ class SeminarController extends Controller
         $seminar->users()->detach($user);
         return redirect(action('SeminarController@show', [$seminarid]))
             ->with('status', 'Benutzer wurde aus dem Seminar entfernt!');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function updateSeminar(Request $request, $id)
+    {
+        $seminar = Seminar::find($id);
+        $user = User::find($request->input('userid'));
+
+        $seminar->users()->attach($user);
+
+        return redirect()->action('SeminarController@show', $id)->with('status', $user->firstname.' '.$user->lastname.' hinzugefügt');
     }
 }

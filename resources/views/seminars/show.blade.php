@@ -34,7 +34,7 @@
             @if(Auth::user()->is_admin)
                 <tr>
                     <td colspan="3">
-                        {!! Form::open(array('id' => 'add-seminar-form', 'class' => 'form-horizontal', 'method' => 'PUT', 'route' => array('seminars.update', $seminar->id))) !!}
+                        {!! Form::open(array('id' => 'add-seminar-form', 'class' => 'form-horizontal', 'method' => 'PUT', 'action' => array('SeminarController@updateSeminar', $seminar->id))) !!}
                         <select class="form-control select2" id="userid" name="userid">
                             <option value="-1">Benutzer hinzufügen...</option>
                         </select>

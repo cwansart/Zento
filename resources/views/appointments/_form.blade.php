@@ -31,7 +31,7 @@
     {!! Form::label('end_date', 'Bis', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         <div class="input-group date datetimepicker" data-date-format="DD.MM.YYYY">
-            {!! Form::input('text', 'entry_date', null, ['class' => 'form-control', 'placeholder' => 'z. B. '.date('d.m.Y'), 'required']) !!}
+            {!! Form::input('text', 'end_date', null, ['class' => 'form-control', 'placeholder' => 'z. B. '.date('d.m.Y'), 'required']) !!}
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
         </div>
     </div>

@@ -21,6 +21,9 @@
                 events: '{!! action('AppointmentController@index') !!}',
 
                 dayClick: function (date, jsEvent, view) {
+                    d = new Date(date);
+                    $('#date').val(d.toLocaleFormat('%d.%m.%Y'));
+                    $('#end_date').val(d.toLocaleFormat('%d.%m.%Y'));
                     $('#myModal').modal('show');
                 },
 

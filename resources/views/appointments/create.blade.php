@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Termin erstellen</button>
+<button id="buttonClose" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Termin erstellen</button>
 
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -24,7 +24,7 @@
                         @endif
 
                         {!! Form::open(array('class' => 'form-horizontal', 'method' => 'POST', 'route' => 'appointments.store')) !!}
-                        @include('exams._form')
+                        @include('appointments._form')
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
@@ -44,10 +44,15 @@
     </div>
 </div>
 
-@if(count($errors))
+
     <script>
         $(function() {
+            @if(count($errors))
             $('#myModal').modal('show');
+            @endif
+            $('#buttonClose').on('click', function() {
+                        $('#date').val(new Date().toLocaleFormat('%d.%m.%Y'));
+                        $('#end_date').val(new Date().toLocaleFormat('%d.%m.%Y'));
+                    });
         });
     </script>
-@endif

@@ -7,6 +7,14 @@
 
 
 <div class="form-group">
+    {!! Form::label('description', 'Beschreibung', ['class' => 'col-md-3 control-label']) !!}
+    <div class="col-md-6">
+        {!! Form::input('text', 'description', null, ['class' => 'form-control', 'rows' => '3', 'placeholder' => 'Beschreibung']) !!}
+    </div>
+</div>
+
+
+<div class="form-group">
     {!! Form::label('date', 'Von', ['class' => 'col-md-3 control-label']) !!}
     <div class="col-md-4">
         <div class="input-group date datetimepicker" data-date-format="DD.MM.YYYY">

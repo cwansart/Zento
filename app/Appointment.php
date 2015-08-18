@@ -26,12 +26,12 @@ class Appointment extends Model
      * @var array
      */
     static public $rules = [
-        'street' => 'required|min:2', // we can't use "alpha" here since some streets are abbreviated with a dot
-        'housenr' => 'required|min:2|alphanum', // since we save it as a string for occasions like "12b" alphanum's fine
-        'zip' => 'digits:5|required', // are there any zipcodes that have more than 5 digits?
-        'city' => 'min:2|alpha|required',
+        'title' => 'required|min:3',
         'date' => 'date|required',
-        'end_date' => 'date'
+        'end_date' => 'date|required',
+        'time' => 'date_format:hh:mm|required_if:holeday,false',
+        'end_time' => 'date_format:hh:mm|required_if:holeday,false',
+        'holeday' => 'boolean|required'
     ];
 
     public function location()

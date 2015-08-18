@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Carbon\Carbon;
 use DB;
+use Validator;
 use Zento\Appointment;
 use Zento\Http\Requests;
 
@@ -41,9 +42,21 @@ class AppointmentController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), Appointment::$rules);
+
+        if ($validator->fails()) {
+            return redirect(action('UserController@index'))
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $appointment = Appointment::create();
+        $appointment->title = $request->title;
+        $appointment->save();
+
+        return redirect(action('AppointmentController@index'))->with('status', 'Termin "'.$appointment->title.'" wurde hinzugefügt.');
     }
 
     /**

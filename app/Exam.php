@@ -31,7 +31,7 @@ class Exam extends Model
         'street' => 'required|min:2', // we can't use "alpha" here since some streets are abbreviated with a dot
         'housenr' => 'required|min:1|alphanum', // since we save it as a string for occasions like "12b" alphanum's fine
         'zip' => 'digits:5|required', // are there any zipcodes that have more than 5 digits?
-        'city' => 'min:2|alpha|required',
+        'city' => 'min:2|required',
         'date' => 'date|required',
     ];
 

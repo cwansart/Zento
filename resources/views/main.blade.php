@@ -43,7 +43,7 @@
         <li role="presentation" class="{!! HTML::isActive('seminars') !!}">{!! HTML::linkRoute('seminars.index', 'Seminare') !!}</li>
         <li role="presentation" class="{!! HTML::isActive('appointments') !!}">{!! HTML::linkRoute('appointments.index', 'Termine') !!}</li>
     </ul>
-    <div class="dropdown pull-right">
+    <div class="dropdown pull-right dropdown-head">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             {!! Auth::user()->firstname !!}
             {!! Auth::user()->lastname !!}

@@ -34,6 +34,7 @@
                 <td>{!! $user->active ? 'Ja' : 'Nein' !!}</td>
             </tr>
         </table>
+		<hr>
 
         <h3>Seminarteilnahmen</h3>
         @if(count($seminars))
@@ -58,6 +59,7 @@
         @else
             Keine Seminarteilnahmen vorhanden
         @endif
+		<hr>
 
         <h3>Prüfungsteilnahmen</h3>
         @if(count($exams))

@@ -3,6 +3,23 @@
 }
 
 .navbar-right {
-
     margin: -55px 0px 0px;
+}
+
+.dropdown-head{
+	top: -45px;
+	right: 10px;
+}
+
+.alert{
+	margin-top:20px;
+}
+
+h1{
+	margin-bottom: 30px;
+}
+
+hr{
+	border-top: 1px dotted #ff000f;
+	margin: 30px 0px 30px 0px;
 }

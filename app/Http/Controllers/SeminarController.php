@@ -3,6 +3,7 @@
 namespace Zento\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Zento\Http\Requests\SeminarRequest;
 
 use Zento\Http\Requests;
 use Zento\Http\Controllers\Controller;
@@ -48,16 +49,8 @@ class SeminarController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(SeminarRequest $request)
     {
-        $validator = Validator::make($request->all(), Seminar::$rules);
-
-        if ($validator->fails()) {
-            return redirect(action('ExamController@index'))
-                ->withErrors($validator)
-                ->withInput();
-        }
-
         $location = Location::findOrCreate($request->all());
         $request['location_id'] = $location->id;
 
@@ -100,16 +93,8 @@ class SeminarController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(SeminarRequest $request, $id)
     {
-        $validator = Validator::make($request->all(), Seminar::$rules);
-
-        if ($validator->fails()) {
-            return redirect(action('SeminarController@edit',$id))
-                ->withErrors($validator)
-                ->withInput();
-        }
-
         $seminar = Seminar::findOrFail($id);
         $seminar->update($request->all());
         return redirect(action('SeminarController@index'))

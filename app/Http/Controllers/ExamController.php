@@ -117,6 +117,9 @@ class ExamController extends Controller
                 ->withInput();
         }
 
+        $location = Location::findOrCreate($request->all());
+        $request['location_id'] = $location->id;
+
         $exam = Exam::findOrFail($id);
         $exam->update($request->all());
         return redirect(action('ExamController@index'))

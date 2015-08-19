@@ -20,6 +20,7 @@ class Exam extends Model
      */
     protected $fillable = [
         'date',
+        'location_id'
     ];
 
     /**

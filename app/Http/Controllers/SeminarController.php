@@ -29,9 +29,7 @@ class SeminarController extends Controller
     public function index(Request $request)
     {
         $seminars = Seminar::paginate(15);
-
-        // returns seminars as JSON if
-        return $request->ajax() ? $seminars : view('seminars.index')->with('seminars', $seminars);
+        return view('seminars.index')->with('seminars', $seminars);
     }
 
     /**
@@ -136,7 +134,6 @@ class SeminarController extends Controller
             return $users;
         }
 
-
         return '';
     }
 
@@ -166,7 +163,6 @@ class SeminarController extends Controller
     {
         $seminar = Seminar::find($id);
         $user = User::find($request->input('userid'));
-
         $seminar->users()->attach($user);
 
         return redirect()->action('SeminarController@show', $id)->with('status', $user->firstname.' '.$user->lastname.' hinzugefügt');

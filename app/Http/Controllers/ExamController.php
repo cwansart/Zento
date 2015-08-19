@@ -97,10 +97,6 @@ class ExamController extends Controller
     public function edit($id)
     {
         $exam = Exam::findOrFail($id);
-        $exam['street'] = $exam->location->street;
-        $exam['housenr'] = $exam->location->housenr;
-        $exam['zip'] = $exam->location->zip;
-        $exam['city'] = $exam->location->city;
         return view('exams.edit')
             ->with('exam', $exam);
     }

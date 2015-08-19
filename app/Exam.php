@@ -76,4 +76,29 @@ class Exam extends Model
     {
         $this->attributes['date'] = \Carbon\Carbon::createFromFormat('d.m.Y', $date);
     }
+
+    public function getStreetAttribute($null)
+    {
+        return $this->location->street;
+    }
+
+    public function getHousenrAttribute($null)
+    {
+        return $this->location->housenr;
+    }
+
+    public function getZipAttribute($null)
+    {
+        return $this->location->zip;
+    }
+
+    public function getCityAttribute($null)
+    {
+        return $this->location->city;
+    }
+
+    public function getCountryAttribute($null)
+    {
+        return $this->location->country;
+    }
 }

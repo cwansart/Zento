@@ -3,8 +3,12 @@
 }
 
 .navbar-right {
-
     margin: -55px 0px 0px;
+}
+
+.dropdown-head{
+	top: -45px;
+	right: 10px;
 }
 
 .alert{

@@ -51,7 +51,6 @@ class SeminarController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), Seminar::$rules);
-        //dd($request);
 
         if ($validator->fails()) {
             return redirect(action('ExamController@index'))
@@ -59,36 +58,11 @@ class SeminarController extends Controller
                 ->withInput();
         }
 
-        // TODO: extract this block to the Location model
-        // check if given location exists; use or create otherwise.
-        $location = Location::where('street', '=', $request->input('street'))
-            ->where('housenr', '=', $request->input('housenr'))
-            ->where('zip', '=', $request->input('zip'))
-            ->where('city', '=', $request->input('city'))
-            ->where('country', '=', $request->input('country'));
-        if(!$location->exists()) {
-            // create location if it doesn't exist
-            $location = Location::create([
-                // do we really need a name in a location? We'll leave it blank for now...
-                //'name' => $request->input('firstname').' '.$request->input('lastname'),
-                'street' => $request->input('street'),
-                'housenr' => $request->input('housenr'),
-                'zip' => $request->input('zip'),
-                'city' => $request->input('city'),
-                'country' => $request->input('country')
-            ]);
-        } else {
-            // we need to call get() otherwise we'd have an query object
-            $location = $location->first();
-        }
+        $location = Location::findOrCreate($request->all());
+        $request['location_id'] = $location->id;
 
-        $seminar = new Seminar();
-        $seminar->date = $request->input('date');
-        $seminar->title = $request->input('title');
-        $seminar->location_id = $location->id;
-        $seminar->save();
+        Seminar::create($request->all());
 
-        // TODO: add success information to view
         return redirect(action('SeminarController@index'))->with('status', 'Seminar wurde hinzugefügt.');
     }
 

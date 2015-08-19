@@ -21,6 +21,7 @@ class Seminar extends Model
     protected $fillable = [
         'date',
         'title',
+        'location_id'
     ];
 
     /**

@@ -10,3 +10,12 @@
 .alert{
 	margin-top:20px;
 }
+
+h1{
+	margin-bottom: 30px;
+}
+
+hr{
+	border-top: 1px dotted #ff000f;
+	margin: 30px 0px 30px 0px;
+}

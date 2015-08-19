@@ -61,13 +61,10 @@ class ExamController extends Controller
         }
 
         $location = Location::findOrCreate($request->all());
+        $request['location_id'] = $location->id;
 
-        $exam = new Exam();
-        $exam->date = $request->input('date');
-        $exam->location_id = $location->id;
-        $exam->save();
-
-        // TODO: add success information to view
+        Exam::create($request->all());
+        
         return redirect(action('ExamController@index'))->with('status', 'Prüfung wurde hinzugefügt.');
     }
 

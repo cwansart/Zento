@@ -67,8 +67,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     ];
 
     static public $editProfileRules = [
-        'password' => 'min:4',
-        'password2' => 'min:4',
+        'password' => 'min:4|same:password2',
         'email' => 'email|unique:users',
     ];
 

@@ -4,6 +4,7 @@ namespace Zento\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Zento\Http\Requests\ExamRequest;
 
 use Zento\Http\Requests;
 use Zento\Http\Controllers\Controller;
@@ -49,17 +50,8 @@ class ExamController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(ExamRequest $request)
     {
-        $validator = Validator::make($request->all(), Exam::$rules);
-        //dd($request);
-
-        if ($validator->fails()) {
-            return redirect(action('ExamController@index'))
-                ->withErrors($validator)
-                ->withInput();
-        }
-
         $location = Location::findOrCreate($request->all());
         $request['location_id'] = $location->id;
 
@@ -104,16 +96,8 @@ class ExamController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(ExamRequest $request, $id)
     {
-        $validator = Validator::make($request->all(), Exam::$rules);
-
-        if ($validator->fails()) {
-            return redirect(action('ExamController@edit', $id))
-                ->withErrors($validator)
-                ->withInput();
-        }
-
         $location = Location::findOrCreate($request->all());
         $request['location_id'] = $location->id;
 

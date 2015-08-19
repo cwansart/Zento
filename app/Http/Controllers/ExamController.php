@@ -31,7 +31,7 @@ class ExamController extends Controller
     public function index(Request $request)
     {
         $exams = Exam::paginate(15);
-        return $request->ajax() ? $exams : view('exams.index')->with('exams', $exams);
+        return view('exams.index')->with('exams', $exams);
     }
 
     /**
@@ -64,7 +64,7 @@ class ExamController extends Controller
         $request['location_id'] = $location->id;
 
         Exam::create($request->all());
-        
+
         return redirect(action('ExamController@index'))->with('status', 'Prüfung wurde hinzugefügt.');
     }
 

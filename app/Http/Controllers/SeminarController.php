@@ -90,10 +90,6 @@ class SeminarController extends Controller
     public function edit($id)
     {
         $seminar = Seminar::FindOrFail($id);
-        $seminar['street'] = $seminar->location->street;
-        $seminar['housenr'] = $seminar->location->housenr;
-        $seminar['zip'] = $seminar->location->zip;
-        $seminar['city'] = $seminar->location->city;
         return view('seminars.edit')
             ->with('seminar', $seminar);
     }

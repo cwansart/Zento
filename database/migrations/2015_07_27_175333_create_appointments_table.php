@@ -19,7 +19,6 @@ class CreateAppointmentsTable extends Migration
             $table->dateTime('date');
             $table->dateTime('end_date');
             $table->boolean('all_day');
-            $table->string('color');
             $table->timestamps();
             $table->softDeletes();
         });

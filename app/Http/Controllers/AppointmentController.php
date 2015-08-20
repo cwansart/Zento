@@ -20,7 +20,7 @@ class AppointmentController extends Controller
     public function index(Request $request)
     {
         $appointments = DB::table('appointments')
-            ->select('id', 'title', 'date as start', 'end_date as end', 'all_day as allDay', 'color')
+            ->select('id', 'title', 'description', 'date as start', 'end_date as end', 'all_day as allDay')
             ->get();
 
         // returns appointments as JSON if
@@ -47,14 +47,17 @@ class AppointmentController extends Controller
         $validator = Validator::make($request->all(), Appointment::$rules);
 
         if ($validator->fails()) {
-            return redirect(action('UserController@index'))
+            return redirect(action('AppointmentController@index'))
                 ->withErrors($validator)
                 ->withInput();
         }
-
-        $appointment = Appointment::create();
-        $appointment->title = $request->title;
-        $appointment->save();
+        $dateTime = Carbon::parse($request->get('date'));
+        $time = Carbon::parse($request->get('time'));
+        $dateTime->setTime($time->hour, $time->minute, 0);
+        $request['start_date'] = $request['holeDay'] ? $request['date'] : $dateTime;
+        $request['all_day'] = $request->get('holeDay');
+        dd($request);
+        $appointment = Appointment::create($request->all());
 
         return redirect(action('AppointmentController@index'))->with('status', 'Termin "'.$appointment->title.'" wurde hinzugefügt.');
     }

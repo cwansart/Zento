@@ -22,8 +22,7 @@ class AppointmentTableSeeder extends Seeder
             'description' => 'Erwachsenentraining EM',
             'date' => Carbon::now()->setTime(19, 0, 0),
             'end_date' => Carbon::now()->setTime(21, 0, 0),
-            'all_day' => false,
-            'color' => '#6aec13'
+            'all_day' => false
         ]);
 
         Appointment::create([
@@ -31,8 +30,7 @@ class AppointmentTableSeeder extends Seeder
             'description' => 'Erwachsenentraining Wasser',
             'date' => Carbon::now()->addWeekdays(2)->setTime(19, 0, 0),
             'end_date' => Carbon::now()->addWeekdays(2)->setTime(19, 0, 0),
-            'all_day' => true,
-            'color' => '#6aec13'
+            'all_day' => true
         ]);
 
         Appointment::create([
@@ -40,16 +38,14 @@ class AppointmentTableSeeder extends Seeder
             'description' => 'Kindertraining',
             'date' => Carbon::now()->addWeekdays(4)->setTime(19, 0, 0),
             'end_date' => Carbon::now()->addWeekdays(4)->setTime(19, 0, 0),
-            'all_day' => true,
-            'color' => '#ff0000'
+            'all_day' => true
         ]);
 
         Appointment::create([
             'title' => 'Training',
             'date' => Carbon::now()->addWeekdays(-1)->setTime(19, 30, 0),
             'end_date' => Carbon::now()->addWeekdays(-1)->setTime(19, 30, 0),
-            'all_day' => true,
-            'color' => '#ff0000'
+            'all_day' => true
         ]);
 
         Appointment::create([
@@ -57,16 +53,14 @@ class AppointmentTableSeeder extends Seeder
             'description' => 'Trainingscamp 2015',
             'date' => Carbon::now()->addWeekdays(7)->setTime(8, 0, 0),
             'end_date' => Carbon::now()->addWeekdays(14)->setTime(22, 0, 0),
-            'all_day' => false,
-            'color' => '#eb9514'
+            'all_day' => false
         ]);
 
         Appointment::create([
             'title' => 'Training',
             'date' => Carbon::now()->addWeekdays(9)->setTime(19, 30, 0),
             'end_date' => Carbon::now()->addWeekdays(9)->setTime(22, 0, 0),
-            'all_day' => false,
-            'color' => '#6aec13'
+            'all_day' => false
         ]);
     }
 }

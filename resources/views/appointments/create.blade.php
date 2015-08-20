@@ -1,4 +1,4 @@
-<button id="buttonCreate" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Termin erstellen</button>
+<button id="buttonCreate" type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">Termin erstellen</button>
 
 <div class="modal fade" id="createModal" role="dialog">
     <div class="modal-dialog">
@@ -6,18 +6,22 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
+
+
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Termin erstellen</h4>
+                <h4 id='modal_title' class="modal-title">Termin erstellen</h4>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row">
-                        {!! Form::open(array('class' => 'form-horizontal', 'method' => 'POST', 'route' => 'appointments.store')) !!}
+                        {!! Form::open(array('id' => 'appointments_dialog', 'class' => 'form-horizontal',
+                        'method' => 'POST', 'route' => 'appointments.store')) !!}
+
                         @include('appointments._form')
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Termin anlegen', ['class' => 'btn btn-primary']) !!}
+                                {!! Form::submit('Termin speichern', ['class' => 'btn btn-primary']) !!}
                             </div>
                         </div>
                         {!! Form::close() !!}
@@ -40,17 +44,16 @@
             $('#createModal').modal('show');
             @endif
             $('#buttonCreate').on('click', function() {
+                        $('#appointments_dialog').attr('action', '{!! action('AppointmentController@store') !!}');
+                        $('#appointments_dialog').attr('method', 'POST');
+                        $('#modal_title').html('Termin erstellen');
+                        clear();
                         $('#date').val(new Date().toLocaleFormat('%d.%m.%Y'));
                         $('#end_date').val(new Date().toLocaleFormat('%d.%m.%Y'));
                     });
 
             $('#holeDay').change(function() {
-                if( $('#holeDay').is(':checked') )
-                {
-                    $(".timepicker").addClass('hidden');
-                } else {
-                    $(".timepicker").removeClass('hidden');
-                }
+                showTime();
             })
             });
     </script>

@@ -123,7 +123,7 @@ class SeminarController extends Controller
      * @param $seminarid
      * @return mixed
      */
-    public function getUnregisterdUsers(Request $request, $seminarid)
+    public function getUnregisteredUsers(Request $request, $seminarid)
     {
         if(!empty($request->get('q'))) {
             $searchterm = $request->get('q');

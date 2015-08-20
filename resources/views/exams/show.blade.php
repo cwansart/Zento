@@ -70,7 +70,7 @@
             $('.select2').select2({
                 language: 'de',
                 ajax: {
-                    url: '{!! action('ExamController@getUnregisterdUsers', [$exam->id]) !!}',
+                    url: '{!! action('ExamController@getUnregisteredUsers', [$exam->id]) !!}',
                     dataType: 'json',
                     delay: 250,
                     data: function(params) {

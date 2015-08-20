@@ -129,7 +129,7 @@ class ExamController extends Controller
      * @param $examid
      * @return mixed
      */
-    public function getUnregisterdUsers(Request $request, $examid)
+    public function getUnregisteredUsers(Request $request, $examid)
     {
         if(!empty($request->get('q'))) {
             $searchterm = $request->get('q');

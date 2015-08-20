@@ -53,7 +53,7 @@
             $('.select2').select2({
                 language: 'de',
                 ajax: {
-                    url: '{!! action('SeminarController@getUnregisterdUsers', [$seminar->id]) !!}',
+                    url: '{!! action('SeminarController@getUnregisteredUsers', [$seminar->id]) !!}',
                     dataType: 'json',
                     delay: 250,
                     data: function(params) {

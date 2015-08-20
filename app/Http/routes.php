@@ -21,11 +21,11 @@ Route::put('edit_profile', 'UserController@updateProfile');
 Route::get('users/{id}/change_password', 'UserController@changePassword');
 Route::put('users/{id}/change_password', 'UserController@updatePassword');
 
-Route::get('exams/get_unreg_users/{id}', 'ExamController@getUnregisterdUsers');
+Route::get('exams/get_unreg_users/{id}', 'ExamController@getUnregisteredUsers');
 Route::put('exams/{id}/addUser', 'ExamController@addUser');
 Route::delete('exams/{examid}/{userid}', 'ExamController@removeUser');
 
-Route::get('seminars/get_unreg_users/{id}', 'SeminarController@getUnregisterdUsers');
+Route::get('seminars/get_unreg_users/{id}', 'SeminarController@getUnregisteredUsers');
 Route::put('seminars/{id}/addUser', 'SeminarController@addUser');
 Route::delete('seminars/{seminarid}/{userid}', 'SeminarController@removeUser');
 

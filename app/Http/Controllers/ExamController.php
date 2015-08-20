@@ -69,7 +69,7 @@ class ExamController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $exam = Exam::find($id);
+        $exam = Exam::findOrFail($id);
         $users = $exam->users;
         return $request->ajax() ? $users :
             view('exams.show')
@@ -147,8 +147,8 @@ class ExamController extends Controller
 
     public function removeUser($examid, $userid)
     {
-        $user = User::find($userid);
-        $exam = Exam::find($examid);
+        $user = User::findOrFail($userid);
+        $exam = Exam::findOrFail($examid);
         $exam->users()->detach($user);
         return redirect(action('ExamController@show', [$examid]))
             ->with('status', 'Benutzer wurde aus Prüfung entfernt!');
@@ -156,8 +156,8 @@ class ExamController extends Controller
 
     public function addUser(ExamAddUserRequest $request, $id)
     {
-        $exam = Exam::find($id);
-        $user = User::find($request->input('userid'));
+        $exam = Exam::findOrFail($id);
+        $user = User::findOrFail($request->input('userid'));
         $result = Exam::$results[$request->input('result')];
 
         $exam->users()->attach($user);

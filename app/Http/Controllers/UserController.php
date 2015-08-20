@@ -95,7 +95,7 @@ class UserController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $seminars = $user->seminars;
         $exams = $user->exams;
 
@@ -113,7 +113,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
 
         return view('users.edit')
             ->with('user', $user)
@@ -130,7 +130,7 @@ class UserController extends Controller
     {
         $location = Location::findOrCreate($request->all());
         $request['location_id'] = $location->id;
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $user->update($request->all());
 
         return redirect(action('UserController@index'))
@@ -150,16 +150,10 @@ class UserController extends Controller
                 ->withErrors('Das eigene Benutzerkonto kann nicht gelöscht werden!');
         }
 
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $user->delete();
         return redirect(action('UserController@index'))
             ->with('status', 'Benutzer erfolgreich gelöscht!');
-    }
-
-    public function admins(Request $request)
-    {
-        $admins = User::where('is_admin', '=', true)->get();
-        return view('users.admins')->with('admins', $admins);
     }
 
     /**

@@ -64,7 +64,7 @@ class SeminarController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $seminar = Seminar::find($id);
+        $seminar = Seminar::findOrFail($id);
         $users = $seminar->users;
         return view('seminars.show')
             ->with('users', $users)
@@ -148,8 +148,8 @@ class SeminarController extends Controller
      */
     public function removeUser($seminarid, $userid)
     {
-        $user = User::find($userid);
-        $seminar = Seminar::find($seminarid);
+        $user = User::findOrFail($userid);
+        $seminar = Seminar::findOrFail($seminarid);
         $seminar->users()->detach($user);
         return redirect(action('SeminarController@show', [$seminarid]))
             ->with('status', 'Benutzer wurde aus dem Seminar entfernt!');
@@ -163,8 +163,8 @@ class SeminarController extends Controller
      */
     public function addUser(Request $request, $id)
     {
-        $seminar = Seminar::find($id);
-        $user = User::find($request->input('userid'));
+        $seminar = Seminar::findOrFail($id);
+        $user = User::findOrFail($request->input('userid'));
         $seminar->users()->attach($user);
 
         return redirect()->action('SeminarController@show', $id)->with('status', $user->firstname.' '.$user->lastname.' hinzugefügt');

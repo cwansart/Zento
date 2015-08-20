@@ -23,11 +23,6 @@ class Exam extends Model
         'location_id'
     ];
 
-    static public $updateRules = [
-        'userid' => 'required|numeric',
-        'result' => 'required|numeric|between:0,17'
-    ];
-
     static public $results = [
         '9. Kyu', '8. Kyu', '7. Kyu',
         '6. Kyu', '5. Kyu', '4. Kyu',

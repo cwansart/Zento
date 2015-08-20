@@ -5,6 +5,7 @@ namespace Zento\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Zento\Http\Requests\ExamRequest;
+use Zento\Http\Requests\ExamAddUserRequest;
 
 use Zento\Http\Requests;
 use Zento\Http\Controllers\Controller;
@@ -153,16 +154,8 @@ class ExamController extends Controller
             ->with('status', 'Benutzer wurde aus Prüfung entfernt!');
     }
 
-    public function addUser(Request $request, $id)
+    public function addUser(ExamAddUserRequest $request, $id)
     {
-        $validator = Validator::make($request->all(), Exam::$updateRules);
-
-        if ($validator->fails()) {
-            return redirect(action('ExamController@show', $id))
-                ->withErrors($validator)
-                ->withInput();
-        }
-
         $exam = Exam::find($id);
         $user = User::find($request->input('userid'));
         $result = Exam::$results[$request->input('result')];

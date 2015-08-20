@@ -97,6 +97,7 @@ class UserController extends Controller
         $user = User::find($id);
         $seminars = $user->seminars;
         $exams = $user->exams;
+
         return $request->ajax() ? $user : view('users.show')
             ->with('user', $user)
             ->with('seminars', $seminars)
@@ -112,12 +113,6 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-
-        // we need to add and adjust some data so it'll be filled in the input fields
-        $user['street'] = $user->address->street;
-        $user['housenr'] = $user->address->housenr;
-        $user['zip'] = $user->address->zip;
-        $user['city'] = $user->address->city;
 
         return view('users.edit')
             ->with('user', $user)
@@ -164,12 +159,6 @@ class UserController extends Controller
     {
         $admins = User::where('is_admin', '=', true)->get();
         return view('users.admins')->with('admins', $admins);
-    }
-
-    public function logout()
-    {
-        Auth::logout();
-        return redirect('/');
     }
 
     /**

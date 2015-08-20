@@ -51,7 +51,7 @@
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li><a href="{!! action('UserController@editProfile') !!}">Profil bearbeiten</a></li>
-            <li><a href="{!! action('UserController@logout') !!}">Abmelden</a></li>
+            <li><a href="{!! action('Auth\AuthController@getLogout') !!}">Abmelden</a></li>
         </ul>
     </div>
 </div>

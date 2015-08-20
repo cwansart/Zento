@@ -8,16 +8,7 @@
     <div class="row">
         <h1>Profil von <i>{!! $user->firstname !!} {!! $user->lastname !!}</i> bearbeiten</h1>
 
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                Es gab ein paar Probleme.<br><br>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        @include('errors._error_print')
 
         {!! Form::model($user, array('class' => 'form-horizontal', 'method' => 'PUT', 'route' => ['users.update', $user->id])) !!}
         @include('users._form')

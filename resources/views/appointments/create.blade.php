@@ -12,16 +12,7 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row">
-                        @if (count($errors) > 0)
-                            <div class="alert alert-danger">
-                                Es gab ein paar Probleme.<br><br>
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+                        @include('errors._error_print')
 
                         {!! Form::open(array('class' => 'form-horizontal', 'method' => 'POST', 'route' => 'appointments.store')) !!}
                         @include('appointments._form')

@@ -7,19 +7,11 @@
     <div class="container">
         @if (session('status'))
             <div class="alert alert-success">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                 {{ session('status') }}
             </div>
         @endif
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                Es gab ein paar Probleme.<br><br>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        @include('errors._error_print')
         <h1>Prüflinge vom {!! $exam->date !!}</h1>
         <table class="table table-hover">
             <thead>

@@ -8,16 +8,7 @@
         <div class="row">
             <h1>Seminar {!! $seminar->title !!} vom {!! $seminar->date !!} bearbeiten'</h1>
 
-            @if (count($errors) > 0)
-                <div class="alert alert-danger">
-                    Es gab ein paar Probleme.<br><br>
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+            @include('errors._error_print')
 
             {!! Form::model($seminar, array('class' => 'form-horizontal', 'method' => 'PUT', 'action' => ['SeminarController@update', $seminar->id])) !!}
             @include('seminars._form')

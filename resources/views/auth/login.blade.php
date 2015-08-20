@@ -11,16 +11,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Anmelden</div>
                     <div class="panel-body">
-                        @if (count($errors) > 0)
-                            <div class="alert alert-danger">
-                                <strong>Es gab ein paar Probleme!<br><br>
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+                        @include('errors._error_print')
 
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">

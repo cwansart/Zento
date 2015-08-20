@@ -67,9 +67,6 @@
     </div>
 
     <script>
-        $(function() {
-        });
-
         $("form").submit(function (e) {
             e.preventDefault();
             if($('#password').val() == $('#password2').val()) {

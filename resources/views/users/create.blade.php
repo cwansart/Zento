@@ -12,8 +12,6 @@
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row">
-                        @include('errors._error_print')
-
                         {!! Form::open(array('class' => 'form-horizontal', 'method' => 'POST', 'route' => 'users.store')) !!}
                         @include('users._form')
 

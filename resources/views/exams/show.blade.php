@@ -5,13 +5,6 @@
 @section('content')
 
     <div class="container">
-        @if (session('status'))
-            <div class="alert alert-success">
-                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                {{ session('status') }}
-            </div>
-        @endif
-        @include('errors._error_print')
         <h1>Prüflinge vom {!! $exam->date !!}</h1>
         <table class="table table-hover">
             <thead>

@@ -8,8 +8,6 @@
     <div class="row">
         <h1>Profil von <i>{!! $user->firstname !!} {!! $user->lastname !!}</i> bearbeiten</h1>
 
-        @include('errors._error_print')
-
         {!! Form::model($user, array('class' => 'form-horizontal', 'method' => 'PUT', 'route' => ['users.update', $user->id])) !!}
         @include('users._form')
 

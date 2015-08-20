@@ -8,8 +8,6 @@
         <div class="row">
             <h1>Seminar {!! $seminar->title !!} vom {!! $seminar->date !!} bearbeiten'</h1>
 
-            @include('errors._error_print')
-
             {!! Form::model($seminar, array('class' => 'form-horizontal', 'method' => 'PUT', 'action' => ['SeminarController@update', $seminar->id])) !!}
             @include('seminars._form')
 

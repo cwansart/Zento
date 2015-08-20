@@ -10,15 +10,6 @@
 
         <div class="container-fluid">
             <div class="row">
-                @if (session('status'))
-                    <div class="alert alert-success">
-                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                        {{ session('status') }}
-                    </div>
-                @endif
-
-                @include('errors._error_print')
-
                 <div class="alert alert-danger" id="password-error-info" role="alert" style="display:none;">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <span class="sr-only">Fehler:</span>

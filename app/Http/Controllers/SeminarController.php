@@ -161,7 +161,7 @@ class SeminarController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function updateSeminar(Request $request, $id)
+    public function addUser(Request $request, $id)
     {
         $seminar = Seminar::find($id);
         $user = User::find($request->input('userid'));

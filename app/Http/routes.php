@@ -25,7 +25,7 @@ Route::get('/', 'UserController@index');
 Route::get('edit_profile', 'UserController@editProfile');
 Route::put('edit_profile', 'UserController@updateProfile');
 Route::put('exams/{id}/addUser', 'ExamController@addUser');
-Route::put('exams/{id}/updateSeminar', 'SeminarController@updateSeminar');
+Route::put('exams/{id}/addUser', 'SeminarController@addUser');
 Route::delete('exams/{examid}/{userid}', 'ExamController@destroyResult');
 Route::delete('seminars/{seminarid}/{userid}', 'SeminarController@removeUser');
 

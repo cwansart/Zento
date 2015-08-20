@@ -25,7 +25,7 @@
                     <td>{!! $user->pivot->result !!}</td>
                     @if(Auth::user()->is_admin)
                         <td>
-                            {!! Form::open(['action' => ['ExamController@destroyResult', $exam->id, $user->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}
+                            {!! Form::open(['action' => ['ExamController@removeUser', $exam->id, $user->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}
                             {!! Form::submit('Löschen', ['class' => 'btn btn-danger btn-sm']) !!}
                             {!! Form::close() !!}
                         </td>

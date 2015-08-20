@@ -103,6 +103,23 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'email' => 'E-Mail',
+        'password' => 'Password',
+        'password2' => 'Password-Wiederholung',
+        'firstname' => 'Vorname',
+        'lastname' => 'Nachname',
+        'birthday' => 'Geburtstag',
+        'entry_date' => 'Eintrittsdatum',
+        'street' => 'Straße',
+        'housenr' => 'Hausnummer',
+        'zip' => 'PLZ',
+        'city' => 'Stadt',
+        'time' => 'Zeitpunkt',
+        'date' => 'Datum',
+        'end_date' => 'End-Datum',
+        'end_time' => 'End-Zeitpunkt',
+        'title' => 'Titel',
+    ],
 
 ];

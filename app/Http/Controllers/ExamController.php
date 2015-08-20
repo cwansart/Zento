@@ -144,7 +144,7 @@ class ExamController extends Controller
         return '';
     }
 
-    public function destroyResult($examid, $userid)
+    public function removeUser($examid, $userid)
     {
         $user = User::find($userid);
         $exam = Exam::find($examid);

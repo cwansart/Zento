@@ -11,24 +11,22 @@
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
-
-// special routes
-Route::get('exams/get_unreg_users/{id}', 'ExamController@getUnregisterdUsers');
-Route::get('seminars/get_unreg_users/{id}', 'SeminarController@getUnregisterdUsers');
-
 // set default site
 Route::get('/', 'UserController@index');
 
+// special routes
 Route::get('edit_profile', 'UserController@editProfile');
 Route::put('edit_profile', 'UserController@updateProfile');
+
+Route::get('exams/get_unreg_users/{id}', 'ExamController@getUnregisterdUsers');
 Route::put('exams/{id}/addUser', 'ExamController@addUser');
-Route::put('exams/{id}/addUser', 'SeminarController@addUser');
-Route::delete('exams/{examid}/{userid}', 'ExamController@destroyResult');
+Route::delete('exams/{examid}/{userid}', 'ExamController@removeUser');
+
+Route::get('seminars/get_unreg_users/{id}', 'SeminarController@getUnregisterdUsers');
+Route::put('seminars/{id}/addUser', 'SeminarController@addUser');
 Route::delete('seminars/{seminarid}/{userid}', 'SeminarController@removeUser');
 
+// resources
 Route::resource('users', 'UserController');
 Route::resource('exams', 'ExamController');
 Route::resource('seminars', 'SeminarController');

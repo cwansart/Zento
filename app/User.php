@@ -48,6 +48,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $hidden = ['password', 'remember_token'];
 
+    /*
+     * Relationships
+     */
     public function address()
     {
         return $this->belongsTo('Zento\Location', 'location_id');
@@ -68,6 +71,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->belongsToMany('Zento\Seminar');
     }
 
+    /**
+     * Returns a formatted address string.
+     *
+     * @return string
+     */
     public function addressStr()
     {
         return //$this->firstname.' '.$this->lastname.'<br>'.
@@ -76,6 +84,21 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                $this->address->country;
     }
 
+    /**
+     * Returns the latest result if exists, otherwise it'll return an information.
+     *
+     * @return string
+     */
+    public function latestResult()
+    {
+        $latestExam = $this->exams()->orderBy('date', 'desc')->first();
+        return $latestExam == null ? 'Noch kein Ergebnis' : $latestExam->pivot->result;
+        return $latestExam;
+    }
+
+    /*
+     * Several mutators for simplify code in the controllers.
+     */
     public function getBirthdayAttribute($birthday)
     {
         return \Carbon\Carbon::parse($birthday)->format('d.m.Y');

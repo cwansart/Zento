@@ -48,11 +48,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $hidden = ['password', 'remember_token'];
 
-    static public $editProfileRules = [
-        'password' => 'min:4|same:password2',
-        'email' => 'email|unique:users',
-    ];
-
     public function address()
     {
         return $this->belongsTo('Zento\Location', 'location_id');

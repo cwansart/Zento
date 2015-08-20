@@ -153,7 +153,7 @@ class ExamController extends Controller
             ->with('status', 'Benutzer wurde aus Prüfung entfernt!');
     }
 
-    public function updateExam(Request $request, $id)
+    public function addUser(Request $request, $id)
     {
         $validator = Validator::make($request->all(), Exam::$updateRules);
 

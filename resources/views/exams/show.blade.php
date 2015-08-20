@@ -33,7 +33,7 @@
                 </tr>
             @endforeach
             @if(Auth::user()->is_admin)
-                {!! Form::open(array('id' => 'add-exam-form', 'class' => 'form-horizontal', 'method' => 'PUT', 'action' => array('ExamController@updateExam', $exam->id))) !!}
+                {!! Form::open(array('id' => 'add-exam-form', 'class' => 'form-horizontal', 'method' => 'PUT', 'action' => array('ExamController@addUser', $exam->id))) !!}
                 <tr>
                     <td colspan="2">
 

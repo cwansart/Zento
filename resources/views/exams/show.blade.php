@@ -92,8 +92,7 @@
                 minimumInputLength: 1,
                 templateResult: function(user) {
                     if(user.loading) return user.text;
-                    var birthday = new Date(user.birthday.split(' ')[0]);
-                    return '<div class="clearfix"><div>'+user.firstname+' '+ user.lastname +', '+ user.email +' ('+ birthday.toLocaleDateString() +')</div></div>';
+                    return '<div class="clearfix"><div>'+user.firstname+' '+ user.lastname +', '+ user.email +' ('+ user.birthday +')</div></div>';
                 },
                 templateSelection: function(user) {
                     return user.firstname || user.text;

@@ -4,18 +4,21 @@
 
 @section('content')
 
+    {{--- We still need this, since this one is triggered by JavaScript! ---}}
+    <div class="alert alert-danger" id="password-error-info" role="alert" style="display:none;">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        Es gab ein paar Probleme:<br><br>
+        <ul>
+            <li>Die eingegebenen Passwörter stimmen nicht überein!</li>
+        </ul>
+    </div>
+
     <div class="container">
         <h1>Profil bearbeiten</h1>
         <p>Hallo {!! $user->firstname !!} {!! $user->lastname !!}, hier kannst du Profildaten ändern.</p>
 
         <div class="container-fluid">
             <div class="row">
-                <div class="alert alert-danger" id="password-error-info" role="alert" style="display:none;">
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <span class="sr-only">Fehler:</span>
-                    Die eingegebenen Passwörter stimmen nicht überein!
-                </div>
-
                 {!! Form::open(array('class' => 'form-horizontal', 'method' => 'PUT', 'action' => ['UserController@updateProfile', $user->id], 'autocomplete' => 'off')) !!}
                 {{-- This is a little bugfix to turn off autocompletion for the email address and password fields. --}}
                 <input type="text" style="display:none">

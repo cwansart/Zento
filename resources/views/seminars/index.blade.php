@@ -14,6 +14,7 @@
                         <th>Datum</th>
                         <th>Titel</th>
                         <th>Ort</th>
+                        <th>Teilnehmer</th>
                         @if(Auth::user()->is_admin)
                             <th>Aktion</th>
                         @endif
@@ -25,6 +26,7 @@
                             <td>{!! $seminar->date !!}</td>
                             <td>{!! $seminar->title !!}</td>
                             <td>{!! $seminar->addressStr() !!}</td>
+                            <td>{!! $seminar->users->count() !!}</td>
                             @if(Auth::user()->is_admin)
                                 <td>
                                     {!! Form::open(['action' => ['SeminarController@destroy', $seminar->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}

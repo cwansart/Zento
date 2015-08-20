@@ -51,7 +51,6 @@ class SeminarController extends Controller
     {
         $location = Location::findOrCreate($request->all());
         $request['location_id'] = $location->id;
-
         Seminar::create($request->all());
 
         return redirect(action('SeminarController@index'))->with('status', 'Seminar wurde hinzugefügt.');

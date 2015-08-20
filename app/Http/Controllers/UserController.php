@@ -3,6 +3,7 @@
 namespace Zento\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Zento\Http\Requests\UserRequest;
 
 use Auth;
 use Hash;
@@ -76,21 +77,11 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $validator = Validator::make($request->all(), User::$rules);
-
-        if ($validator->fails()) {
-            return redirect(action('UserController@index'))
-                ->withErrors($validator)
-                ->withInput();
-        }
-
         $location = Location::findOrCreate($request->all());
-
+        $request['location_id'] = $location->id;
         $user = User::create($request->all());
-        $user->location_id = $location->id;
-        $user->save();
 
         return redirect(action('UserController@index'))->with('status', 'Benutzer '.$user->firstname.' '.$user->lastname.' wurde hinzugefügt.');
     }
@@ -139,28 +130,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
+        $location = Location::findOrCreate($request->all());
+        $request['location_id'] = $location->id;
         $user = User::find($id);
-        $rules = User::$rules;
-
-        // Just a little fix when the mail address is the same. Otherwise
-        // it'd throw an error saying that the mail address already exists.
-        if($request->get('email') == $user->email) {
-            $rules['email'] = 'required|email';
-        }
-
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return redirect(action('UserController@edit', [$id]))
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        $data = $request->all();
-        $location = Location::findOrCreate($data);
-        $data['location_id'] = $location->id;
-        $user->update($data);
+        $user->update($request->all());
 
         return redirect(action('UserController@index'))
             ->with('status', 'Profil von '.$user->firstname.' '.$user->lastname.' aktualisiert!');

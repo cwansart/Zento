@@ -48,24 +48,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $hidden = ['password', 'remember_token'];
 
-    /**
-     * The attributes that are stored as 'date' in the database.
-     *
-     * @var array
-     */
-    protected $dates = ['birthday', 'entry_date'];
-
-    static public $rules = [
-        'firstname' => 'required|min:2|alpha',
-        'lastname' => 'required|min:2|alpha',
-        'email' => 'required|email|unique:users',
-        'password' => 'min:4',
-        'birthday' => 'date|required',
-        'entry_date' => 'date|required',
-        'is_admin' => 'boolean',
-        'active' => 'boolean'
-    ];
-
     static public $editProfileRules = [
         'password' => 'min:4|same:password2',
         'email' => 'email|unique:users',

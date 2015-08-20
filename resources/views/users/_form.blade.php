@@ -20,13 +20,6 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('password', 'Passwort', ['class' => 'col-md-4 control-label']) !!}
-    <div class="col-md-6">
-        {!! Form::input('password', 'password', null, ['class' => 'form-control', 'placeholder' => 'Leer lassen zum Deaktivieren']) !!}
-    </div>
-</div>
-
-<div class="form-group">
     {!! Form::label('birthday', 'Geburtstag', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         <div class="input-group date datetimepicker" data-date-format="DD.MM.YYYY">

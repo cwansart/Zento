@@ -157,7 +157,10 @@ class UserController extends Controller
     }
 
     /**
-     * Shows the view to change the profile of logged in user
+     * Returns the view for edit profile dialog.
+     *
+     * @param Request $request
+     * @return $this
      */
     public function editProfile(Request $request)
     {
@@ -169,10 +172,10 @@ class UserController extends Controller
     }
 
     /**
-     * Updates the profile
+     * Updates the profile.
      *
-     * @param Request $request
-     * @return $this|\Illuminate\Http\RedirectResponse
+     * @param UpdateProfileRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function updateProfile(UpdateProfileRequest $request)
     {
@@ -183,5 +186,37 @@ class UserController extends Controller
 
         return redirect(action('UserController@editProfile'))
             ->with('status', 'Benutzerdaten erfolgreich aktualisiert!');
+    }
+
+    /**
+     * Shows the change password dialog for a specific id.
+     *
+     * @param $id
+     * @return $this
+     */
+    public function changePassword($id)
+    {
+        $user = User::findOrFail($id);
+        return view('users.changePassword')
+            ->with('user', $user);
+    }
+
+    /**
+     * Updates the given password of a specific user.
+     *
+     * @param UpdateProfileRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updatePassword(UpdateProfileRequest $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        // To ensure that nobody passes an email as well (since we're using an
+        // UpdateProfileRequest) we'll pass an array solely with the password.
+        $user->update(['password' => $request['password']]);
+
+        return redirect(action('UserController@index'))
+            ->with('status', 'Password für '.$user->firstname.' '.$user->lastname.' gesetzt.'.$request['password']);
     }
 }

@@ -25,7 +25,7 @@ class UpdateProfileRequest extends Request
     {
         return [
             'password' => 'min:4|same:password2',
-            'email' => 'email|unique:users',
+            'email' => 'email|unique:users,email' . ($this->route()->users != null ? ','.$this->route()->users : ''),
         ];
     }
 }

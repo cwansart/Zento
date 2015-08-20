@@ -115,4 +115,29 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         $this->attributes['password'] = empty($password) ? false : Hash::make($password);
     }
+
+    public function getStreetAttribute($null)
+    {
+        return $this->address->street;
+    }
+
+    public function getHousenrAttribute($null)
+    {
+        return $this->address->housenr;
+    }
+
+    public function getZipAttribute($null)
+    {
+        return $this->address->zip;
+    }
+
+    public function getCityAttribute($null)
+    {
+        return $this->address->city;
+    }
+
+    public function getCountryAttribute($null)
+    {
+        return $this->address->country;
+    }
 }

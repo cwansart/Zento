@@ -49,8 +49,6 @@
                         $('[name=_method]').val('POST');
                         $('#modal_title').html('Termin erstellen');
                         clear();
-                        $('#date').val(new Date().toLocaleFormat('%d.%m.%Y'));
-                        $('#end_date').val(new Date().toLocaleFormat('%d.%m.%Y'));
                     });
 
             $('#holeDay').change(function() {

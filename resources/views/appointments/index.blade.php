@@ -58,32 +58,24 @@
             $('#calendar').fullCalendar('rerenderEvents');
 
             $('.timepicker').datetimepicker({
-                maskInput: false,
                 language: 'de',
-                pickDate: false,
-                format: ____timeFormat
+                format: ____dateFormat+' ' +____timeFormat
             });
 
             showTime();
         });
 
         function clear() {
-            $('#title').val(null);
-            $('#description').val(null);
-            $('#date').val(null);
-            $('#end_date').val(null);
-            $('#time').val(null);
-            $('#end_time').val(null);
-            $('#holeDay').val(null);
+            $('#appointments_dialog')[0].reset();
         }
 
         function showTime() {
             if ($('#holeDay').is(':checked')) {
-                $(".timepicker").addClass('hidden');
-                $(".timepicker input").prop('required', false);
+                $("#end-date-group").addClass('invisible');
+                $("#end-date-group input").prop('required', false);
             } else {
-                $(".timepicker").removeClass('hidden');
-                $(".timepicker input").prop('required', true);
+                $("#end-date-group").removeClass('invisible');
+                $("#end-date-group input").prop('required', true);
             }
         }
     </script>

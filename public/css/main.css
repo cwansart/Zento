@@ -103,3 +103,10 @@ img {
 	min-width:22px;
 	min-height:22px;
 }
+
+.table-user tbody a, .table-user tbody input{
+	display:block;
+	float:left;
+	margin-right:20px;
+	border:0px;
+}

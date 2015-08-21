@@ -39,7 +39,7 @@ class SeminarController extends Controller
      */
     public function create()
     {
-        //
+        return view('seminars.create');
     }
 
     /**

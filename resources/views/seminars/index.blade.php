@@ -49,7 +49,27 @@
     <hr>
 
     @if(Auth::user()->is_admin)
-    @include('seminars.create')
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Seminar erstellen</button>
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Seminar erstellen</h4>
+                    </div>
+                    <div class="modal-body">
+                        @include('seminars.createFormContainer')
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     @endif
 
 @endsection

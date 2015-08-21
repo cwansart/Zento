@@ -16,6 +16,14 @@ class SeminarRequest extends Request
         return true;
     }
 
+    protected function getRedirectUrl()
+    {
+        if($this->method() == 'POST') {
+            return action('SeminarController@create');
+        }
+        return parent::getRedirectUrl();
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

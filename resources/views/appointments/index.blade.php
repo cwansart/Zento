@@ -15,8 +15,8 @@
 
     <script>
         $(document).ready(function() {
-            var ____dateFormat = 'DD.MM.YYYY';
-            var ____timeFormat = 'HH:mm';
+            ____dateFormat = 'DD.MM.YYYY';
+            ____timeFormat = 'HH:mm';
 
             $('#calendar').fullCalendar({
                 // put your options and callbacks here
@@ -28,13 +28,19 @@
                     $('[name=_method]').val('POST');
                     $('#modal_title').html('Termin erstellen');
                     clear();
-                    d = new Date(date);
-                    $('#date').val(d.format(____dateFormat));
-                    $('#end_date').val(d.format(____dateFormat));
+                    var dateTime = date.format(____dateFormat+' ' +____timeFormat);
+                    $('.timepicker').data().DateTimePicker.setDate(dateTime);
+                    $('#end-date-group .timepicker').data().DateTimePicker.setDate(dateTime);
                     $('#createModal').modal('show');
                 },
 
                 eventClick: function (event, jsEvent, view) {
+                    console.log('allDay: ');
+                    console.log(event.allDay);
+                    if(event.allDay) {
+                        event.end = event.start;
+                    }
+
                     $('#appointments_dialog').attr('action', '{!! route('appointments.update', null) !!}/'+event.id);
                     $('[name=_method]').val('PUT');
                     $('#modal_title').html('Termin bearbeiten');
@@ -42,14 +48,12 @@
 
                     $('#title').val(event.title);
                     $('#description').val(event.description);
-                    $('#date').val(event.start.format(____dateFormat));
-                    $('#end_date').val(event.end.format(____dateFormat));
+
+                    $('.timepicker').data().DateTimePicker.setDate(event.start.format(____dateFormat+' ' +____timeFormat));
+                    $('#end-date-group .timepicker').data().DateTimePicker.setDate(event.end.format(____dateFormat+' ' +____timeFormat));
+
                     $('#holeDay').prop("checked", event.allDay);
                     showTime();
-                    if (!event.allDay) {
-                        $('[name = time]').val(event.start.format(____timeFormat));
-                        $('[name = end_time]').val(event.end.format(____timeFormat));
-                    }
                     $('#createModal').modal('show');
                 },
 
@@ -59,7 +63,9 @@
 
             $('.timepicker').datetimepicker({
                 language: 'de',
-                format: ____dateFormat+' ' +____timeFormat
+                format: ____dateFormat+' ' +____timeFormat,
+                useCurrent: false,
+                sideBySide: true
             });
 
             showTime();
@@ -67,15 +73,20 @@
 
         function clear() {
             $('#appointments_dialog')[0].reset();
+            $('.timepicker').data().DateTimePicker.setDate()
         }
 
         function showTime() {
             if ($('#holeDay').is(':checked')) {
                 $("#end-date-group").addClass('invisible');
-                $("#end-date-group input").prop('required', false);
+                $("#end-date-group input").prop('required', false)
+                $('.timepicker').data().DateTimePicker.format = ____dateFormat;
+                $('.timepicker').data().DateTimePicker.setDate($('.timepicker').data().DateTimePicker.getDate());
             } else {
                 $("#end-date-group").removeClass('invisible');
                 $("#end-date-group input").prop('required', true);
+                $('.timepicker').data().DateTimePicker.format = ____dateFormat+' ' +____timeFormat;
+                $('.timepicker').data().DateTimePicker.setDate($('.timepicker').data().DateTimePicker.getDate());
             }
         }
     </script>

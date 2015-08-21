@@ -16,6 +16,14 @@ class ExamRequest extends Request
         return true;
     }
 
+    protected function getRedirectUrl()
+    {
+        if($this->method() == 'POST') {
+            return action('ExamController@create');
+        }
+        return parent::getRedirectUrl();
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

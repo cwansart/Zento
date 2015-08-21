@@ -48,7 +48,27 @@
     <hr>
 
     @if(Auth::user()->is_admin)
-    @include('exams.create')
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Prüfung erstellen</button>
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Prüfung erstellen</h4>
+                    </div>
+                    <div class="modal-body">
+                        @include('exams.createFormContainer')
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     @endif
 
 @endsection

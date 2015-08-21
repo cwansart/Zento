@@ -1,41 +1,9 @@
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Benutzer erstellen</button>
+@extends('main')
 
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
+@section('title', 'Benutzer anlegen')
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Benutzer erstellen</h4>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        {!! Form::open(array('class' => 'form-horizontal', 'method' => 'POST', 'route' => 'users.store')) !!}
-                        @include('users._form')
+@section('content')
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                {!! Form::submit('Benutzer anlegen', ['class' => 'btn btn-primary']) !!}
-                            </div>
-                        </div>
-                        {!! Form::close() !!}
+@include('users.createFormContainer')
 
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-@if(count($errors))
-    <script>
-        $(function() {
-            $('#myModal').modal('show');
-        });
-    </script>
-@endif
+@endsection

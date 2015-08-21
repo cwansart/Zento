@@ -2,7 +2,9 @@
 
 namespace Zento\Http\Requests;
 
+use Illuminate\Support\Facades\Redirect;
 use Zento\Http\Requests\Request;
+use Route;
 
 class UserRequest extends Request
 {
@@ -14,6 +16,21 @@ class UserRequest extends Request
     public function authorize()
     {
         return true;
+    }
+
+    /**
+     * Overrides parent getRedirectUrl to redirect to the create action; we need this because
+     * otherwise it would use the "back()" url, which is UserController@index in case of
+     * the modal create dialog.
+     *
+     * @return string
+     */
+    protected function getRedirectUrl()
+    {
+        if($this->method() == 'POST') {
+            return action('UserController@create');
+        }
+        return parent::getRedirectUrl();
     }
 
     /**

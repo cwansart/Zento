@@ -85,3 +85,21 @@ img {
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover, .open>.dropdown-toggle.btn-primary.focus, .open>.dropdown-toggle.btn-primary:focus, .open>.dropdown-toggle.btn-primary:hover{
 	background:#c92618;
 }
+
+.edit{
+	background:url(../images/picto-edit.png) no-repeat;
+	min-width:22px;
+	min-height:22px;
+}
+
+.delete{
+	background:url(../images/picto-delete.png) no-repeat;
+	min-width:22px;
+	min-height:22px;
+}
+
+.change-password{
+	background:url(../images/picto-changePassword.png) no-repeat;
+	min-width:22px;
+	min-height:22px;
+}

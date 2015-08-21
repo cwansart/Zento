@@ -3,7 +3,6 @@
 @section('title', 'Benutzerliste')
 
 @section('content')
-
     <div class="container">
         <h1>Benutzerliste</h1>
         @if(count($users))

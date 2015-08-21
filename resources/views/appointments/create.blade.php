@@ -16,6 +16,7 @@
                     <div class="row">
                         {!! Form::open(array('id' => 'appointments_dialog', 'class' => 'form-horizontal',
                         'method' => 'POST', 'route' => 'appointments.store')) !!}
+                        {!! Form::hidden('_method', 'POST') !!}
 
                         @include('appointments._form')
 
@@ -45,7 +46,7 @@
             @endif
             $('#buttonCreate').on('click', function() {
                         $('#appointments_dialog').attr('action', '{!! action('AppointmentController@store') !!}');
-                        $('#appointments_dialog').attr('method', 'POST');
+                        $('[name=_method]').val('POST');
                         $('#modal_title').html('Termin erstellen');
                         clear();
                         $('#date').val(new Date().toLocaleFormat('%d.%m.%Y'));

@@ -25,7 +25,7 @@
 
                 dayClick: function (date, jsEvent, view) {
                     $('#appointments_dialog').attr('action', '{!! action('AppointmentController@store') !!}');
-                    $('#appointments_dialog').attr('method', 'POST');
+                    $('[name=_method]').val('POST');
                     $('#modal_title').html('Termin erstellen');
                     clear();
                     d = new Date(date);
@@ -35,8 +35,8 @@
                 },
 
                 eventClick: function (event, jsEvent, view) {
-                    $('#appointments_dialog').attr('action', '{!! action('AppointmentController@update') !!}');
-                    $('#appointments_dialog').attr('method', 'PUT');
+                    $('#appointments_dialog').attr('action', '{!! route('appointments.update', null) !!}/'+event.id);
+                    $('[name=_method]').val('PUT');
                     $('#modal_title').html('Termin bearbeiten');
                     clear();
 
@@ -46,7 +46,6 @@
                     $('#end_date').val(event.end.format(____dateFormat));
                     $('#holeDay').prop("checked", event.allDay);
                     showTime();
-                    console.log(event.allDay);
                     if (!event.allDay) {
                         $('[name = time]').val(event.start.format(____timeFormat));
                         $('[name = end_time]').val(event.end.format(____timeFormat));

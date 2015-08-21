@@ -51,15 +51,22 @@ class AppointmentController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        $dateTime = Carbon::parse($request->get('date'));
-        $time = Carbon::parse($request->get('time'));
-        $dateTime->setTime($time->hour, $time->minute, 0);
-        $request['start_date'] = $request['holeDay'] ? $request['date'] : $dateTime;
-        $request['all_day'] = $request->get('holeDay');
-        dd($request);
+
+        $request['all_day'] = $request->has('holeDay');
+
+        $request['date'] = Carbon::createFromFormat('d.m.Y', $request->get('date'));
+        $request['end_date'] = Carbon::createFromFormat('d.m.Y', $request->get('end_date'));
+
+        if(!$request->has('holeDay')) {
+            $time = Carbon::parse($request->get('time'));
+            $endTime = Carbon::parse($request->get('end_time'));
+            $request['date']->setTime($time->hour, $time->minute);
+            $request['end_date']->setTime($endTime->hour, $endTime->minute);
+        }
+
         $appointment = Appointment::create($request->all());
 
-        return redirect(action('AppointmentController@index'))->with('status', 'Termin "'.$appointment->title.'" wurde hinzugefügt.');
+        return redirect(action('AppointmentController@index'))->with('status', 'Termin <i>'.$appointment->title.'</i> wurde hinzugefügt.');
     }
 
     /**

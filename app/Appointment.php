@@ -8,9 +8,10 @@ class Appointment extends Model
 {
     protected $fillable = [
         'title',
+        'description',
         'date',
         'end_date',
-        'all_day'
+        'all_day',
     ];
 
     /**

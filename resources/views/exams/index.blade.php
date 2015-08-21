@@ -9,7 +9,7 @@
 
         <h1>Prüfungsübersicht</h1>
         @if(count($exams))
-            <table class="table table-hover">
+            <table class="table table-hover table-exam">
                 <thead>
                     <tr>
                         <th>Datum</th>
@@ -29,8 +29,8 @@
                             @if(Auth::user()->is_admin)
                                 <td>
                                     {!! Form::open(['action' => ['ExamController@destroy', $exam->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}
-                                    {!! Html::linkAction('ExamController@edit', 'Bearbeiten', [$exam->id], ['class' => 'btn btn-primary btn-sm']) !!}
-                                    {!! Form::submit('Löschen', ['class' => 'btn btn-danger btn-sm']) !!}
+                                    {!! Html::linkAction('ExamController@edit', '', [$exam->id], ['class' => 'edit']) !!}
+                                    {!! Form::submit('', ['class' => 'delete']) !!}
                                     {!! Form::close() !!}
                                 </td>
                             @endif

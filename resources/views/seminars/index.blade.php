@@ -8,7 +8,7 @@
         <h1>Seminarübersicht</h1>
         @if(count($seminars))
 
-            <table class="table table-hover">
+            <table class="table table-hover table-seminar">
                 <thead>
                     <tr>
                         <th>Datum</th>
@@ -30,8 +30,8 @@
                             @if(Auth::user()->is_admin)
                                 <td>
                                     {!! Form::open(['action' => ['SeminarController@destroy', $seminar->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}
-                                    {!! Html::linkAction('SeminarController@edit', 'Bearbeiten', [$seminar->id], ['class' => 'btn btn-primary btn-sm']) !!}
-                                    {!! Form::submit('Löschen', ['class' => 'btn btn-danger btn-sm']) !!}
+                                    {!! Html::linkAction('SeminarController@edit', '', [$seminar->id], ['class' => 'edit']) !!}
+                                    {!! Form::submit('', ['class' => 'delete']) !!}
                                     {!! Form::close() !!}
                                 </td>
                             @endif

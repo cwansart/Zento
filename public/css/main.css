@@ -104,7 +104,7 @@ img {
 	min-height:22px;
 }
 
-.table-user tbody a, .table-user tbody input{
+.table-user tbody a, .table-user tbody input, .table-exam tbody a, .table-exam tbody input, .table-seminar tbody a, .table-seminar tbody input{
 	display:block;
 	float:left;
 	margin-right:20px;

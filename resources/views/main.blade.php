@@ -37,7 +37,7 @@
 <body>
 @if(Auth::check())
     <div class="page-header">
-        <img src="{!! asset('images/zento.png') !!}" alt="">
+        <a href="{!! route('users.index') !!}"><img src="{!! asset('images/zento.png') !!}" alt="Zento"></a>
         <ul class="nav nav-tabs">
             <li role="presentation" class="{!! HTML::isActive('users') !!}">{!! HTML::linkRoute('users.index', 'Benutzer') !!}</li>
             <li role="presentation" class="{!! HTML::isActive('exams') !!}">{!! HTML::linkRoute('exams.index', 'Prüfungen') !!}</li>

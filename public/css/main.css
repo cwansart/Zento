@@ -110,3 +110,7 @@ img {
 	margin-right:20px;
 	border:0px;
 }
+
+.bootstrap-datetimepicker-widget td.active, .bootstrap-datetimepicker-widget td.active:hover{
+	background-color: #e24b3e;
+}

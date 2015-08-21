@@ -23,6 +23,12 @@ class AppointmentController extends Controller
             ->select('id', 'title', 'description', 'date as start', 'end_date as end', 'all_day as allDay')
             ->get();
 
+        // fullcalendar needs the date in the ISO8601 format, so we'll fix this here.
+        foreach($appointments as $appointment) {
+            $appointment->start = Carbon::parse($appointment->start)->toIso8601String();
+            $appointment->end = Carbon::parse($appointment->end)->toIso8601String();
+        }
+
         // returns appointments as JSON if
         return $request->ajax() ? $appointments : view('appointments.index')->with('appointments', $appointments);
     }

@@ -115,14 +115,12 @@ class AppointmentController extends Controller
 
         $request['all_day'] = $request->has('holeDay');
 
-        $request['date'] = Carbon::createFromFormat('d.m.Y', $request->get('date'));
-        $request['end_date'] = Carbon::createFromFormat('d.m.Y', $request->get('end_date'));
-
-        if(!$request->has('holeDay')) {
-            $time = Carbon::parse($request->get('time'));
-            $endTime = Carbon::parse($request->get('end_time'));
-            $request['date']->setTime($time->hour, $time->minute);
-            $request['end_date']->setTime($endTime->hour, $endTime->minute);
+        // If allDay/wholeDay is checked then end and start date are the same!
+        if($request->has('holeDay')) {
+            $request['date'] = $request['end_date'] = Carbon::createFromFormat('d.m.Y', $request->get('date'));
+        } else {
+            $request['date'] = Carbon::createFromFormat('d.m.Y H:i', $request->get('date'));
+            $request['end_date'] = Carbon::createFromFormat('d.m.Y H:i', $request->get('end_date'));
         }
 
         $appointment->update($request->all());

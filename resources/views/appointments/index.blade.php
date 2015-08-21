@@ -15,6 +15,9 @@
 
     <script>
         $(document).ready(function() {
+            var ____dateFormat = 'DD.MM.YYYY';
+            var ____timeFormat = 'HH:mm';
+
             $('#calendar').fullCalendar({
                 // put your options and callbacks here
 
@@ -26,8 +29,8 @@
                     $('#modal_title').html('Termin erstellen');
                     clear();
                     d = new Date(date);
-                    $('#date').val(d.toLocaleFormat('%d.%m.%Y'));
-                    $('#end_date').val(d.toLocaleFormat('%d.%m.%Y'));
+                    $('#date').val(d.format(____dateFormat));
+                    $('#end_date').val(d.format(____dateFormat));
                     $('#createModal').modal('show');
                 },
 
@@ -36,24 +39,22 @@
                     $('#appointments_dialog').attr('method', 'PUT');
                     $('#modal_title').html('Termin bearbeiten');
                     clear();
-                    d_start = new Date(event.start);
-                    d_end = new Date(event.end);
+
                     $('#title').val(event.title);
                     $('#description').val(event.description);
-                    $('#date').val(d_start.toLocaleFormat('%d.%m.%Y'));
-                    $('#end_date').val(d_end.toLocaleFormat('%d.%m.%Y'));
+                    $('#date').val(event.start.format(____dateFormat));
+                    $('#end_date').val(event.end.format(____dateFormat));
                     $('#holeDay').prop("checked", event.allDay);
                     showTime();
                     console.log(event.allDay);
                     if (!event.allDay) {
-                        console.log(d_end.toLocaleFormat('%H:%M'));
-                        $('[name = time]').val(d_start.toLocaleFormat('%H:%M'));
-                        $('[name = end_time]').val(d_end.toLocaleFormat('%H:%M'));
+                        $('[name = time]').val(event.start.format(____timeFormat));
+                        $('[name = end_time]').val(event.end.format(____timeFormat));
                     }
                     $('#createModal').modal('show');
                 },
 
-                timeFormat: 'HH:mm'
+                timeFormat: ____timeFormat
             });
             $('#calendar').fullCalendar('rerenderEvents');
 
@@ -61,7 +62,7 @@
                 maskInput: false,
                 language: 'de',
                 pickDate: false,
-                format: 'HH:mm'
+                format: ____timeFormat
             });
 
             showTime();

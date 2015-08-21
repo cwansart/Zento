@@ -17,6 +17,7 @@
     {!! HTML::script('bootstrap/js/bootstrap.datetimepicker-de.js') !!}
     {!! HTML::script('select2/js/select2.min.js') !!}
     {!! HTML::script('select2/js/i18n/de.js') !!}
+    {!! HTML::script('js/dateFormat.js') !!}
     {!! HTML::script('js/main.js') !!}
     {!! HTML::script('fullcalendar-2.3.2/lib/moment.min.js') !!}
     {!! HTML::script('fullcalendar-2.3.2/fullcalendar.js') !!}

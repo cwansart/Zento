@@ -66,7 +66,7 @@ class AppointmentController extends Controller
 
         $appointment = Appointment::create($request->all());
 
-        return redirect(action('AppointmentController@index'))->with('status', 'Termin <i>'.$appointment->title.'</i> wurde hinzugefügt.');
+        return redirect(action('AppointmentController@index'))->with('status', 'Termin „'.$appointment->title.'” wurde hinzugefügt.');
     }
 
     /**
@@ -100,9 +100,33 @@ class AppointmentController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        //
+        $appointment= Appointment::findOrFail($id);
+
+        $validator = Validator::make($request->all(), Appointment::$rules);
+
+        if ($validator->fails()) {
+            return redirect(action('AppointmentController@index'))
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $request['all_day'] = $request->has('holeDay');
+
+        $request['date'] = Carbon::createFromFormat('d.m.Y', $request->get('date'));
+        $request['end_date'] = Carbon::createFromFormat('d.m.Y', $request->get('end_date'));
+
+        if(!$request->has('holeDay')) {
+            $time = Carbon::parse($request->get('time'));
+            $endTime = Carbon::parse($request->get('end_time'));
+            $request['date']->setTime($time->hour, $time->minute);
+            $request['end_date']->setTime($endTime->hour, $endTime->minute);
+        }
+
+        $appointment->update($request->all());
+
+        return redirect(action('AppointmentController@index'))->with('status', 'Termin „'.$appointment->title.'” wurde bearbeitet.');
     }
 
     /**

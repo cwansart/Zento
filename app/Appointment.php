@@ -30,8 +30,6 @@ class Appointment extends Model
         'title' => 'required|min:3',
         'date' => 'date|required',
         'end_date' => 'date|required',
-        'time' => 'date_format:"H:i"|required_if:holeday,false',
-        'end_time' => 'date_format:"H:i"|required_if:holeday,false'
     ];
 
     public function location()

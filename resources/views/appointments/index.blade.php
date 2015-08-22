@@ -51,6 +51,9 @@
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
+                        {!! Form::open(['action' => ['UserController@destroy', null], 'method' => 'DELETE', 'class' => ' pull-right', 'id' => 'delform']) !!}
+                        {!! Form::submit('', ['class' => 'delete']) !!}
+                        {!! Form::close() !!}
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 id='modal_title' class="modal-title">Termin bearbeiten</h4>
                     </div>
@@ -124,6 +127,9 @@
                     // fill modal dialog with data
                     var updateRoute = '{!! action('AppointmentController@update', null) !!}';
                     $('#appointment-edit-dialog').attr('action', updateRoute+'/'+event.id);
+
+                    var destroyRoute = '{!! action('AppointmentController@destroy', null) !!}';
+                    $('#delform').attr('action', destroyRoute+'/'+event.id);
 
                     $('#appointment-edit-dialog [name=title]').val(event.title);
                     $('#appointment-edit-dialog [name=description]').val(event.description);

@@ -114,3 +114,8 @@ img {
 .bootstrap-datetimepicker-widget td.active, .bootstrap-datetimepicker-widget td.active:hover{
 	background-color: #e24b3e;
 }
+
+#editModal .delete {
+	border: none;
+	margin-left: -50px;
+}

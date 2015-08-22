@@ -36,11 +36,11 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('holeDay', 'Ganztägig', ['class' => 'col-md-3 control-label']) !!}
+    {!! Form::label('wholeDay', 'Ganztägig', ['class' => 'col-md-3 control-label']) !!}
 
     <div class="col-md-6">
         <div class="input-group checkbox">
-            {!! Form::checkbox('holeDay', 0, false,  array('id'=>'holeDay', 'style' => 'margin-left:0 !important')) !!}
+            {!! Form::checkbox('wholeDay', 0, false,  array('id'=>'wholeDay', 'style' => 'margin-left:0 !important')) !!}
         </div>
     </div>
 </div>

@@ -3,92 +3,187 @@
 @section('title', 'Termine')
 
 @section('content')
-
-    <br>
-
     <div class="container">
         <div id='calendar'></div>
-        @include('appointments.create')
+
+        <button id="buttonCreate" type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">Termin erstellen</button>
+
+        <div class="modal fade" id="createModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                        <h4 id='modal_title' class="modal-title">Termin erstellen</h4>
+                    </div>
+                    {!! Form::open(array('id' => 'appointment-create-dialog', 'class' => 'form-horizontal',
+                    'method' => 'POST', 'route' => 'appointments.store')) !!}
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+
+                                @include('appointments._form')
+
+                                <div class="form-group">
+                                    <div class="col-md-6 col-md-offset-4">
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        {!! Form::submit('Termin speichern', ['class' => 'btn btn-primary']) !!}
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                    </div>
+                    {!! Form::close() !!}
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal fade" id="editModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 id='modal_title' class="modal-title">Termin bearbeiten</h4>
+                    </div>
+
+                    {!! Form::open(array('id' => 'appointment-edit-dialog', 'class' => 'form-horizontal',
+                    'method' => 'PUT', 'route' => 'appointments.update')) !!}
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+
+                                @include('appointments._form')
+
+                                <div class="form-group">
+                                    <div class="col-md-6 col-md-offset-4">
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        {!! Form::submit('Termin speichern', ['class' => 'btn btn-primary']) !!}
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                    </div>
+                    {!! Form::close() !!}
+                </div>
+
+            </div>
+        </div>
     </div>
 
-    <hr>
-
     <script>
+        var _dateFormat = 'DD.MM.YYYY';
+        var _timeFormat = 'HH:mm';
+
         $(document).ready(function() {
-            ____dateFormat = 'DD.MM.YYYY';
-            ____timeFormat = 'HH:mm';
 
             $('#calendar').fullCalendar({
-                // put your options and callbacks here
-
+                timeFormat: _timeFormat,
                 events: '{!! action('AppointmentController@index') !!}',
 
                 dayClick: function (date, jsEvent, view) {
-                    $('#appointments_dialog').attr('action', '{!! action('AppointmentController@store') !!}');
-                    $('[name=_method]').val('POST');
-                    $('#modal_title').html('Termin erstellen');
-                    clear();
-                    var dateTime = date.format(____dateFormat+' ' +____timeFormat);
-                    $('.timepicker').data().DateTimePicker.setDate(dateTime);
-                    $('#end-date-group .timepicker').data().DateTimePicker.setDate(dateTime);
+                    var start_date = date.format(_dateFormat+' '+_timeFormat);
+                    var end_date = start_date;
+
+                    // clear form
+                    $('#createModal form')[0].reset();
+
+                    // fill modal dialog with data
+                    var storeRoute = '{!! action('AppointmentController@store') !!}';
+                    $('#appointment-edit-dialog').attr('action', storeRoute);
+
+                    $('#appointment-create-dialog [name=date]').val(start_date);
+                    $('#appointment-create-dialog [name=end_date]').val(end_date);
+
                     $('#createModal').modal('show');
                 },
 
                 eventClick: function (event, jsEvent, view) {
-                    console.log('allDay: ');
-                    console.log(event.allDay);
                     if(event.allDay) {
                         event.end = event.start;
                     }
 
-                    $('#appointments_dialog').attr('action', '{!! route('appointments.update', null) !!}/'+event.id);
-                    $('[name=_method]').val('PUT');
-                    $('#modal_title').html('Termin bearbeiten');
-                    clear();
+                    var start_date = event.allDay ? event.start.format(_dateFormat) :event.start.format(_dateFormat+' '+_timeFormat);
+                    var end_date = event.end.format(_dateFormat+' '+_timeFormat);
 
-                    $('#title').val(event.title);
-                    $('#description').val(event.description);
+                    // clear form
+                    $('#editModal form')[0].reset();
 
-                    $('.timepicker').data().DateTimePicker.setDate(event.start.format(____dateFormat+' ' +____timeFormat));
-                    $('#end-date-group .timepicker').data().DateTimePicker.setDate(event.end.format(____dateFormat+' ' +____timeFormat));
+                    // fill modal dialog with data
+                    var updateRoute = '{!! action('AppointmentController@update', null) !!}';
+                    $('#appointment-edit-dialog').attr('action', updateRoute+'/'+event.id);
 
-                    $('#holeDay').prop("checked", event.allDay);
-                    showTime();
-                    $('#createModal').modal('show');
+                    $('#appointment-edit-dialog [name=title]').val(event.title);
+                    $('#appointment-edit-dialog [name=description]').val(event.description);
+                    $('#appointment-edit-dialog [name=date]').val(start_date);
+                    $('#appointment-edit-dialog [name=end_date]').val(end_date);
+                    $('#appointment-edit-dialog [name=wholeDay]').prop('checked', event.allDay);
+
+                    if(event.allDay) {
+                        $('#appointment-edit-dialog #end-date-group').addClass('invisible');
+                        $("#appointment-edit-dialog #end-date-group input").prop('required', false);
+                    } else {
+                        $('#appointment-edit-dialog #end-date-group').removeClass('invisible');
+                        $("#appointment-edit-dialog #end-date-group input").prop('required', true);
+                    }
+
+                    $('#editModal').modal('show');
                 },
-
-                timeFormat: ____timeFormat
             });
             $('#calendar').fullCalendar('rerenderEvents');
 
             $('.timepicker').datetimepicker({
                 language: 'de',
-                format: ____dateFormat+' ' +____timeFormat,
+                format: _dateFormat+' ' +_timeFormat,
                 useCurrent: false,
                 sideBySide: true
             });
 
-            showTime();
+            $('#appointment-edit-dialog [name=wholeDay]').on('change', function() {
+                if($(this).is(":checked")) {
+                    $('#appointment-edit-dialog #end-date-group').addClass('invisible');
+                    $('#appointment-edit-dialog .timepicker').data().DateTimePicker.format = _dateFormat;
+                    $('#appointment-edit-dialog .timepicker').data().DateTimePicker.setDate($('#appointment-edit-dialog .timepicker').data().DateTimePicker.getDate());
+                    $("#appointment-edit-dialog #end-date-group input").prop('required', false);
+                } else {
+                    $('#appointment-edit-dialog #end-date-group').removeClass('invisible');
+                    $('#appointment-edit-dialog .timepicker').data().DateTimePicker.format = _dateFormat+' '+_timeFormat;
+                    $('#appointment-edit-dialog .timepicker').data().DateTimePicker.setDate($('#appointment-edit-dialog .timepicker').data().DateTimePicker.getDate());
+                    $("#appointment-edit-dialog #end-date-group input").prop('required', true);
+                }
+            });
+
+            $('#appointment-create-dialog [name=wholeDay]').on('change', function() {
+                if($(this).is(":checked")) {
+                    $('#appointment-create-dialog #end-date-group').addClass('invisible');
+                    $('#appointment-create-dialog .timepicker').data().DateTimePicker.format = _dateFormat;
+                    $('#appointment-create-dialog .timepicker').data().DateTimePicker.setDate($('#appointment-create-dialog .timepicker').data().DateTimePicker.getDate());
+                    $("#appointment-create-dialog #end-date-group input").prop('required', false);
+                } else {
+                    $('#appointment-create-dialog #end-date-group').removeClass('invisible');
+                    $('#appointment-create-dialog .timepicker').data().DateTimePicker.format = _dateFormat+' '+_timeFormat;
+                    $('#appointment-create-dialog .timepicker').data().DateTimePicker.setDate($('#appointment-create-dialog .timepicker').data().DateTimePicker.getDate());
+                    $("#appointment-create-dialog #end-date-group input").prop('required', true);
+
+                }
+            });
+
+            $('#buttonCreate').on('click', function() {
+                $('#createModal form')[0].reset();
+            });
         });
-
-        function clear() {
-            $('#appointments_dialog')[0].reset();
-            $('.timepicker').data().DateTimePicker.setDate()
-        }
-
-        function showTime() {
-            if ($('#holeDay').is(':checked')) {
-                $("#end-date-group").addClass('invisible');
-                $("#end-date-group input").prop('required', false)
-                $('.timepicker').data().DateTimePicker.format = ____dateFormat;
-                $('.timepicker').data().DateTimePicker.setDate($('.timepicker').data().DateTimePicker.getDate());
-            } else {
-                $("#end-date-group").removeClass('invisible');
-                $("#end-date-group input").prop('required', true);
-                $('.timepicker').data().DateTimePicker.format = ____dateFormat+' ' +____timeFormat;
-                $('.timepicker').data().DateTimePicker.setDate($('.timepicker').data().DateTimePicker.getDate());
-            }
-        }
     </script>
 
 @endsection

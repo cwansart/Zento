@@ -61,7 +61,7 @@ class AppointmentController extends Controller
         $request['all_day'] = $request->has('holeDay');
 
         // If allDay/wholeDay is checked then end and start date are the same!
-        if($request->has('holeDay')) {
+        if($request->has('wholeDay')) {
             $request['date'] = $request['end_date'] = Carbon::createFromFormat('d.m.Y', $request->get('date'));
         } else {
             $request['date'] = Carbon::createFromFormat('d.m.Y H:i', $request->get('date'));
@@ -113,10 +113,10 @@ class AppointmentController extends Controller
                 ->withInput();
         }
 
-        $request['all_day'] = $request->has('holeDay');
+        $request['all_day'] = $request->has('wholeDay');
 
         // If allDay/wholeDay is checked then end and start date are the same!
-        if($request->has('holeDay')) {
+        if($request->has('wholeDay')) {
             $request['date'] = $request['end_date'] = Carbon::createFromFormat('d.m.Y', $request->get('date'));
         } else {
             $request['date'] = Carbon::createFromFormat('d.m.Y H:i', $request->get('date'));

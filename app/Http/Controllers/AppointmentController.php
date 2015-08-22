@@ -3,6 +3,7 @@
 namespace Zento\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Zento\Http\Requests\AppointmentRequest;
 
 use Carbon\Carbon;
 use DB;
@@ -48,16 +49,8 @@ class AppointmentController extends Controller
      *
      * @return Response
      */
-    public function store(Request $request)
+    public function store(AppointmentRequest $request)
     {
-        $validator = Validator::make($request->all(), Appointment::$rules);
-
-        if ($validator->fails()) {
-            return redirect(action('AppointmentController@index'))
-                ->withErrors($validator)
-                ->withInput();
-        }
-
         $request['all_day'] = $request->has('holeDay');
 
         // If allDay/wholeDay is checked then end and start date are the same!
@@ -101,18 +94,8 @@ class AppointmentController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(AppointmentRequest $request, $id)
     {
-        $appointment= Appointment::findOrFail($id);
-
-        $validator = Validator::make($request->all(), Appointment::$rules);
-
-        if ($validator->fails()) {
-            return redirect(action('AppointmentController@index'))
-                ->withErrors($validator)
-                ->withInput();
-        }
-
         $request['all_day'] = $request->has('wholeDay');
 
         // If allDay/wholeDay is checked then end and start date are the same!
@@ -123,6 +106,7 @@ class AppointmentController extends Controller
             $request['end_date'] = Carbon::createFromFormat('d.m.Y H:i', $request->get('end_date'));
         }
 
+        $appointment= Appointment::findOrFail($id);
         $appointment->update($request->all());
 
         return redirect(action('AppointmentController@index'))->with('status', 'Termin „'.$appointment->title.'” wurde bearbeitet.');

@@ -53,7 +53,16 @@ class UserController extends Controller
                 break;
         }
 
-        $users = User::orderBy($orderBy, $order)->paginate(15);
+        $users = null;
+
+        if($request->has('q')) {
+            $users = User::where('firstname', 'LIKE', '%'.$request->get('q').'%')
+                ->orWhere('lastname', 'LIKE', '%'.$request->get('q').'%')
+                ->orWhere('email', 'LIKE', '%'.$request->get('q').'%')
+                ->orderBy($orderBy, $order)->paginate(15);
+        } else {
+            $users = User::orderBy($orderBy, $order)->paginate(15);
+        }
 
         // returns users as JSON if requested by $.getJSON
         return $request->ajax() ? $users :

@@ -12,6 +12,7 @@ class Appointment extends Model
         'date',
         'end_date',
         'all_day',
+        'user_id',
     ];
 
     /**
@@ -21,16 +22,8 @@ class Appointment extends Model
      */
     protected $dates = ['date', 'end_date'];
 
-    public function location()
+    public function trainer()
     {
-        return $this->belongsTo('Zento\Location');
-    }
-
-    public function addressStr()
-    {
-        return
-            $this->location->street.' '.$this->location->housenr.'<br>'.
-            $this->location->zip.' '.$this->location->city.'<br>'.
-            $this->location->country;
+        return $this->belongsTo('Zento\User', 'user_id');
     }
 }

@@ -21,7 +21,7 @@ class AppointmentController extends Controller
     public function index(Request $request)
     {
         $appointments = DB::table('appointments')
-            ->select('id', 'title', 'description', 'date as start', 'end_date as end', 'all_day as allDay')
+            ->select('id', 'title', 'description', 'date as start', 'end_date as end', 'all_day as allDay', 'user_id')
             ->get();
 
         // fullcalendar needs the date in the ISO8601 format, so we'll fix this here.

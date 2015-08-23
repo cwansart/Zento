@@ -137,6 +137,20 @@
                     $('#appointment-edit-dialog [name=end_date]').val(end_date);
                     $('#appointment-edit-dialog [name=wholeDay]').prop('checked', event.allDay);
 
+                    if(event.user_id) {
+                        $('#appointment-edit-dialog #current-trainer').val(event.user_id);
+                        $('#appointment-edit-dialog #current-trainer-info span').text('Lord Helmchen');
+
+                        // Dynamically load the user data 'cause we don't have it all the time. May not work, that's
+                        // why I set a default value.
+                        $.getJSON('{!! action('UserController@show', null) !!}/'+event.user_id, function(trainer) {
+                            $('#appointment-edit-dialog #current-trainer-info span').text(trainer.firstname+' '+trainer.lastname);
+                        });
+                    } else {
+                        $('#appointment-edit-dialog #current-trainer').val(-1);
+                        $('#appointment-edit-dialog #current-trainer-info span').text('Keiner');
+                    }
+
                     if(event.allDay) {
                         $('#appointment-edit-dialog #end-date-group').addClass('invisible');
                         $("#appointment-edit-dialog #end-date-group input").prop('required', false);

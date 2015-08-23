@@ -44,3 +44,50 @@
         </div>
     </div>
 </div>
+
+<div class="form-group">
+    {!! Form::label('user_id', 'Trainer', ['class' => 'col-md-3 control-label']) !!}
+    <div class="col-md-6">
+        <select class="form-control select2" id="user_id" name="user_id">
+            <option id="current-trainer" value="-1">Trainer hinzufügen...</option>
+        </select>
+        <p class="help-block" id="current-trainer-info">Zurzeit: <span>Keiner</span></p>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function() {
+        $('.select2').select2({
+            language: 'de',
+            ajax: {
+                url: '{!! action('UserController@index') !!}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, // search term (in input field)
+                        page: params.page
+                    };
+                },
+                processResults: function (data, page) {
+                    return {
+                        results: data.data
+                    }
+                }
+            },
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 1,
+            templateResult: function (user) {
+                if (user.loading) return user.text;
+                return '<div class="clearfix"><div>' + user.firstname + ' ' + user.lastname + ', ' + user.email + ' (' + user.birthday + ')</div></div>';
+            },
+            templateSelection: function (user) {
+                return user.firstname || user.text;
+            },
+            width: '100%'
+        });
+    });
+</script>

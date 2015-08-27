@@ -135,3 +135,11 @@ img {
 html {
 	overflow-y: scroll;
 }
+
+.fc-day:hover{
+	background-color:#eeeeee;
+}
+
+.fc-content:hover{
+	cursor:pointer;
+}

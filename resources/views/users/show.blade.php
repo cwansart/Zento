@@ -6,7 +6,7 @@
 
     <div class="container">
         <h1>{!! $user->firstname !!} {!! $user->lastname !!}</h1>
-        <table class="table table-hover">
+        <table class="table">
             <tr>
                 <td>Adresse:</td>
                 <td>{!! $user->addressStr() !!}</td>

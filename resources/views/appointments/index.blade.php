@@ -18,19 +18,21 @@
 
                         <h4 id='modal_title' class="modal-title">Termin erstellen</h4>
                     </div>
-                    {!! Form::open(array('id' => 'appointment-create-dialog', 'class' => 'form-horizontal',
-                    'method' => 'POST', 'route' => 'appointments.store')) !!}
+
                     <div class="modal-body">
                         <div class="container-fluid">
                             <div class="row">
 
+                                {!! Form::open(array('id' => 'appointment-create-dialog', 'class' => 'form-horizontal', 'method' => 'POST', 'route' => 'appointments.store')) !!}
                                 @include('appointments._form')
 
                                 <div class="form-group">
-                                    <div class="col-md-6 col-md-offset-4">
-
+                                    <div class="col-md-6 col-md-6 col-md-offset-3">
+                                        {!! Form::submit('Termin speichern', ['class' => 'btn btn-primary']) !!}
                                     </div>
                                 </div>
+
+                                {!! Form::close() !!}
 
                             </div>
                         </div>
@@ -39,7 +41,6 @@
                         {!! Form::submit('Termin speichern', ['class' => 'btn btn-primary']) !!}
                         <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
                     </div>
-                    {!! Form::close() !!}
                 </div>
 
             </div>
@@ -52,34 +53,33 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         {!! Form::open(['action' => ['UserController@destroy', null], 'method' => 'DELETE', 'class' => ' pull-right', 'id' => 'delform']) !!}
-                        {!! Form::submit('', ['class' => 'delete']) !!}
+                        {!! Form::submit('', ['class' => 'delete', 'title' => 'Termin löschen', 'data-toggle' => 'tooltip', 'data-placement' => 'left']) !!}
                         {!! Form::close() !!}
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 id='modal_title' class="modal-title">Termin bearbeiten</h4>
                     </div>
 
-                    {!! Form::open(array('id' => 'appointment-edit-dialog', 'class' => 'form-horizontal',
-                    'method' => 'PUT', 'route' => 'appointments.update')) !!}
+
                     <div class="modal-body">
                         <div class="container-fluid">
                             <div class="row">
 
-                                @include('appointments._form')
+                                {!! Form::open(array('id' => 'appointment-edit-dialog', 'class' => 'form-horizontal', 'method' => 'PUT', 'route' => 'appointments.update')) !!}
+                                    @include('appointments._form')
 
                                 <div class="form-group">
-                                    <div class="col-md-6 col-md-offset-4">
-
+                                    <div class="col-md-6 col-md-6 col-md-offset-3">
+                                        {!! Form::submit('Termin speichern', ['class' => 'btn btn-primary']) !!}
                                     </div>
                                 </div>
+                                {!! Form::close() !!}
 
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        {!! Form::submit('Termin speichern', ['class' => 'btn btn-primary']) !!}
                         <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
                     </div>
-                    {!! Form::close() !!}
                 </div>
 
             </div>
@@ -203,6 +203,8 @@
             $('#buttonCreate').on('click', function() {
                 $('#createModal form')[0].reset();
             });
+
+            $('[data-toggle="tooltip"]').tooltip()
         });
     </script>
 

@@ -24,7 +24,7 @@
                     @if(Auth::user()->is_admin)
                         <td>
                             {!! Form::open(['action' => ['SeminarController@removeUser', $seminar->id, $user->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}
-                            {!! Form::submit('', ['class' => 'delete']) !!}
+                            {!! Form::submit('', ['class' => 'delete', 'title' => 'Aus Seminar entfernen', 'data-toggle' => 'tooltip', 'data-placement' => 'right']) !!}
                             {!! Form::close() !!}
                         </td>
                     @endif
@@ -79,7 +79,10 @@
                     return '<div class="clearfix"><div>'+user.firstname+' '+ user.lastname +', '+ user.email +' ('+ user.birthday +')</div></div>';
                 },
                 templateSelection: function(user) {
-                    return user.firstname || user.text;
+                    if(user.firstname || user.lastname) {
+                        var name = user.firstname + ' ' + user.lastname;
+                    }
+                    return name || user.text;
                 }
             });
 
@@ -92,5 +95,11 @@
     {{--
     {!! $seminarUsers->render() !!}
     --}}
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 
 @endsection

@@ -30,8 +30,8 @@
                             @if(Auth::user()->is_admin)
                                 <td>
                                     {!! Form::open(['action' => ['SeminarController@destroy', $seminar->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}
-                                    {!! Html::linkAction('SeminarController@edit', '', [$seminar->id], ['class' => 'edit']) !!}
-                                    {!! Form::submit('', ['class' => 'delete']) !!}
+                                    {!! Html::linkAction('SeminarController@edit', '', [$seminar->id], ['class' => 'edit', 'title' => 'Seminar bearbeiten', 'data-toggle' => 'tooltip', 'data-placement' => 'right']) !!}
+                                    {!! Form::submit('', ['class' => 'delete', 'title' => 'Seminar löschen', 'data-toggle' => 'tooltip', 'data-placement' => 'right']) !!}
                                     {!! Form::close() !!}
                                 </td>
                             @endif
@@ -71,5 +71,11 @@
             </div>
         </div>
     @endif
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 
 @endsection

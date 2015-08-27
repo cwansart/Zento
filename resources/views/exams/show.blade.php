@@ -26,7 +26,7 @@
                     @if(Auth::user()->is_admin)
                         <td>
                             {!! Form::open(['action' => ['ExamController@removeUser', $exam->id, $user->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}
-                            {!! Form::submit('', ['class' => 'delete']) !!}
+                            {!! Form::submit('', ['class' => 'delete', 'title' => 'Prüfling entfernen', 'data-toggle' => 'tooltip', 'data-placement' => 'right']) !!}
                             {!! Form::close() !!}
                         </td>
                     @endif
@@ -95,7 +95,10 @@
                     return '<div class="clearfix"><div>'+user.firstname+' '+ user.lastname +', '+ user.email +' ('+ user.birthday +')</div></div>';
                 },
                 templateSelection: function(user) {
-                    return user.firstname || user.text;
+                    if(user.firstname || user.lastname) {
+                        var name = user.firstname + ' ' + user.lastname;
+                    }
+                    return name || user.text;
                 }
             });
 
@@ -106,6 +109,8 @@
             $('#result').on('change', function(e) {
                 $('#add-exam-form').submit();
             });
+
+            $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
 

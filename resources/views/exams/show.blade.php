@@ -6,7 +6,7 @@
 
     <div class="container">
         <h1>Prüflinge vom {!! $exam->date !!}</h1>
-        <table class="table table-hover">
+        <table class="table table-hover table-exam">
             <thead>
             <tr>
                 <th>Vorname</th>
@@ -26,7 +26,7 @@
                     @if(Auth::user()->is_admin)
                         <td>
                             {!! Form::open(['action' => ['ExamController@removeUser', $exam->id, $user->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}
-                            {!! Form::submit('Löschen', ['class' => 'btn btn-danger btn-sm']) !!}
+                            {!! Form::submit('', ['class' => 'delete']) !!}
                             {!! Form::close() !!}
                         </td>
                     @endif

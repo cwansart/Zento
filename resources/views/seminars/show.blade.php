@@ -6,7 +6,7 @@
 
     <div class="container">
         <h1>Teilnehmer des Seminars „{!! $seminar->title !!}“</h1>
-        <table class="table table-hover">
+        <table class="table table-hover table-seminar">
             <thead>
             <tr>
                 <th>Vorname</th>
@@ -24,7 +24,7 @@
                     @if(Auth::user()->is_admin)
                         <td>
                             {!! Form::open(['action' => ['SeminarController@removeUser', $seminar->id, $user->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}
-                            {!! Form::submit('Löschen', ['class' => 'btn btn-danger btn-sm']) !!}
+                            {!! Form::submit('', ['class' => 'delete']) !!}
                             {!! Form::close() !!}
                         </td>
                     @endif

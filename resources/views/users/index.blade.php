@@ -26,10 +26,10 @@
                     @if(Auth::user()->is_admin)
                         <td>
                             {!! Form::open(['action' => ['UserController@destroy', $user->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}
-                            {!! Html::linkAction('UserController@edit', '', [$user->id], ['class' => 'edit']) !!}
-                            {!! Html::linkAction('UserController@changePassword', '', [$user->id], ['class' => 'change-password']) !!}
+                            {!! Html::linkAction('UserController@edit', '', [$user->id], ['class' => 'edit', 'title' => 'Benutzer bearbeiten', 'data-toggle' => 'tooltip', 'data-placement' => 'right']) !!}
+                            {!! Html::linkAction('UserController@changePassword', '', [$user->id], ['class' => 'change-password', 'title' => 'Passwort ändern', 'data-toggle' => 'tooltip', 'data-placement' => 'right']) !!}
                             @if(Auth::user()->id != $user->id)
-                                {!! Form::submit('', ['class' => 'delete']) !!}
+                                {!! Form::submit('', ['class' => 'delete', 'title' => 'Benutzer löschen', 'data-toggle' => 'tooltip', 'data-placement' => 'right']) !!}
                             @endif
                             {!! Form::close() !!}
                         </td>
@@ -75,5 +75,11 @@
             </script>
         @endif
     @endif
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 
 @endsection

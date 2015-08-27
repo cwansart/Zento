@@ -147,3 +147,7 @@ html {
 .table-2cols td {
 	width: 50%;
 }
+
+.page-header {
+	border-bottom: none;
+}

@@ -131,3 +131,7 @@ img {
 	border: none;
 	margin-left: -50px;
 }
+
+html {
+	overflow-y: scroll;
+}

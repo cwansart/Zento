@@ -76,6 +76,14 @@ img {
 	color: #a9a9a9;
 }
 
+.alert-danger .glyphicon{
+	color: #d9534f;
+}
+
+.alert-success .glyphicon{
+	color: #5cb85c;
+}
+
 .btn-primary{
 	background: #e24b3e;
 	border:0px;

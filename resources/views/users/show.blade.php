@@ -6,7 +6,7 @@
 
     <div class="container">
         <h1>{!! $user->firstname !!} {!! $user->lastname !!}</h1>
-        <table class="table">
+        <table class="table table-2cols">
             <tr>
                 <td>Adresse:</td>
                 <td>{!! $user->addressStr() !!}</td>
@@ -34,36 +34,12 @@
                 <td>{!! $user->active ? 'Ja' : 'Nein' !!}</td>
             </tr>
         </table>
-		<hr>
 
-        <h3>Seminarteilnahmen</h3>
-        @if(count($seminars))
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Datum</th>
-                        <th>Titel</th>
-                        <th>Ort</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($seminars as $seminar)
-                        <tr class="clickable-row" data-href="{{ action('SeminarController@show', [$seminar->id]) }}">
-                            <td>{!! $seminar->date !!}</td>
-                            <td>{!! $seminar->title !!}</td>
-                            <td>{!! $seminar->addressStr() !!}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @else
-            Keine Seminarteilnahmen vorhanden
-        @endif
 		<hr>
 
         <h3>Prüfungsteilnahmen</h3>
         @if(count($exams))
-            <table class="table table-hover">
+            <table class="table table-hover table-2cols">
                 <thead>
                     <tr>
                         <th>Datum</th>
@@ -81,6 +57,32 @@
             </table>
         @else
             <p>Keine Prüfungen vorhanden</p>
+        @endif
+
+        <hr>
+
+        <h3>Seminarteilnahmen</h3>
+        @if(count($seminars))
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Datum</th>
+                    <th>Titel</th>
+                    <th>Ort</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($seminars as $seminar)
+                    <tr class="clickable-row" data-href="{{ action('SeminarController@show', [$seminar->id]) }}">
+                        <td>{!! $seminar->date !!}</td>
+                        <td>{!! $seminar->title !!}</td>
+                        <td>{!! $seminar->addressStr() !!}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        @else
+            Keine Seminarteilnahmen vorhanden
         @endif
 
         {!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}

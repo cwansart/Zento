@@ -18,20 +18,11 @@
     {!! HTML::script('select2/js/select2.min.js') !!}
     {!! HTML::script('select2/js/i18n/de.js') !!}
     {!! HTML::script('js/dateFormat.js') !!}
+    {!! HTML::script('js/deleteConfirm.js') !!}
     {!! HTML::script('js/main.js') !!}
     {!! HTML::script('fullcalendar-2.3.2/lib/moment.min.js') !!}
     {!! HTML::script('fullcalendar-2.3.2/fullcalendar.js') !!}
     {!! HTML::script('fullcalendar-2.3.2/lang/de.js') !!}
-
-    <script>
-        $(document).ready(function() {
-            $('.datetimepicker').datetimepicker({
-                language: 'de',
-                pickTime: false,
-                format: 'DD.mm.yyyy'
-            });
-        });
-    </script>
 
 </head>
 <body>
@@ -78,6 +69,8 @@
     @endif
 
     @yield('content')
+
+    @include('delete_confirm')
 </div>
 </body>
 </html>

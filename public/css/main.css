@@ -26,7 +26,8 @@ hr{
 
 .page-header{
 	background:#4c4d53;	
-	min-height:90px;	
+	min-height:90px;
+	border-bottom: none;	
 }
 
 .nav{
@@ -95,7 +96,13 @@ img {
 }
 
 .btn-default{
+	background: #e0e0e0;
+	border:0px;
 	margin: 10px 0px 10px 0px;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover{
+	background:#cccccc;
 }
 
 .edit{
@@ -146,8 +153,4 @@ html {
 
 .table-2cols td {
 	width: 50%;
-}
-
-.page-header {
-	border-bottom: none;
 }

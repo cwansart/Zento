@@ -20,47 +20,47 @@ class AppointmentTableSeeder extends Seeder
         Appointment::create([
             'title' => 'Training',
             'description' => 'Erwachsenentraining EM',
-            'date' => Carbon::now()->setTime(19, 0, 0),
-            'end_date' => Carbon::now()->setTime(21, 0, 0),
-            'all_day' => false
+            'start' => Carbon::now()->setTime(19, 0, 0),
+            'end' => Carbon::now()->setTime(21, 0, 0),
+            'allDay' => false
         ]);
 
         Appointment::create([
             'title' => 'Training',
             'description' => 'Erwachsenentraining Wasser',
-            'date' => Carbon::now()->addWeekdays(2)->setTime(19, 0, 0),
-            'end_date' => Carbon::now()->addWeekdays(2)->setTime(19, 0, 0),
-            'all_day' => true
+            'start' => Carbon::now()->addWeekdays(2)->setTime(19, 0, 0),
+            'end' => Carbon::now()->addWeekdays(2)->setTime(19, 0, 0),
+            'allDay' => true
         ]);
 
         Appointment::create([
             'title' => 'Training',
             'description' => 'Kindertraining',
-            'date' => Carbon::now()->addWeekdays(4)->setTime(19, 0, 0),
-            'end_date' => Carbon::now()->addWeekdays(4)->setTime(19, 0, 0),
-            'all_day' => true
+            'start' => Carbon::now()->addWeekdays(4)->setTime(19, 0, 0),
+            'end' => Carbon::now()->addWeekdays(4)->setTime(19, 0, 0),
+            'allDay' => true
         ]);
 
         Appointment::create([
             'title' => 'Training',
-            'date' => Carbon::now()->addWeekdays(-1)->setTime(19, 30, 0),
-            'end_date' => Carbon::now()->addWeekdays(-1)->setTime(19, 30, 0),
-            'all_day' => true
+            'start' => Carbon::now()->addWeekdays(-1)->setTime(19, 30, 0),
+            'end' => Carbon::now()->addWeekdays(-1)->setTime(19, 30, 0),
+            'allDay' => true
         ]);
 
         Appointment::create([
             'title' => 'Lehrgang Dänemark',
             'description' => 'Trainingscamp 2015',
-            'date' => Carbon::now()->addWeekdays(7)->setTime(8, 0, 0),
-            'end_date' => Carbon::now()->addWeekdays(14)->setTime(22, 0, 0),
-            'all_day' => false
+            'start' => Carbon::now()->addWeekdays(7)->setTime(8, 0, 0),
+            'end' => Carbon::now()->addWeekdays(14)->setTime(22, 0, 0),
+            'allDay' => false
         ]);
 
         Appointment::create([
             'title' => 'Training',
-            'date' => Carbon::now()->addWeekdays(9)->setTime(19, 30, 0),
-            'end_date' => Carbon::now()->addWeekdays(9)->setTime(22, 0, 0),
-            'all_day' => false
+            'start' => Carbon::now()->addWeekdays(9)->setTime(19, 30, 0),
+            'end' => Carbon::now()->addWeekdays(9)->setTime(22, 0, 0),
+            'allDay' => false
         ]);
     }
 }

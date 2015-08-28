@@ -1,93 +1,79 @@
 <div class="form-group">
-    {!! Form::label('title', 'Titel', ['class' => 'col-md-3 control-label']) !!}
+    {!! Form::label('title', 'Titel', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         {!! Form::input('text', 'title', null, ['class' => 'form-control', 'placeholder' => 'Titel', 'required']) !!}
     </div>
 </div>
 
-
 <div class="form-group">
-    {!! Form::label('description', 'Beschreibung', ['class' => 'col-md-3 control-label']) !!}
+    {!! Form::label('description', 'Beschreibung', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::input('text', 'description', null, ['class' => 'form-control', 'rows' => '3', 'placeholder' => 'Beschreibung']) !!}
+        {!! Form::input('text', 'description', null, ['class' => 'form-control', 'placeholder' => 'Beschreibung']) !!}
     </div>
 </div>
 
-
 <div class="form-group">
-    {!! Form::label('date', 'Von', ['class' => 'col-md-3 control-label']) !!}
+    {!! Form::label('start', 'Von', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        <div class="input-group date timepicker">
-            {!! Form::input('text', 'date', null, ['class' => 'form-control', 'placeholder' => 'z. B. '.date('d.m.Y'), 'required']) !!}
-            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-        </div>
-    </div>
-</div>
-
-
-<div class="form-group" id="end-date-group">
-    {!! Form::label('end_date', 'Bis', ['class' => 'col-md-3 control-label']) !!}
-    <div class="col-md-6">
-        <div class="input-group date timepicker">
-            {!! Form::input('text', 'end_date', null, ['class' => 'form-control', 'placeholder' => 'z. B. '.date('d.m.Y'), 'required']) !!}
+        <div class="input-group date picker" id="start-picker">
+            {!! Form::input('text', 'start', null, ['class' => 'form-control', 'placeholder' => 'z. B. '.date('d.m.Y')]) !!}
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
         </div>
     </div>
 </div>
 
 <div class="form-group">
-    {!! Form::label('wholeDay', 'Ganztägig', ['class' => 'col-md-3 control-label']) !!}
-
+    {!! Form::label('start', 'Bis', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        <div class="input-group checkbox">
-            {!! Form::checkbox('wholeDay', 0, false,  array('id'=>'wholeDay', 'style' => 'margin-left:0 !important')) !!}
+        <div class="input-group date picker" id="end-picker">
+            {!! Form::input('text', 'end', null, ['class' => 'form-control', 'placeholder' => 'z. B. '.date('d.m.Y')]) !!}
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
         </div>
     </div>
 </div>
 
+
 <div class="form-group">
-    {!! Form::label('user_id', 'Trainer', ['class' => 'col-md-3 control-label']) !!}
+    <div class="col-md-4"></div>
+
     <div class="col-md-6">
-        <select class="form-control select2" id="user_id" name="user_id">
-            <option id="current-trainer" value="-1">Trainer hinzufügen...</option>
-        </select>
+        <div class="checkbox" id="allDay-wrapper">
+            <label>
+                {!! Form::checkbox('allDay') !!} ganztägig?
+            </label>
+        </div>
     </div>
 </div>
-
 
 <script>
-    $(document).ready(function() {
-        $(".select2").select2({
+    $(function() {
+        // Initialize the DateTimePicker.
+        $('.picker').datetimepicker({
             language: 'de',
-            ajax: {
-                url: '{!! action('UserController@index') !!}',
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    return {
-                        q: params.term, // search term
-                        page: params.page
-                    };
-                },
-                processResults: function (data, page) {
-                    return {
-                        results: data.data
-                    };
-                },
-                cache: true
-            },
-            escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-            minimumInputLength: 1,
-            templateResult: function(user) {
-                if(user.loading) return user.text;
-                return '<div class="clearfix"><div>'+user.firstname+' '+ user.lastname +', '+ user.email +' ('+ user.birthday +')</div></div>';
-            },
-            templateSelection: function(user) {
-                if(!user.firstname || 0 === user.firstname.length) return user.text;
-                if(!user.lastname || 0 === user.lastname.length) return user.text;
-                return user.firstname + ' ' + user.lastname;
-            },
-            width: '100%'
+            pickTime: true,
+            format: 'DD.MM.YYYY HH:mm'
+        });
+
+        // Handles the on change event of the allDay checkbox.
+        $('#allDay-wrapper :checkbox').on('change', function() {
+            if($(this).is(":checked")) {
+                changePickerFormat('DD.MM.YYYY');
+            } else {
+                changePickerFormat('DD.MM.YYYY HH:mm');
+            }
         });
     });
+
+    /**
+     * Changes the DateTimePicker format and updates the current dates.
+     *
+     * @param format
+     */
+    function changePickerFormat(format)
+    {
+        $('#start-picker').data().DateTimePicker.format = format;
+        $('#end-picker').data().DateTimePicker.format = format;
+        $('#start-picker').data().DateTimePicker.setDate($('#start-picker').data().DateTimePicker.getDate());
+        $('#end-picker').data().DateTimePicker.setDate($('#end-picker').data().DateTimePicker.getDate());
+    }
 </script>

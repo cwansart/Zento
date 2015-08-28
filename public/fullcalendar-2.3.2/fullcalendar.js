@@ -23,6 +23,7 @@ var fcViews = fc.views = {};
 
 
 $.fn.fullCalendar = function(options) {
+	moment.locale('de');
 	var args = Array.prototype.slice.call(arguments, 1); // for a possible method call
 	var res = this; // what this function will return (this jQuery object by default)
 
@@ -876,7 +877,9 @@ function makeMoment(args, parseAsUTC, parseZone) {
 		mom = moment.apply(null, args); // will be local
 	}
 	else { // "parsing" is required
-		isAmbigTime = false;
+		mom = moment(args[0], "DD.MM.YYYY hh:mm");
+
+/*		isAmbigTime = false;
 		isAmbigZone = false;
 
 		if (isSingleString) {
@@ -921,7 +924,7 @@ function makeMoment(args, parseAsUTC, parseZone) {
 					mom.zone(input); // for moment-pre-2.9
 				}
 			}
-		}
+		}*/
 	}
 
 	mom._fullCalendar = true; // flag for extended functionality

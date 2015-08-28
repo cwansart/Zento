@@ -20,15 +20,7 @@ class AppointmentController extends Controller
      */
     public function index(Request $request)
     {
-        $appointments = DB::table('appointments')
-            ->select('id', 'title', 'description', 'date as start', 'end_date as end', 'all_day as allDay', 'user_id')
-            ->get();
-
-        // fullcalendar needs the date in the ISO8601 format, so we'll fix this here.
-        foreach($appointments as $appointment) {
-            $appointment->start = Carbon::parse($appointment->start)->toIso8601String();
-            $appointment->end = Carbon::parse($appointment->end)->toIso8601String();
-        }
+        $appointments = Appointment::all();
 
         // returns appointments as JSON if
         return $request->ajax() ? $appointments : view('appointments.index')->with('appointments', $appointments);
@@ -41,7 +33,7 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('appointments.create');
     }
 
     /**
@@ -51,14 +43,13 @@ class AppointmentController extends Controller
      */
     public function store(AppointmentRequest $request)
     {
-        $request['all_day'] = $request->has('holeDay');
-
-        // If allDay/wholeDay is checked then end and start date are the same!
-        if($request->has('wholeDay')) {
-            $request['date'] = $request['end_date'] = Carbon::createFromFormat('d.m.Y', $request->get('date'));
+        // If allDay is checked then end and start date are the same!
+        if($request->has('allDay')) {
+            $request['start'] = Carbon::createFromFormat('d.m.Y', $request->get('start'));
+            $request['end'] = Carbon::createFromFormat('d.m.Y', $request->get('end'));
         } else {
-            $request['date'] = Carbon::createFromFormat('d.m.Y H:i', $request->get('date'));
-            $request['end_date'] = Carbon::createFromFormat('d.m.Y H:i', $request->get('end_date'));
+            $request['start'] = Carbon::createFromFormat('d.m.Y H:i', $request->get('start'));
+            $request['end'] = Carbon::createFromFormat('d.m.Y H:i', $request->get('end'));
         }
 
         $appointment = Appointment::create($request->all());
@@ -74,7 +65,10 @@ class AppointmentController extends Controller
      */
     public function show(Request $request, $id)
     {
-        //
+        $appointment = Appointment::findOrFail($id);
+
+        return view('appointments.show')
+            ->with('appointment', $appointment);
     }
 
     /**
@@ -85,7 +79,10 @@ class AppointmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $appointment = Appointment::findOrFail($id);
+
+        return view('appointments.edit')
+            ->with('appointment', $appointment);
     }
 
     /**
@@ -96,14 +93,13 @@ class AppointmentController extends Controller
      */
     public function update(AppointmentRequest $request, $id)
     {
-        $request['all_day'] = $request->has('wholeDay');
-
-        // If allDay/wholeDay is checked then end and start date are the same!
-        if($request->has('wholeDay')) {
-            $request['date'] = $request['end_date'] = Carbon::createFromFormat('d.m.Y', $request->get('date'));
+        // If allDay is checked then end and start date are the same!
+        if($request->has('allDay')) {
+            $request['start'] = Carbon::createFromFormat('d.m.Y', $request->get('start'));
+            $request['end'] = Carbon::createFromFormat('d.m.Y', $request->get('end'));
         } else {
-            $request['date'] = Carbon::createFromFormat('d.m.Y H:i', $request->get('date'));
-            $request['end_date'] = Carbon::createFromFormat('d.m.Y H:i', $request->get('end_date'));
+            $request['start'] = Carbon::createFromFormat('d.m.Y H:i', $request->get('start'));
+            $request['end'] = Carbon::createFromFormat('d.m.Y H:i', $request->get('end'));
         }
 
         $appointment= Appointment::findOrFail($id);

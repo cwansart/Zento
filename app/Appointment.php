@@ -9,9 +9,9 @@ class Appointment extends Model
     protected $fillable = [
         'title',
         'description',
-        'date',
-        'end_date',
-        'all_day',
+        'start',
+        'end',
+        'allDay',
         'user_id',
     ];
 
@@ -20,10 +20,22 @@ class Appointment extends Model
      *
      * @var array
      */
-    protected $dates = ['date', 'end_date'];
+    protected $dates = ['start', 'end'];
 
     public function trainer()
     {
         return $this->belongsTo('Zento\User', 'user_id');
+    }
+
+    public function getStartAttribute($date)
+    {
+        $format = $this->allDay ? 'd.m.Y' : 'd.m.Y H:i';
+        return \Carbon\Carbon::parse($date)->format($format);
+    }
+
+    public function getEndAttribute($date)
+    {
+        $format = $this->allDay ? 'd.m.Y' : 'd.m.Y H:i';
+        return \Carbon\Carbon::parse($date)->format($format);
     }
 }

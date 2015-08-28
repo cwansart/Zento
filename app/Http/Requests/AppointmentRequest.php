@@ -16,6 +16,14 @@ class AppointmentRequest extends Request
         return true;
     }
 
+    protected function getRedirectUrl()
+    {
+        if($this->method() == 'POST') {
+            return action('AppointmentController@create');
+        }
+        return parent::getRedirectUrl();
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -25,8 +33,8 @@ class AppointmentRequest extends Request
     {
         return [
             'title' => 'required|min:3',
-            'date' => 'required|regex:/\d{2}\.\d{2}\.\d{4}( \d{2}:\d{2})?/',
-            'end_date' => 'required_if:holeday,true|regex:/\d{2}\.\d{2}\.\d{4}( \d{2}:\d{2})?/',
+            'start' => 'required|regex:/\d{2}\.\d{2}\.\d{4}( \d{2}:\d{2})?/',
+            'end' => 'required_if:allDay,true|regex:/\d{2}\.\d{2}\.\d{4}( \d{2}:\d{2})?/',
         ];
     }
 }

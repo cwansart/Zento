@@ -87,6 +87,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <a id="appointment-show-edit-route" class="btn btn-primary">Bearbeiten</a>
+                        <a id="appointment-show-destroy-route" class="btn btn-primary delete-confirm">Löschen</a>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
                     </div>
                 </div>
@@ -114,7 +116,7 @@
 
                     // fill modal dialog with data
                     var storeRoute = '{!! action('AppointmentController@store') !!}';
-                    $('#appointment-edit-dialog').attr('action', storeRoute);
+                    $('#appointment-create-dialog').attr('action', storeRoute);
 
                     $('#appointment-create-dialog [name=date]').val(start_date);
                     $('#appointment-create-dialog [name=end_date]').val(end_date);
@@ -136,7 +138,11 @@
                     $('#appointment-edit-dialog').attr('action', updateRoute+'/'+event.id);
 
                     var destroyRoute = '{!! action('AppointmentController@destroy', null) !!}';
-                    $('#delform').attr('action', destroyRoute+'/'+event.id);
+                    $('#appointment-show-destroy-route').attr('href', destroyRoute+'/'+event.id);
+
+                    var editRoute = '{{ action('AppointmentController@edit', '!id!') }}';
+                    _globroute = editRoute;
+                    $('#appointment-show-edit-route').attr('href', editRoute.replace('!id!', event.id));
 
                     $('#appointment-show-title').text(event.title);
 

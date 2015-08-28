@@ -28,10 +28,8 @@
                             <td>{!! $exam->users->count() !!}</td>
                             @if(Auth::user()->is_admin)
                                 <td>
-                                    {!! Form::open(['action' => ['ExamController@destroy', $exam->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}
-                                    {!! Html::linkAction('ExamController@edit', '', [$exam->id], ['class' => 'edit', 'title' => 'Prüfung bearbeiten', 'data-toggle' => 'tooltip', 'data-placement' => 'right']) !!}
-                                    {!! Form::submit('', ['class' => 'delete', 'title' => 'Prüfung löschen', 'data-toggle' => 'tooltip', 'data-placement' => 'right']) !!}
-                                    {!! Form::close() !!}
+                                    <a href="{!! action('ExamController@edit', $exam->id) !!}" class="edit" title="Prüfung bearbeiten" data-toggle="tooltip" data-placement="right"></a>
+                                    <a href="{!! action('ExamController@destroy', $exam->id) !!}" class="delete delete-confirm"></a>
                                 </td>
                             @endif
                         </tr>

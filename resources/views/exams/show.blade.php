@@ -25,9 +25,7 @@
                     <td>{!! $user->pivot->result !!}</td>
                     @if(Auth::user()->is_admin)
                         <td>
-                            {!! Form::open(['action' => ['ExamController@removeUser', $exam->id, $user->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}
-                            {!! Form::submit('', ['class' => 'delete', 'title' => 'Prüfling entfernen', 'data-toggle' => 'tooltip', 'data-placement' => 'right']) !!}
-                            {!! Form::close() !!}
+                            <a href="{!! action('ExamController@removeUser', [$exam->id, $user->id]) !!}" class="delete delete-confirm"></a>
                         </td>
                     @endif
                 </tr>

@@ -51,14 +51,13 @@
         <select class="form-control select2" id="user_id" name="user_id">
             <option id="current-trainer" value="-1">Trainer hinzufügen...</option>
         </select>
-        <p class="help-block" id="current-trainer-info">Zurzeit: <span>Keiner</span></p>
     </div>
 </div>
 
 
 <script>
     $(document).ready(function() {
-        $('.select2').select2({
+        $(".select2").select2({
             language: 'de',
             ajax: {
                 url: '{!! action('UserController@index') !!}',
@@ -66,26 +65,27 @@
                 delay: 250,
                 data: function (params) {
                     return {
-                        q: params.term, // search term (in input field)
+                        q: params.term, // search term
                         page: params.page
                     };
                 },
                 processResults: function (data, page) {
                     return {
                         results: data.data
-                    }
-                }
+                    };
+                },
+                cache: true
             },
-            escapeMarkup: function (markup) {
-                return markup;
-            },
+            escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
             minimumInputLength: 1,
-            templateResult: function (user) {
-                if (user.loading) return user.text;
-                return '<div class="clearfix"><div>' + user.firstname + ' ' + user.lastname + ', ' + user.email + ' (' + user.birthday + ')</div></div>';
+            templateResult: function(user) {
+                if(user.loading) return user.text;
+                return '<div class="clearfix"><div>'+user.firstname+' '+ user.lastname +', '+ user.email +' ('+ user.birthday +')</div></div>';
             },
-            templateSelection: function (user) {
-                return user.firstname || user.text;
+            templateSelection: function(user) {
+                if(!user.firstname || 0 === user.firstname.length) return user.text;
+                if(!user.lastname || 0 === user.lastname.length) return user.text;
+                return user.firstname + ' ' + user.lastname;
             },
             width: '100%'
         });

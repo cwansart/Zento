@@ -158,3 +158,14 @@ html {
 body, body.modal-open {
 	padding-right: 0 !important;
 }
+
+#appointment-show-dialog .modal-body .row div {
+	padding-top: 7px;
+	margin-bottom: 0px;
+	line-height: 1.42857143;
+}
+
+#appointment-show-dialog .modal-body .row div:first-child {
+	text-align: right;
+	font-weight: 700;
+}

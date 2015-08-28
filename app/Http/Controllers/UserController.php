@@ -2,6 +2,7 @@
 
 namespace Zento\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Zento\Http\Requests\UserRequest;
 use Zento\Http\Requests\UpdateProfileRequest;
@@ -105,9 +106,23 @@ class UserController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $user = User::findOrFail($id);
-        $seminars = $user->seminars;
-        $exams = $user->exams;
+        $user = null;
+
+        // In the appointments we access the users via ajax request and it fails if there's a trainer assigned that
+        // no longer exists. So we catch the error here and return an empty array or we throw the exception again
+        // so it'll be displayed in the browser.
+        try {
+            $user = User::findOrFail($id);
+        } catch(ModelNotFoundException $e) {
+            if($request->ajax()) {
+                return [];
+            }
+
+            throw $e;
+        }
+
+        $seminars = $user != null ? $user->seminars : [];
+        $exams = $user != null ? $user->exams : [];
 
         return $request->ajax() ? $user : view('users.show')
             ->with('user', $user)

@@ -23,9 +23,7 @@
                     <td>{!! $user->lastname !!}</td>
                     @if(Auth::user()->is_admin)
                         <td>
-                            {!! Form::open(['action' => ['SeminarController@removeUser', $seminar->id, $user->id], 'method' => 'DELETE', 'class' => 'form-horizontal']) !!}
-                            {!! Form::submit('', ['class' => 'delete', 'title' => 'Aus Seminar entfernen', 'data-toggle' => 'tooltip', 'data-placement' => 'right']) !!}
-                            {!! Form::close() !!}
+                            <a href="{!! action('SeminarController@destroy', [$seminar->id, $user->id]) !!}" class="delete delete-confirm"></a>
                         </td>
                     @endif
                 </tr>

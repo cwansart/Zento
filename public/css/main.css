@@ -154,3 +154,7 @@ html {
 .table-2cols td {
 	width: 50%;
 }
+
+body, body.modal-open {
+	padding-right: 0 !important;
+}

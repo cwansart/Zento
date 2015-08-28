@@ -3,6 +3,7 @@
 <head>
     <title>@yield('title')</title>
     <meta charset="UTF-8">
+    <link rel="icon" href="{!! asset('favicon.ico') !!}">
 
     {!! HTML::style('bootstrap/css/bootstrap.css') !!}
     {!! HTML::style('bootstrap/css/bootstrap-theme.css') !!}

@@ -5,8 +5,8 @@
 @section('content')
 
 <div class="container-fluid">
+	<h1>Profil von <i>{!! $user->firstname !!} {!! $user->lastname !!}</i> bearbeiten</h1>
     <div class="row">
-        <h1>Profil von <i>{!! $user->firstname !!} {!! $user->lastname !!}</i> bearbeiten</h1>
 
         {!! Form::model($user, array('class' => 'form-horizontal', 'method' => 'PUT', 'route' => ['users.update', $user->id])) !!}
         @include('users._form')

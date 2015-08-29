@@ -5,8 +5,8 @@
 @section('content')
 
     <div class="container-fluid">
+		<h1>Seminar {!! $seminar->title !!} vom {!! $seminar->date !!} bearbeiten</h1>
         <div class="row">
-            <h1>Seminar {!! $seminar->title !!} vom {!! $seminar->date !!} bearbeiten</h1>
 
             {!! Form::model($seminar, array('class' => 'form-horizontal', 'method' => 'PUT', 'action' => ['SeminarController@update', $seminar->id])) !!}
             @include('seminars._form')

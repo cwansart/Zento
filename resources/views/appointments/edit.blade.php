@@ -5,8 +5,8 @@
 @section('content')
 
 <div class="container-fluid">
+	<h1>Termin „{!! $appointment->title !!}” vom {!! $appointment->start !!}</h1>
     <div class="row">
-        <h1>Termin „{!! $appointment->title !!}” vom {!! $appointment->start !!}</h1>
 
         {!! Form::model($appointment, array('class' => 'form-horizontal', 'method' => 'PUT', 'route' => ['appointments.update', $appointment->id])) !!}
         @include('appointments._form')

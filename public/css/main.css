@@ -145,10 +145,21 @@ html {
 
 .fc-day:hover{
 	background-color:#eeeeee;
+	cursor:pointer;
+}
+
+.fc-content{
+	background:#2C9688;
+}
+
+.fc-event{
+	background:#2C9688;
+	border:1px solid #2C9688;
 }
 
 .fc-content:hover{
 	cursor:pointer;
+	background:#30786E;
 }
 
 .table-2cols td {

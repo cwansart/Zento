@@ -24,7 +24,8 @@ class SeminarController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @param Request $request
+     * @return $this
      */
     public function index(Request $request)
     {

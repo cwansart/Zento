@@ -28,7 +28,8 @@ class ExamController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @param Request $request
+     * @return $this
      */
     public function index(Request $request)
     {
@@ -39,7 +40,7 @@ class ExamController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -49,7 +50,8 @@ class ExamController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @return Response
+     * @param ExamRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(ExamRequest $request)
     {
@@ -64,8 +66,9 @@ class ExamController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param Request $request
+     * @param $id
+     * @return $this
      */
     public function show(Request $request, $id)
     {
@@ -81,8 +84,8 @@ class ExamController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param $id
+     * @return $this
      */
     public function edit($id)
     {
@@ -94,8 +97,9 @@ class ExamController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param ExamRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(ExamRequest $request, $id)
     {
@@ -111,8 +115,8 @@ class ExamController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
@@ -127,7 +131,7 @@ class ExamController extends Controller
      *
      * @param Request $request
      * @param $examid
-     * @return mixed
+     * @return string
      */
     public function getUnregisteredUsers(Request $request, $examid)
     {
@@ -145,6 +149,13 @@ class ExamController extends Controller
         return '';
     }
 
+    /**
+     * Removes a user from a specific exam.
+     *
+     * @param $examid
+     * @param $userid
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function removeUser($examid, $userid)
     {
         $user = User::findOrFail($userid);
@@ -154,6 +165,13 @@ class ExamController extends Controller
             ->with('status', 'Benutzer wurde aus Prüfung entfernt!');
     }
 
+    /**
+     * Adds a user to a specific exam.
+     *
+     * @param ExamAddUserRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function addUser(ExamAddUserRequest $request, $id)
     {
         $exam = Exam::findOrFail($id);

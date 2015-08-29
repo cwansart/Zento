@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
+    /**
+     * Users relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function users()
     {
         return $this->hasMany('Zento\User');

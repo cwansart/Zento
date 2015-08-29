@@ -48,24 +48,41 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $hidden = ['password', 'remember_token'];
 
-    /*
-     * Relationships
+    /**
+     * Address relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function address()
     {
         return $this->belongsTo('Zento\Location', 'location_id');
     }
 
+    /**
+     * Group relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function group()
     {
         return $this->belongsTo('Zento\Group');
     }
 
+    /**
+     * Exams relationship.
+     *
+     * @return $this
+     */
     public function exams()
     {
         return $this->belongsToMany('Zento\Exam')->withPivot('result');
     }
 
+    /**
+     * Seminars relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function seminars()
     {
         return $this->belongsToMany('Zento\Seminar');

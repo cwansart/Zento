@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'name',
         'zip',
@@ -17,11 +22,22 @@ class Location extends Model
         'updated_at'
     ];
 
+    /**
+     * Users relationship
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function users()
     {
         return $this->hasMany('Zento\User');
     }
 
+    /**
+     * Tries to find a specified location and returns it, create it otherwise.
+     *
+     * @param array $location
+     * @return static
+     */
     public static function findOrCreate(array $location)
     {
         // Check if necessary keys exist, otherwise fail with 403
@@ -33,7 +49,6 @@ class Location extends Model
             abort(403, 'Unauthorized action.');
         }
 
-        // TODO: extract this block to the Location model
         // check if given location exists; use or create otherwise.
         $loc = Location::where('street', '=', $location['street'])
             ->where('housenr', '=', $location['housenr'])

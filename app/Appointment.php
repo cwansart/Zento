@@ -38,10 +38,4 @@ class Appointment extends Model
         $format = $this->allDay ? 'd.m.Y' : 'd.m.Y H:i';
         return \Carbon\Carbon::parse($date)->format($format);
     }
-
-
-    public function setUserIdAttribute($userId)
-    {
-        $this->attributes['user_id'] = $userId > 0 ? $userId : null;
-    }
 }

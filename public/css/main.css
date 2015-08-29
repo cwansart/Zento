@@ -34,8 +34,14 @@ hr{
 	padding-left: 15px;	
 	padding-right: 15px;	
 	margin-left: auto;		
-	margin-right:auto;	
-	width:1140px;	
+	margin-right:auto;
+}
+
+/* a little for for smaller resolutions */
+@media (min-width: 1140px) {
+	.nav {
+		width: 1140px;
+	}
 }
 
 .nav-tabs > li {

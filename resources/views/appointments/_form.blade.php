@@ -45,6 +45,19 @@
     </div>
 </div>
 
+<div class="form-group">
+    {!! Form::label('start', 'Bis', ['class' => 'col-md-4 control-label']) !!}
+    <div class="col-md-6">
+        <select class="form-control select2" id="user_id" name="user_id">
+            @if(isset($appointment) && isset($appointment->user_id))
+                <option value="{!! $appointment->trainer->id !!}">{!! $appointment->trainer->firstname !!} {!! $appointment->trainer->lastname !!}</option>
+            @else
+                <option value="-1">Trainer hinzufügen...</option>
+            @endif
+        </select>
+    </div>
+</div>
+
 <script>
     $(function() {
         // Initialize the DateTimePicker.
@@ -60,6 +73,43 @@
                 changePickerFormat('DD.MM.YYYY');
             } else {
                 changePickerFormat('DD.MM.YYYY HH:mm');
+            }
+        });
+
+        // Add the trainer selection
+        $('.select2').select2({
+            width: '100%',
+            language: 'de',
+            ajax: {
+                url: '{!! action('UserController@index') !!}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    //console.log(params);
+                    return {
+                        q: params.term, // search term (in input field)
+                        page: params.page
+                    };
+                },
+                processResults: function(data, page) {
+                    return {
+                        results: data.data
+                    }
+                }
+            },
+            escapeMarkup: function(markup) {
+                return markup;
+            },
+            minimumInputLength: 1,
+            templateResult: function(user) {
+                if(user.loading) return user.text;
+                return '<div class="clearfix"><div>'+user.firstname+' '+ user.lastname +', '+ user.email +' ('+ user.birthday +')</div></div>';
+            },
+            templateSelection: function(user) {
+                if(user.firstname || user.lastname) {
+                    var name = user.firstname + ' ' + user.lastname;
+                }
+                return name || user.text;
             }
         });
     });

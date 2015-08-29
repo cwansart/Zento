@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use Zento\Http\Requests\AppointmentRequest;
 
 use Carbon\Carbon;
-use DB;
-use Validator;
 use Zento\Appointment;
 use Zento\Http\Requests;
 
@@ -39,7 +37,8 @@ class AppointmentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @return Response
+     * @param AppointmentRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(AppointmentRequest $request)
     {
@@ -60,8 +59,9 @@ class AppointmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param Request $request
+     * @param $id
+     * @return $this
      */
     public function show(Request $request, $id)
     {
@@ -74,8 +74,8 @@ class AppointmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param $id
+     * @return $this
      */
     public function edit($id)
     {
@@ -88,8 +88,9 @@ class AppointmentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param AppointmentRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(AppointmentRequest $request, $id)
     {
@@ -111,8 +112,8 @@ class AppointmentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return Response
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {

@@ -26,7 +26,7 @@
                 <td>Trainer:</td>
                 <td>
                     @if($appointment->trainer)
-                        {!! $appointment->trainer->firstname !!} {!! $appointment->trainer->lastname !!}
+                        <a href="{!! action('UserController@show', $appointment->trainer->id) !!}">{!! $appointment->trainer->firstname !!} {!! $appointment->trainer->lastname !!}</a>
                     @else
                         Kein Trainer zugewiesen.
                     @endif

@@ -29,7 +29,7 @@
                         @if(Auth::user()->is_admin)
                             <td>
                                 <a href="{!! action('ExamController@edit', $exam->id) !!}" class="edit" title="Prüfung bearbeiten" data-toggle="tooltip" data-placement="right"></a>
-                                <a href="{!! action('ExamController@destroy', $exam->id) !!}" class="delete delete-confirm"></a>
+                                <a href="{!! action('ExamController@destroy', $exam->id) !!}" class="delete delete-confirm" title="Prüfung löschen" data-toggle="tooltip" data-placement="right"></a>
                             </td>
                         @endif
                     </tr>

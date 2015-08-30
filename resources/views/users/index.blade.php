@@ -27,7 +27,7 @@
                             <td>
                                 <a href="{!! action('UserController@edit', $user->id) !!}" class="edit" title="Benutzer bearbeiten" data-toggle="tooltip" data-placement="right"></a>
                                 <a href="{!! action('UserController@changePassword', $user->id) !!}" class="change-password" title="Passwort ändern" data-toggle="tooltip" data-placement="right"></a>
-                                <a href="{!! action('UserController@destroy', $user->id) !!}" class="delete delete-confirm"></a>
+                                <a href="{!! action('UserController@destroy', $user->id) !!}" class="delete delete-confirm" title="Benutzer löschen" data-toggle="tooltip" data-placement="right"></a>
                             </td>
                         @endif
                     </tr>

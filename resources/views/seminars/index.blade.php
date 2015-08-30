@@ -10,45 +10,45 @@
 
             <table class="table table-hover table-seminar">
                 <thead>
-                    <tr>
-                        <th>Datum</th>
-                        <th>Titel</th>
-                        <th>Ort</th>
-                        <th>Teilnehmer</th>
-                        @if(Auth::user()->is_admin)
-                            <th>Aktion</th>
-                        @endif
-                    </tr>
+                <tr>
+                    <th>Datum</th>
+                    <th>Titel</th>
+                    <th>Ort</th>
+                    <th>Teilnehmer</th>
+                    @if(Auth::user()->is_admin)
+                        <th>Aktion</th>
+                    @endif
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach($seminars as $seminar)
-                        <tr class="clickable-row" data-href="{{ action('SeminarController@show', [$seminar->id]) }}">
-                            <td>{!! $seminar->date !!}</td>
-                            <td>{!! $seminar->title !!}</td>
-                            <td>{!! $seminar->addressStr() !!}</td>
-                            <td>{!! $seminar->users->count() !!}</td>
-                            @if(Auth::user()->is_admin)
-                                <td>
-                                    <a href="{!! action('SeminarController@edit', $seminar->id) !!}" class="edit" title="Benutzer bearbeiten" data-toggle="tooltip" data-placement="right"></a>
-                                    <a href="{!! action('SeminarController@destroy', $seminar->id) !!}" class="delete delete-confirm"></a>
-                                </td>
-                            @endif
-                        </tr>
-                    @endforeach
+                @foreach($seminars as $seminar)
+                    <tr class="clickable-row" data-href="{{ action('SeminarController@show', [$seminar->id]) }}">
+                        <td>{!! $seminar->date !!}</td>
+                        <td>{!! $seminar->title !!}</td>
+                        <td>{!! $seminar->addressStr() !!}</td>
+                        <td>{!! $seminar->users->count() !!}</td>
+                        @if(Auth::user()->is_admin)
+                            <td>
+                                <a href="{!! action('SeminarController@edit', $seminar->id) !!}" class="edit" title="Benutzer bearbeiten" data-toggle="tooltip" data-placement="right"></a>
+                                <a href="{!! action('SeminarController@destroy', $seminar->id) !!}" class="delete delete-confirm"></a>
+                            </td>
+                        @endif
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         @else
             Noch keine Seminare vorhanden!
         @endif
+        @if(Auth::user()->is_admin)
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Seminar erstellen</button>
+        @endif
+
+        {!! $seminars->render() !!}
     </div>
 
-    {!! $seminars->render() !!}
-
-    <hr>
 
     @if(Auth::user()->is_admin)
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Seminar erstellen</button>
-
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
 

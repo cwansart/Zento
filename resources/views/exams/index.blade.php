@@ -11,43 +11,42 @@
         @if(count($exams))
             <table class="table table-hover table-exam">
                 <thead>
-                    <tr>
-                        <th>Datum</th>
-                        <th>Ort</th>
-                        <th>Teilnehmer</th>
-                        @if(Auth::user()->is_admin)
-                            <th>Aktion</th>
-                        @endif
-                    </tr>
+                <tr>
+                    <th>Datum</th>
+                    <th>Ort</th>
+                    <th>Teilnehmer</th>
+                    @if(Auth::user()->is_admin)
+                        <th>Aktion</th>
+                    @endif
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach($exams as $exam)
-                        <tr class="clickable-row" data-href="{{ action('ExamController@show', [$exam->id]) }}">
-                            <td>{!! $exam->date !!}</td>
-                            <td>{!! $exam->addressStr() !!}</td>
-                            <td>{!! $exam->users->count() !!}</td>
-                            @if(Auth::user()->is_admin)
-                                <td>
-                                    <a href="{!! action('ExamController@edit', $exam->id) !!}" class="edit" title="Prüfung bearbeiten" data-toggle="tooltip" data-placement="right"></a>
-                                    <a href="{!! action('ExamController@destroy', $exam->id) !!}" class="delete delete-confirm"></a>
-                                </td>
-                            @endif
-                        </tr>
-                    @endforeach
+                @foreach($exams as $exam)
+                    <tr class="clickable-row" data-href="{{ action('ExamController@show', [$exam->id]) }}">
+                        <td>{!! $exam->date !!}</td>
+                        <td>{!! $exam->addressStr() !!}</td>
+                        <td>{!! $exam->users->count() !!}</td>
+                        @if(Auth::user()->is_admin)
+                            <td>
+                                <a href="{!! action('ExamController@edit', $exam->id) !!}" class="edit" title="Prüfung bearbeiten" data-toggle="tooltip" data-placement="right"></a>
+                                <a href="{!! action('ExamController@destroy', $exam->id) !!}" class="delete delete-confirm"></a>
+                            </td>
+                        @endif
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         @else
             Noch keine Prüfungen vorhanden!
         @endif
+        @if(Auth::user()->is_admin)
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Prüfung erstellen</button>
+        @endif
+
+        {!! $exams->render() !!}
     </div>
 
-    {!! $exams->render() !!}
-
-    <hr>
-
     @if(Auth::user()->is_admin)
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Prüfung erstellen</button>
-
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
 

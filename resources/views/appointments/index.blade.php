@@ -108,6 +108,8 @@
                 $('.form-horizontal')[0].reset();
                 $('#appointment-create-dialog').modal('show');
             });
+
+            $('[data-toggle="tooltip"]').tooltip()
         });
     </script>
 

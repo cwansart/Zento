@@ -238,3 +238,35 @@ body, body.modal-open {
         border-radius: 0;
     }
 }
+
+#appointment-tooltip {
+    display: block;
+    z-index: 500;
+}
+
+#appointment-tooltip .title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2C9688;
+}
+
+#appointment-tooltip .col-md-4 {
+    padding-left: 0;
+}
+
+#appointment-tooltip .popover-content {
+    line-height: 24px;
+}
+
+#appointment-tooltip .popover-controls {
+    padding: 8px 14px;
+    margin: 0;
+    font-size: 14px;
+    border-top: 1px solid #ebebeb;
+    text-align: right;
+}
+
+#appointment-tooltip .popover-controls a {
+    display:inline-block;
+}
+

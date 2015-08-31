@@ -5,7 +5,12 @@
 @section('content')
 
     <div class="container">
-        <h1>Seminarübersicht</h1>
+        <h1 class="h1-index">Seminarübersicht</h1>
+
+		@if(Auth::user()->is_admin)
+            <button type="button" class="btn btn-primary  pull-right btn-create" data-toggle="modal" data-target="#myModal">Seminar erstellen</button>
+        @endif
+
         @if(count($seminars))
 
             <table class="table table-hover table-seminar">
@@ -40,9 +45,7 @@
         @else
             Noch keine Seminare vorhanden!
         @endif
-        @if(Auth::user()->is_admin)
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Seminar erstellen</button>
-        @endif
+        
 
         {!! $seminars->render() !!}
     </div>

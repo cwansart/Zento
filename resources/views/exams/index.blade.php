@@ -7,7 +7,12 @@
     <div class="container">
 
 
-        <h1>Prüfungsübersicht</h1>
+        <h1 class="h1-index">Prüfungsübersicht</h1>
+
+		@if(Auth::user()->is_admin)
+            <button type="button" class="btn btn-primary pull-right btn-create" data-toggle="modal" data-target="#myModal">Prüfung erstellen</button>
+        @endif
+
         @if(count($exams))
             <table class="table table-hover table-exam">
                 <thead>
@@ -39,9 +44,7 @@
         @else
             Noch keine Prüfungen vorhanden!
         @endif
-        @if(Auth::user()->is_admin)
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Prüfung erstellen</button>
-        @endif
+        
 
         {!! $exams->render() !!}
     </div>

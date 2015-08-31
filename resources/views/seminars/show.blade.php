@@ -23,7 +23,7 @@
                     <td>{!! $user->lastname !!}</td>
                     @if(Auth::user()->is_admin)
                         <td>
-                            <a href="{!! action('SeminarController@destroy', [$seminar->id, $user->id]) !!}" class="delete delete-confirm"></a>
+                            <a href="{!! action('SeminarController@destroy', [$seminar->id, $user->id]) !!}" class="delete delete-confirm" title="Teilnehmer entfernen" data-toggle="tooltip" data-placement="right"></a>
                         </td>
                     @endif
                 </tr>

@@ -25,7 +25,7 @@
                     <td>{!! $user->pivot->result !!}</td>
                     @if(Auth::user()->is_admin)
                         <td>
-                            <a href="{!! action('ExamController@removeUser', [$exam->id, $user->id]) !!}" class="delete delete-confirm"></a>
+                            <a href="{!! action('ExamController@removeUser', [$exam->id, $user->id]) !!}" class="delete delete-confirm" title="Prüfling entfernen" data-toggle="tooltip" data-placement="right"></a>
                         </td>
                     @endif
                 </tr>

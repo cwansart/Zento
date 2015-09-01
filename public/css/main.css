@@ -195,6 +195,10 @@ body, body.modal-open {
     font-weight: 700;
 }
 
+#calendar .fc-right{
+	margin-top:20px;
+}
+
 @media (max-width: 1140px) {
     .page-header{
         min-height: auto;

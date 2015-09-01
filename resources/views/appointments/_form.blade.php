@@ -46,7 +46,7 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('start', 'Bis', ['class' => 'col-md-4 control-label']) !!}
+    {!! Form::label('start', 'Trainer', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         <select class="form-control select2" id="user_id" name="user_id">
             @if(isset($appointment) && isset($appointment->user_id))

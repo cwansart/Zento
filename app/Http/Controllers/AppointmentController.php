@@ -67,7 +67,9 @@ class AppointmentController extends Controller
     {
         $appointment = Appointment::findOrFail($id);
 
-        return view('appointments.show')
+        return $request->ajax() ?
+            $appointment :
+            view('appointments.show')
             ->with('appointment', $appointment);
     }
 

@@ -124,8 +124,8 @@ class UserController extends Controller
             throw $e;
         }
 
-        $seminars = $user != null ? $user->seminars : [];
-        $exams = $user != null ? $user->exams : [];
+        $seminars = $user != null ? $user->seminars()->orderBy('date', 'asc')->get() : [];
+        $exams = $user != null ? $user->exams()->orderBy('date', 'asc')->get() : [];
 
         return $request->ajax() ? $user : view('users.show')
             ->with('user', $user)

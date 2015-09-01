@@ -4,7 +4,12 @@
 
 @section('content')
     <div class="container">
-        <h1>Benutzerliste</h1>
+        <h1 class="h1-index">Benutzerliste</h1>
+
+		@if(Auth::user()->is_admin)
+            <button type="button" class="btn btn-primary pull-right btn-create" data-toggle="modal" data-target="#myModal">Benutzer erstellen</button>
+        @endif
+
         @if(count($users))
             <table class="table table-hover table-user">
                 <thead>
@@ -38,9 +43,7 @@
             Noch keine Benutzer vorhanden!
         @endif
 
-        @if(Auth::user()->is_admin)
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Benutzer erstellen</button>
-        @endif
+        
 
         {!! $users->render() !!}
     </div>

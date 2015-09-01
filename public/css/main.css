@@ -36,6 +36,18 @@ hr{
     margin-right:auto;
 }
 
+.text-info{
+	color:#999;
+}
+
+.btn-link, -btn-link:focus{
+	color:#c92618;
+}
+
+.btn-link:hover{
+	color:#c92618;
+}
+
 /* a little for for smaller resolutions */
 @media (min-width: 1140px) {
     .nav {

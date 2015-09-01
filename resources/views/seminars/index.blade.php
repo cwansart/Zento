@@ -34,7 +34,7 @@
                         <td>{!! $seminar->users->count() !!}</td>
                         @if(Auth::user()->is_admin)
                             <td>
-                                <a href="{!! action('SeminarController@edit', $seminar->id) !!}" class="edit" title="Benutzer bearbeiten" data-toggle="tooltip" data-placement="right"></a>
+                                <a href="{!! action('SeminarController@edit', $seminar->id) !!}" class="edit" title="Seminar bearbeiten" data-toggle="tooltip" data-placement="right"></a>
                                 <a href="{!! action('SeminarController@destroy', $seminar->id) !!}" class="delete delete-confirm" title="Seminar löschen" data-toggle="tooltip" data-placement="right"></a>
                             </td>
                         @endif

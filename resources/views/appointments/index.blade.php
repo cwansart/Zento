@@ -43,8 +43,8 @@
         </div>
         <div class="popover-controls">
             <div style="margin: 0; padding: 0; line-height: 22px;">
-                <a href="#" class="edit" title="Prüfung bearbeiten" data-toggle="tooltip" data-placement="right"></a>
-                <a href="#" class="delete delete-confirm" title="Prüfung löschen" data-toggle="tooltip" data-placement="right"></a>
+                <a href="#" class="edit" title="Termin bearbeiten" data-toggle="tooltip" data-placement="right"></a>
+                <a href="#" class="delete delete-confirm" title="Termin löschen" data-toggle="tooltip" data-placement="right"></a>
             </div>
         </div>
     </div>

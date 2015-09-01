@@ -41,7 +41,7 @@ hr{
 }
 
 .btn-link, -btn-link:focus{
-	color:#c92618;
+	color:#e24b3e;
 }
 
 .btn-link:hover{
@@ -186,6 +186,10 @@ html {
 .fc-content:hover{
     cursor:pointer;
     background:#30786E;
+}
+
+.fc-unthemed .fc-today{
+	background-color:#EBF2F1;
 }
 
 .table-2cols td {

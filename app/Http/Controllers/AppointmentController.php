@@ -19,9 +19,32 @@ class AppointmentController extends Controller
     public function index(Request $request)
     {
         $appointments = Appointment::all();
+        // Check for given month and year, default is current month and year
+        $month = $request->has('month') ? $request->input('month') : date('n');
+        $year = $request->has('year') ? $request->input('year') : date('Y');
+
+        // Get days of month
+        $total_days = date('t', mktime(0, 0, 0, $month, 1, $year));
+
+        // First day of month on correct weekday
+        $day_offset = date('w', mktime(0, 0, 0, $month, (1-1), $year));
+
+        // Current date
+        list($n_month, $n_year, $n_day) = explode(', ', strftime('%m, %Y, %d'));
+
+        // Prev date
+        list($n_prev_month, $n_prev_year) = explode(', ', strftime('%m, %Y', mktime(0, 0, 0, $month - 1, 1, $year)));
+
+        // next date
+        list($n_next_month, $n_next_year) = explode(', ', strftime('%m, %Y', mktime(0, 0, 0, $month + 1, 1, $year)));
 
         // returns appointments as JSON if
-        return $request->ajax() ? $appointments : view('appointments.index')->with('appointments', $appointments);
+        return $request->ajax() ? $appointments : view('appointments.index')
+            ->with('appointments', $appointments)
+            ->with('month', $month)
+            ->with('year', $year)
+            ->with('total_days', $total_days)
+            ->with('day_offset', $day_offset);
     }
 
     /**

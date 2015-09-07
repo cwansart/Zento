@@ -169,26 +169,26 @@ html {
     overflow-y: scroll;
 }
 
-.fc-day:hover{
+.zc-day:hover{
     background-color:#eeeeee;
     cursor:pointer;
 }
 
-.fc-content{
+.zc-content{
     background:#2C9688;
 }
 
-.fc-event{
+.zc-event{
     background:#2C9688;
     border:1px solid #2C9688;
 }
 
-.fc-content:hover{
+.zc-content:hover{
     cursor:pointer;
     background:#30786E;
 }
 
-.fc-unthemed .fc-today{
+.zc-unthemed .fc-today{
 	background-color:#EBF2F1;
 }
 

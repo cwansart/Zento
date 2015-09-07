@@ -9,7 +9,6 @@
     {!! HTML::style('bootstrap/css/bootstrap-theme.css') !!}
     {!! HTML::style('bootstrap/css/bootstrap.datetimepicker.css') !!}
     {!! HTML::style('select2/css/select2.min.css') !!}
-    {!! HTML::style('fullcalendar-2.3.2/fullcalendar.css') !!}
     {!! HTML::style('css/main.css') !!}
     {!! HTML::script('jquery-1.11.3.min.js') !!}
     {!! HTML::script('bootstrap/js/bootstrap.min.js') !!}
@@ -21,9 +20,6 @@
     {!! HTML::script('js/dateFormat.js') !!}
     {!! HTML::script('js/deleteConfirm.js') !!}
     {!! HTML::script('js/main.js') !!}
-    {!! HTML::script('fullcalendar-2.3.2/lib/moment.min.js') !!}
-    {!! HTML::script('fullcalendar-2.3.2/fullcalendar.js') !!}
-    {!! HTML::script('fullcalendar-2.3.2/lang/de.js') !!}
 
 </head>
 <body>

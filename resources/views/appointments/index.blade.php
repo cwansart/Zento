@@ -4,7 +4,33 @@
 
 @section('content')
     <div class="container">
-        <div id='calendar'></div>
+        <table class="zento-calendar" style="border: 1px solid black">
+            <tr>
+                <!-- Table headers -->
+                @foreach(\Zento\Appointment::$weekdays as $weekday)
+                    <th>{!! $weekday !!}</th>
+                @endforeach
+            </tr>
+            @for($day = 1; $day <= $total_days + $day_offset; $day++)
+                @if(($day - 1)%7 == 0)
+                    <tr>
+                @endif
+
+                @if($day_offset - $day + 1 > 0)
+                    <td></td>
+                @elseif(\Carbon\Carbon::now()->day == ($day - $day_offset) &&
+                        \Carbon\Carbon::now()->month == $month &&
+                        \Carbon\Carbon::now()->year == $year)
+                    <td class="zc-today">{!! $day - $day_offset !!}</td>
+                @else
+                    <td>{!! $day - $day_offset !!}</td>
+                @endif
+
+                @if($day%7 == 0)
+                    </tr>
+                @endif
+            @endfor
+        </table>
 
         <a class="btn btn-primary" id="show-create-dialog-button">Termin erstellen</a>
     </div>
@@ -51,58 +77,6 @@
 
     <script>
         $(document).ready(function() {
-
-            $('#calendar').fullCalendar({
-                lang: 'de',
-                timeFormat: 'HH:MM',
-                events: '{!! action('AppointmentController@index') !!}',
-
-                dayClick: function (date, jsEvent, view) {
-                    $('#start-picker').data().DateTimePicker.setDate(date);
-                    $('#end-picker').data().DateTimePicker.setDate(date);
-                    $('#appointment-create-dialog').modal('show');
-                },
-
-                eventClick: function (event, jsEvent, view) {
-                    var that = this;
-                    that.appointmentRoute = '{!! action('AppointmentController@show', null) !!}/' + event.id;
-
-                    // these two lines enable the "fade out" effect
-                    $('#appointment-tooltip').removeClass('in');
-                    window.setTimeout(function() {
-                        $.getJSON(that.appointmentRoute  ,function(appointment) {
-                            var editRoute = ('{!! action('AppointmentController@edit') !!}').replace('%7Bappointments%7D', event.id);
-                            var destroyRoute = ('{!! action('AppointmentController@destroy') !!}').replace('%7Bappointments%7D', event.id);
-                            $('#appointment-tooltip .popover-controls .edit').attr('href', editRoute);
-                            $('#appointment-tooltip .popover-controls .delete').attr('href', destroyRoute);
-
-                            $('#appointment-tooltip .title').text(event.title);
-                            $('#appointment-tooltip .description').text(event.description);
-
-                            var format = event.allDay ? 'dd.mm.yyyy' : 'dd.mm.yyyy hh:MM';
-                            var start = (new Date(event.start)).format(format);
-                            var end = (new Date(event.end)).format(format);
-                            $('#appointment-tooltip .start').text(start);
-                            $('#appointment-tooltip .end').text(end);
-
-                            if(event.user_id) {
-                                var trainerRoute = '{!! action('UserController@show', null) !!}/' + event.user_id;
-                                $.getJSON(trainerRoute, function(trainer) {
-                                    $('#appointment-tooltip .actual-trainer').text(trainer.firstname + ' ' + trainer.lastname);
-                                    $('#appointment-tooltip .trainer').removeClass('hidden');
-                                });
-                            } else {
-                                $('#appointment-tooltip .trainer').addClass('hidden');
-                            }
-
-                            var tooltipCenter = $('#appointment-tooltip').width() / 2;
-                            $('#appointment-tooltip').addClass('in').css('top', jsEvent.pageY).css('left', jsEvent.pageX - tooltipCenter);
-                        });
-                    }, 50);
-
-                },
-            });
-            $('#calendar').fullCalendar('rerenderEvents');
 
             $('#show-create-dialog-button').on('click', function() {
                 $('.form-horizontal')[0].reset();

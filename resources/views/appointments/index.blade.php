@@ -21,9 +21,15 @@
                 @elseif(\Carbon\Carbon::now()->day == ($day - $day_offset) &&
                         \Carbon\Carbon::now()->month == $month &&
                         \Carbon\Carbon::now()->year == $year)
-                    <td class="zc-today zc-day">{!! $day - $day_offset !!}</td>
+                    <td class="zc-today zc-day"
+                        data-date="{!! \Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m.Y') !!}">
+                        {!! $day - $day_offset !!}
+                    </td>
                 @else
-                    <td class="zc-day">{!! $day - $day_offset !!}</td>
+                    <td class="zc-day"
+                        data-date="{!! \Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m.Y') !!}">
+                        {!! $day - $day_offset !!}
+                    </td>
                 @endif
 
                 @if($day%7 == 0)
@@ -78,8 +84,12 @@
     <script>
         $(document).ready(function() {
 
-            $('.zc-day').on('click', function() {
+            $('.zc-day').click(function(event) {
                 $('.form-horizontal')[0].reset();
+                $('#start-picker').data().DateTimePicker.format = 'DD.MM.YYYY';
+                $('#end-picker').data().DateTimePicker.format = 'DD.MM.YYYY';
+                $('#start-picker').data().DateTimePicker.setDate(event.target.getAttribute('data-date'));
+                $('#end-picker').data().DateTimePicker.setDate(event.target.getAttribute('data-date'));
                 $('#appointment-create-dialog').modal('show');
             });
 

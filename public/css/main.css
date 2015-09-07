@@ -191,7 +191,8 @@ html {
 .zc-day{
     width: 15%;
     border: 1px solid lightgray;
-    text-align: center;
+    text-align: right;
+    vertical-align: text-top;
 }
 
 .zc-day:hover{
@@ -206,7 +207,12 @@ html {
 .zc-event{
     background:#2C9688;
     border:1px solid #2C9688;
-    margin: 1px 5px 1px 5px;
+    text-align: center;
+    color:black;
+    margin: 1px 3px 1px 3px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
 }
 
 .zc-content:hover{
@@ -214,7 +220,11 @@ html {
     background:#30786E;
 }
 
-.zc-unthemed .zc-today{
+.zc-today{
+    background-color: rgba(255, 143, 0, 0.45);
+}
+
+.zc-unthemed{
 	background-color:#EBF2F1;
 }
 

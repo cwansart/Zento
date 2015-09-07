@@ -19,19 +19,37 @@
 
                 @if($day_offset - $day + 1 > 0)
                     <td class="zc-day zc-other-month"
-                        data-date="{!! \Carbon\Carbon::create($year, $month, 1)->addDay($day - $day_offset - 1)->format('d.m.Y') !!}">
-                        {!! \Carbon\Carbon::create($year, $month, 1)->addDay($day - $day_offset - 1)->format('d') !!}</td>
+                        data-date="{!! \Carbon\Carbon::create($year, $month, 1)
+                        ->addDay($day - $day_offset - 1)->format('d.m.Y') !!}">
+                        {!! \Carbon\Carbon::create($year, $month, 1)->addDay($day - $day_offset - 1)->format('d') !!}
+                        @if(array_key_exists(\Carbon\Carbon::create($year, $month, 1)->addDay($day - $day_offset - 1)->format('d.m.Y'), $appointments))
+                            @foreach($appointments[\Carbon\Carbon::create($year, $month, 1)->addDay($day - $day_offset - 1)->format('d.m.Y')] as $appointment)
+                                <div class="zc-event" data-id="{!! $appointment->id !!}">{!! $appointment->title !!}</div>
+                            @endforeach
+                        @endif
+                    </td>
                 @elseif(\Carbon\Carbon::now()->day == ($day - $day_offset) &&
                         \Carbon\Carbon::now()->month == $month &&
                         \Carbon\Carbon::now()->year == $year)
                     <td class="zc-today zc-day"
                         data-date="{!! \Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m.Y') !!}">
                         {!! $day - $day_offset !!}
-                    <div class="zc-event">testevent</div></td>
+                        @if(array_key_exists(\Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m.Y'), $appointments))
+                            @foreach($appointments[\Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m.Y')] as $appointment)
+                                <div class="zc-event" data-id="{!! $appointment->id !!}">{!! $appointment->title !!}</div>
+                            @endforeach
+                        @endif
+                    </td>
                 @else
                     <td class="zc-day"
                         data-date="{!! \Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m.Y') !!}">
-                        {!! $day - $day_offset !!}</td>
+                        {!! $day - $day_offset !!}
+                        @if(array_key_exists(\Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m.Y'), $appointments))
+                            @foreach($appointments[\Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m.Y')] as $appointment)
+                                <div class="zc-event" data-id="{!! $appointment->id !!}">{!! $appointment->title !!}</div>
+                            @endforeach
+                        @endif
+                    </td>
                 @endif
 
                 @if($day%7 == 0)
@@ -41,7 +59,13 @@
             @for($i = 1; $i <= (7 -(($total_days + $day_offset) % 7)); $i++)
                 <td class="zc-day zc-other-month"
                     data-date="{!! \Carbon\Carbon::create($year, $month, $i)->addMonth(1)->format('d.m.Y') !!}">
-                    {!! $i !!}</td>
+                    {!! $i !!}
+                    @if(array_key_exists(\Carbon\Carbon::create($year, $month, $i)->addMonth(1)->format('d.m.Y'), $appointments))
+                        @foreach($appointments[\Carbon\Carbon::create($year, $month, $i)->addMonth(1)->format('d.m.Y')] as $appointment)
+                            <div class="zc-event" data-id="{!! $appointment->id !!}">{!! $appointment->title !!}</div>
+                        @endforeach
+                    @endif
+                </td>
             @endfor
         </table>
 
@@ -90,6 +114,46 @@
 
     <script>
         $(document).ready(function() {
+
+            $('.zc-event').click(function(event) {
+                var that = this;
+                that.appointmentRoute = '{!! action('AppointmentController@show', null) !!}/' + event.target.getAttribute('data-id');
+
+                // these two lines enable the "fade out" effect
+                $('#appointment-tooltip').removeClass('in');
+                window.setTimeout(function() {
+                    $.getJSON(that.appointmentRoute  ,function(appointment) {
+                        var editRoute = ('{!! action('AppointmentController@edit') !!}').replace('%7Bappointments%7D', event.target.getAttribute('data-id'));
+                        var destroyRoute = ('{!! action('AppointmentController@destroy') !!}').replace('%7Bappointments%7D', event.target.getAttribute('data-id'));
+                        $('#appointment-tooltip .popover-controls .edit').attr('href', editRoute);
+                        $('#appointment-tooltip .popover-controls .delete').attr('href', destroyRoute);
+
+                        $('#appointment-tooltip .title').text(appointment.title);
+                        $('#appointment-tooltip .description').text(appointment.description ? appointment.description : '');
+
+                        var format = appointment.allDay ? 'dd.mm.yyyy' : 'dd.mm.yyyy hh:MM';
+                        var pattern = /(\d{2})\.(\d{2})\.(\d{4}).(\d{2})\:(\d{2})/;
+                        var start = (new Date(appointment.start.replace(pattern,'$3-$2-$1T$4:$5:00'))).format(format);
+                        var end = (new Date(appointment.end.replace(pattern,'$3-$2-$1T$4:$5:00'))).format(format);
+                        $('#appointment-tooltip .start').text(start);
+                        $('#appointment-tooltip .end').text(end);
+
+                        if(appointment.user_id) {
+                            var trainerRoute = '{!! action('UserController@show', null) !!}/' + appointment.user_id;
+                            $.getJSON(trainerRoute, function(trainer) {
+                                $('#appointment-tooltip .actual-trainer').text(trainer.firstname + ' ' + trainer.lastname);
+                                $('#appointment-tooltip .trainer').removeClass('hidden');
+                            });
+                        } else {
+                            $('#appointment-tooltip .trainer').addClass('hidden');
+                        }
+
+                        var tooltipCenter = $('#appointment-tooltip').width() / 2;
+                        $('#appointment-tooltip').addClass('in').css('top', event.pageY).css('left', event.pageX - tooltipCenter);
+                    });
+                }, 50);
+            });
+
 
             $('.zc-day').click(function(event) {
                 $('.form-horizontal')[0].reset();

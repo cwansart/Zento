@@ -16,27 +16,35 @@ class AppointmentController extends Controller
      *
      * @return Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $year = null, $month = null)
     {
-        $appointments = Appointment::all();
         // Check for given month and year, default is current month and year
-        $month = $request->has('month') ? $request->input('month') : date('n');
-        $year = $request->has('year') ? $request->input('year') : date('Y');
+        $month = !is_null($month) ? $month : date('n');
+        $year = !is_null($year) ? $year : date('Y');
+
+        $start_date = Carbon::create($year, $month, 1)->addDay(-7)->format('Y-m-d');
+        $end_date = Carbon::create($year, $month, 31)->addDay(7)->format('Y-m-d');
+
+        $results = \DB::select( \DB::raw("SELECT * FROM appointments WHERE (start BETWEEN '$start_date' AND '$end_date') OR (end BETWEEN '$start_date' AND '$end_date')"));
+        // dd($result);
+        $appointments = [];
+        foreach ($results as $result)
+        {
+            $start = Carbon::createFromFormat('Y-m-d H:i:s', $result->start);
+            $end = Carbon::createFromFormat('Y-m-d H:i:s', $result->end);
+            do
+            {
+                $appointments[$start->format('d.m.Y')][] = $result;
+                $start->addDay(1);
+            }
+            while($start->lte($end));
+        }
 
         // Get days of month
         $total_days = date('t', mktime(0, 0, 0, $month, 1, $year));
 
         // First day of month on correct weekday
         $day_offset = date('w', mktime(0, 0, 0, $month, (1-1), $year));
-
-        // Current date
-        list($n_month, $n_year, $n_day) = explode(', ', strftime('%m, %Y, %d'));
-
-        // Prev date
-        list($n_prev_month, $n_prev_year) = explode(', ', strftime('%m, %Y', mktime(0, 0, 0, $month - 1, 1, $year)));
-
-        // next date
-        list($n_next_month, $n_next_year) = explode(', ', strftime('%m, %Y', mktime(0, 0, 0, $month + 1, 1, $year)));
 
         // returns appointments as JSON if
         return $request->ajax() ? $appointments : view('appointments.index')

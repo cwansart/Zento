@@ -77,7 +77,7 @@
                             $('#appointment-tooltip .popover-controls .delete').attr('href', destroyRoute);
 
                             $('#appointment-tooltip .title').text(event.title);
-                            $('#appointment-tooltip .description').text(event.description);
+                            $('#appointment-tooltip .description').text(event.description ? event.description : '');
 
                             var format = event.allDay ? 'dd.mm.yyyy' : 'dd.mm.yyyy hh:MM';
                             var start = (new Date(event.start)).format(format);

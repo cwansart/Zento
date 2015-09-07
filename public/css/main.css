@@ -169,6 +169,31 @@ html {
     overflow-y: scroll;
 }
 
+.zento-calendar{
+    width:100%;
+    min-height: 500px;
+    border-collapse: collapse;
+    border: 1px solid lightgray;
+    table-layout: fixed;
+}
+
+.zc-header{
+    border: 1px solid lightgray;
+    background: #4c4d53;
+    color:#fff;
+    text-align: center;
+}
+
+.zc-other-month{
+    color: lightgray;
+}
+
+.zc-day{
+    width: 15%;
+    border: 1px solid lightgray;
+    text-align: center;
+}
+
 .zc-day:hover{
     background-color:#eeeeee;
     cursor:pointer;
@@ -181,6 +206,7 @@ html {
 .zc-event{
     background:#2C9688;
     border:1px solid #2C9688;
+    margin: 1px 5px 1px 5px;
 }
 
 .zc-content:hover{

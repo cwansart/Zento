@@ -4,11 +4,12 @@
 
 @section('content')
     <div class="container">
-        <table class="zento-calendar" style="border: 1px solid black">
+        <h1>{!! \Zento\Appointment::$months[$month - 1]." ".$year !!}</h1>
+        <table class="zento-calendar">
             <tr>
                 <!-- Table headers -->
                 @foreach(\Zento\Appointment::$weekdays as $weekday)
-                    <th>{!! $weekday !!}</th>
+                    <th class="zc-header">{!! $weekday !!}</th>
                 @endforeach
             </tr>
             @for($day = 1; $day <= $total_days + $day_offset; $day++)
@@ -17,24 +18,30 @@
                 @endif
 
                 @if($day_offset - $day + 1 > 0)
-                    <td></td>
+                    <td class="zc-day zc-other-month"
+                        data-date="{!! \Carbon\Carbon::create($year, $month, 1)->addDay($day - $day_offset - 1)->format('d.m.Y') !!}">
+                        {!! \Carbon\Carbon::create($year, $month, 1)->addDay($day - $day_offset - 1)->format('d') !!}</td>
                 @elseif(\Carbon\Carbon::now()->day == ($day - $day_offset) &&
                         \Carbon\Carbon::now()->month == $month &&
                         \Carbon\Carbon::now()->year == $year)
                     <td class="zc-today zc-day"
                         data-date="{!! \Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m.Y') !!}">
                         {!! $day - $day_offset !!}
-                    </td>
+                    <div class="zc-event">testevent</div></td>
                 @else
                     <td class="zc-day"
                         data-date="{!! \Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m.Y') !!}">
-                        {!! $day - $day_offset !!}
-                    </td>
+                        {!! $day - $day_offset !!}</td>
                 @endif
 
                 @if($day%7 == 0)
                     </tr>
                 @endif
+            @endfor
+            @for($i = 1; $i <= (7 -(($total_days + $day_offset) % 7)); $i++)
+                <td class="zc-day zc-other-month"
+                    data-date="{!! \Carbon\Carbon::create($year, $month, $i)->addMonth(1)->format('d.m.Y') !!}">
+                    {!! $i !!}</td>
             @endfor
         </table>
 

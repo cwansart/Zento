@@ -23,7 +23,7 @@
                         \Carbon\Carbon::now()->year == $year)
                     <td class="zc-today">{!! $day - $day_offset !!}</td>
                 @else
-                    <td>{!! $day - $day_offset !!}</td>
+                    <td class="zc-day">{!! $day - $day_offset !!}</td>
                 @endif
 
                 @if($day%7 == 0)

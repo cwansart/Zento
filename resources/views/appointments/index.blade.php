@@ -21,7 +21,7 @@
                 @elseif(\Carbon\Carbon::now()->day == ($day - $day_offset) &&
                         \Carbon\Carbon::now()->month == $month &&
                         \Carbon\Carbon::now()->year == $year)
-                    <td class="zc-today">{!! $day - $day_offset !!}</td>
+                    <td class="zc-today zc-day">{!! $day - $day_offset !!}</td>
                 @else
                     <td class="zc-day">{!! $day - $day_offset !!}</td>
                 @endif
@@ -77,6 +77,11 @@
 
     <script>
         $(document).ready(function() {
+
+            $('.zc-day').on('click', function() {
+                $('.form-horizontal')[0].reset();
+                $('#appointment-create-dialog').modal('show');
+            });
 
             $('#show-create-dialog-button').on('click', function() {
                 $('.form-horizontal')[0].reset();

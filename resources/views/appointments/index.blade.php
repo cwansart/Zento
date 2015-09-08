@@ -27,6 +27,11 @@
                                 <div class="zc-event" data-id="{!! $appointment->id !!}">{!! $appointment->title !!}</div>
                             @endforeach
                         @endif
+                        @if(array_key_exists(\Carbon\Carbon::create($year, $month, 1)->addDay($day - $day_offset - 1)->format('d.m'), $birthdays))
+                            @foreach($birthdays[\Carbon\Carbon::create($year, $month, 1)->addDay($day - $day_offset - 1)->format('d.m')] as $birthday)
+                                <div class="zc-event-birthday" data-id="{!! $birthday->id !!}">{!! $birthday->firstname." ".$birthday->lastname !!}</div>
+                            @endforeach
+                        @endif
                     </td>
                 @elseif(\Carbon\Carbon::now()->day == ($day - $day_offset) &&
                         \Carbon\Carbon::now()->month == $month &&
@@ -39,6 +44,11 @@
                                 <div class="zc-event" data-id="{!! $appointment->id !!}">{!! $appointment->title !!}</div>
                             @endforeach
                         @endif
+                        @if(array_key_exists(\Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m'), $birthdays))
+                            @foreach($birthdays[\Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m')] as $birthday)
+                                <div class="zc-event-birthday" data-id="{!! $birthday->id !!}">{!! $birthday->firstname." ".$birthday->lastname !!}</div>
+                            @endforeach
+                        @endif
                     </td>
                 @else
                     <td class="zc-day"
@@ -47,6 +57,11 @@
                         @if(array_key_exists(\Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m.Y'), $appointments))
                             @foreach($appointments[\Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m.Y')] as $appointment)
                                 <div class="zc-event" data-id="{!! $appointment->id !!}">{!! $appointment->title !!}</div>
+                            @endforeach
+                        @endif
+                        @if(array_key_exists(\Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m'), $birthdays))
+                            @foreach($birthdays[\Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m')] as $birthday)
+                                <div class="zc-event-birthday" data-id="{!! $birthday->id !!}">{!! $birthday->firstname." ".$birthday->lastname !!}</div>
                             @endforeach
                         @endif
                     </td>
@@ -63,6 +78,11 @@
                     @if(array_key_exists(\Carbon\Carbon::create($year, $month, $i)->addMonth(1)->format('d.m.Y'), $appointments))
                         @foreach($appointments[\Carbon\Carbon::create($year, $month, $i)->addMonth(1)->format('d.m.Y')] as $appointment)
                             <div class="zc-event" data-id="{!! $appointment->id !!}">{!! $appointment->title !!}</div>
+                        @endforeach
+                    @endif
+                    @if(array_key_exists(\Carbon\Carbon::create($year, $month, $i)->addMonth(1)->format('d.m'), $birthdays))
+                        @foreach($birthdays[\Carbon\Carbon::create($year, $month, $i)->addMonth(1)->format('d.m')] as $birthday)
+                            <div class="zc-event-birthday" data-id="{!! $birthday->id !!}">{!! $birthday->firstname." ".$birthday->lastname !!}</div>
                         @endforeach
                     @endif
                 </td>

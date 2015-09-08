@@ -3,6 +3,7 @@
 namespace Zento\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Zento\Http\Requests\AppointmentRequest;
 
 use Carbon\Carbon;
@@ -26,7 +27,6 @@ class AppointmentController extends Controller
         $end_date = Carbon::create($year, $month, 31)->addDay(7)->format('Y-m-d');
 
         $results = \DB::select( \DB::raw("SELECT * FROM appointments WHERE (start BETWEEN '$start_date' AND '$end_date') OR (end BETWEEN '$start_date' AND '$end_date')"));
-        // dd($result);
         $appointments = [];
         foreach ($results as $result)
         {
@@ -40,6 +40,13 @@ class AppointmentController extends Controller
             while($start->lte($end));
         }
 
+        // Get birthdays of month
+        $results = \DB::select( \DB::raw("SELECT * FROM users WHERE (MONTH(birthday) = '$month') OR (MONTH(birthday) = '$month' - 1) OR (MONTH(birthday) = '$month' + 1)"));
+        $birthdays = [];
+        foreach ($results as $result)
+        {
+            $birthdays[Carbon::createFromFormat('Y-m-d', $result->birthday)->format('d.m')][] = $result;
+        }
         // Get days of month
         $total_days = date('t', mktime(0, 0, 0, $month, 1, $year));
 
@@ -49,6 +56,7 @@ class AppointmentController extends Controller
         // returns appointments as JSON if
         return $request->ajax() ? $appointments : view('appointments.index')
             ->with('appointments', $appointments)
+            ->with('birthdays', $birthdays)
             ->with('month', $month)
             ->with('year', $year)
             ->with('total_days', $total_days)

@@ -33,7 +33,6 @@ Route::delete('seminars/{seminarid}/{userid}', 'SeminarController@removeUser');
 Route::resource('users', 'UserController');
 Route::resource('exams', 'ExamController');
 Route::resource('seminars', 'SeminarController');
-Route::get('appointments/{year}/{month}', 'AppointmentController@index');
 Route::resource('appointments', 'AppointmentController');
 
 Route::controllers([

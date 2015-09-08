@@ -17,11 +17,11 @@ class AppointmentController extends Controller
      *
      * @return Response
      */
-    public function index(Request $request, $year = null, $month = null)
+    public function index(Request $request)
     {
         // Check for given month and year, default is current month and year
-        $month = !is_null($month) ? $month : date('n');
-        $year = !is_null($year) ? $year : date('Y');
+        $month = !is_null($request->get('month')) ? $request->get('month') : date('n');
+        $year = !is_null($request->get('year')) ? $request->get('year') : date('Y');
 
         $start_date = Carbon::create($year, $month, 1)->addDay(-7)->format('Y-m-d');
         $end_date = Carbon::create($year, $month, 31)->addDay(7)->format('Y-m-d');

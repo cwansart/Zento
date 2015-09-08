@@ -171,6 +171,7 @@ html {
 
 .zento-calendar{
     width:100%;
+    min-width: 600px;
     min-height: 500px;
     border-collapse: collapse;
     border: 1px solid lightgray;

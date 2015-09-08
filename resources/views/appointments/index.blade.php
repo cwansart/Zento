@@ -5,6 +5,24 @@
 @section('content')
     <div class="container">
         <h1>{!! \Zento\Appointment::$months[$month - 1]." ".$year !!}</h1>
+        @if($month > 1)
+            <a href="{{ URL::route('appointments.index', ['year' => $year, 'month' => $month - 1]) }}">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+        @else
+            <a href="{{ URL::route('appointments.index', ['year' => $year - 1, 'month' => 12]) }}">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+        @endif
+        @if($month < 12)
+            <a href="{{ URL::route('appointments.index', ['year' => $year, 'month' => $month + 1]) }}">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        @else
+            <a href="{{ URL::route('appointments.index', ['year' => $year + 1, 'month' => 1]) }}">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        @endif
         <table class="zento-calendar">
             <tr>
                 <!-- Table headers -->

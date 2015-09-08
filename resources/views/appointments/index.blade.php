@@ -116,6 +116,7 @@
         $(document).ready(function() {
 
             $('.zc-event').click(function(event) {
+                event.stopPropagation();
                 var that = this;
                 that.appointmentRoute = '{!! action('AppointmentController@show', null) !!}/' + event.target.getAttribute('data-id');
 
@@ -132,9 +133,18 @@
                         $('#appointment-tooltip .description').text(appointment.description ? appointment.description : '');
 
                         var format = appointment.allDay ? 'dd.mm.yyyy' : 'dd.mm.yyyy hh:MM';
-                        var pattern = /(\d{2})\.(\d{2})\.(\d{4}).(\d{2})\:(\d{2})/;
-                        var start = (new Date(appointment.start.replace(pattern,'$3-$2-$1T$4:$5:00'))).format(format);
-                        var end = (new Date(appointment.end.replace(pattern,'$3-$2-$1T$4:$5:00'))).format(format);
+                        var pattern = /(\d{2})\.(\d{2})\.(\d{4}).?(\d{2})?\:?(\d{2})?/;
+                        console.log(appointment.start);
+                        var start;
+                        var end;
+                        if(appointment.allDay) {
+                            start = (new Date(appointment.start.replace(pattern,'$3-$2-$1'))).format(format);
+                            end = (new Date(appointment.end.replace(pattern,'$3-$2-$1'))).format(format);
+                        } else {
+                            start = (new Date(appointment.start.replace(pattern,'$3-$2-$1T$4:$5:00'))).format(format);
+                            end = (new Date(appointment.end.replace(pattern,'$3-$2-$1T$4:$5:00'))).format(format);
+                        }
+
                         $('#appointment-tooltip .start').text(start);
                         $('#appointment-tooltip .end').text(end);
 

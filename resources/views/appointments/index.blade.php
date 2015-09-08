@@ -29,7 +29,7 @@
                         @endif
                         @if(array_key_exists(\Carbon\Carbon::create($year, $month, 1)->addDay($day - $day_offset - 1)->format('d.m'), $birthdays))
                             @foreach($birthdays[\Carbon\Carbon::create($year, $month, 1)->addDay($day - $day_offset - 1)->format('d.m')] as $birthday)
-                                <div class="zc-event-birthday" data-id="{!! $birthday->id !!}">{!! $birthday->firstname." ".$birthday->lastname !!}</div>
+                                <div class="zc-event-birthday" data-href="{{ action('UserController@show', [$birthday->id]) }}">{!! $birthday->firstname." ".$birthday->lastname !!}</div>
                             @endforeach
                         @endif
                     </td>
@@ -46,7 +46,7 @@
                         @endif
                         @if(array_key_exists(\Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m'), $birthdays))
                             @foreach($birthdays[\Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m')] as $birthday)
-                                <div class="zc-event-birthday" data-id="{!! $birthday->id !!}">{!! $birthday->firstname." ".$birthday->lastname !!}</div>
+                                <div class="zc-event-birthday" data-href="{{ action('UserController@show', [$birthday->id]) }}">{!! $birthday->firstname." ".$birthday->lastname !!}</div>
                             @endforeach
                         @endif
                     </td>
@@ -61,7 +61,7 @@
                         @endif
                         @if(array_key_exists(\Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m'), $birthdays))
                             @foreach($birthdays[\Carbon\Carbon::create($year, $month, $day - $day_offset)->format('d.m')] as $birthday)
-                                <div class="zc-event-birthday" data-id="{!! $birthday->id !!}">{!! $birthday->firstname." ".$birthday->lastname !!}</div>
+                                <div class="zc-event-birthday" data-href="{{ action('UserController@show', [$birthday->id]) }}">{!! $birthday->firstname." ".$birthday->lastname !!}</div>
                             @endforeach
                         @endif
                     </td>
@@ -82,7 +82,7 @@
                     @endif
                     @if(array_key_exists(\Carbon\Carbon::create($year, $month, $i)->addMonth(1)->format('d.m'), $birthdays))
                         @foreach($birthdays[\Carbon\Carbon::create($year, $month, $i)->addMonth(1)->format('d.m')] as $birthday)
-                            <div class="zc-event-birthday" data-id="{!! $birthday->id !!}">{!! $birthday->firstname." ".$birthday->lastname !!}</div>
+                            <div class="zc-event-birthday" data-href="{{ action('UserController@show', [$birthday->id]) }}">{!! $birthday->firstname." ".$birthday->lastname !!}</div>
                         @endforeach
                     @endif
                 </td>
@@ -184,6 +184,10 @@
                 }, 50);
             });
 
+            $('.zc-event-birthday').click(function(event) {
+                event.stopPropagation();
+                window.document.location = $(this).data("href");
+            });
 
             $('.zc-day').click(function(event) {
                 $('.form-horizontal')[0].reset();

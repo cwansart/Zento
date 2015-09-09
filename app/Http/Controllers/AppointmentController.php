@@ -27,14 +27,17 @@ class AppointmentController extends Controller
         $end_date = Carbon::create($year, $month, 31)->addDay(7)->format('Y-m-d');
 
         $results = \DB::select( \DB::raw("SELECT * FROM appointments WHERE (start BETWEEN '$start_date' AND '$end_date') OR (end BETWEEN '$start_date' AND '$end_date')"));
-        $appointments = [];
+        $appointments_raw = [];
         foreach ($results as $result)
         {
             $start = Carbon::createFromFormat('Y-m-d H:i:s', $result->start);
             $end = Carbon::createFromFormat('Y-m-d H:i:s', $result->end);
             do
             {
-                $appointments[$start->format('d.m.Y')][] = $result;
+                $appointments_raw[$start->format('d.m.Y')][] = [
+                    'id' => $result->id,
+                    'title' => $result->title
+                ];
                 $start->addDay(1);
             }
             while($start->lte($end));
@@ -42,10 +45,14 @@ class AppointmentController extends Controller
 
         // Get birthdays of month
         $results = \DB::select( \DB::raw("SELECT * FROM users WHERE (MONTH(birthday) = '$month') OR (MONTH(birthday) = '$month' - 1) OR (MONTH(birthday) = '$month' + 1)"));
-        $birthdays = [];
+        $birthdays_raw = [];
         foreach ($results as $result)
         {
-            $birthdays[Carbon::createFromFormat('Y-m-d', $result->birthday)->format('d.m')][] = $result;
+            $birthdays_raw[Carbon::createFromFormat('Y-m-d', $result->birthday)->format('d.m')][] = [
+                'id' => $result->id,
+                'name' => $result->firstname." ".$result->lastname,
+                'year' => intval(Carbon::createFromFormat('Y-m-d', $result->birthday)->format('Y'))
+            ];
         }
         // Get days of month
         $total_days = date('t', mktime(0, 0, 0, $month, 1, $year));
@@ -53,14 +60,67 @@ class AppointmentController extends Controller
         // First day of month on correct weekday
         $day_offset = date('w', mktime(0, 0, 0, $month, (1-1), $year));
 
+        $calendar_days = [];
+        for($i = 0; $i < (($total_days + $day_offset) + (7 - (($total_days + $day_offset) % 7))); $i++)
+        {
+            if($i < $day_offset)
+            {
+                $date = Carbon::create($year, $month, 1)->addDay($i - $day_offset);
+                $day = [
+                    'num' => $date->format('j'),
+                    'class' => 'zc-day zc-other-month',
+                    'data-date' => $date->format('d.m.Y')
+                ];
+            }
+            elseif ($i < $total_days + $day_offset)
+            {
+                $date = Carbon::create($year, $month, $i - $day_offset + 1);
+                $day = [
+                    'num' => $date->format('j'),
+                    'class' => 'zc-day',
+                    'data-date' => $date->format('d.m.Y')
+                ];
+            }
+            else
+            {
+                $date = Carbon::create($year, $month, $total_days)
+                    ->addDay($i - ($total_days + $day_offset) + 1);
+                $day = [
+                    'num' => $date->format('j'),
+                    'class' => 'zc-day zc-other-month',
+                    'data-date' => $date->format('d.m.Y')
+                ];
+            }
+
+            if(array_key_exists($date->format('d.m.Y'), $appointments_raw))
+            {
+                $day['appointments'] = $appointments_raw[$date->format('d.m.Y')];
+            }
+            else
+            {
+                $day['appointments'] = [];
+            }
+
+            if(array_key_exists($date->format('d.m'), $birthdays_raw))
+            {
+                $day['birthdays'] = $birthdays_raw[$date->format('d.m')];
+            }
+            else
+            {
+                $day['birthdays'] = [];
+            }
+
+            $day['year'] = intval($date->format('Y'));
+            $calendar_days[$i] = $day;
+            if($calendar_days[$i]['data-date'] == Carbon::now()->format('d.m.Y')) {
+                $calendar_days[$i]['class'] = $calendar_days[$i]['class'] . ' zc-today';
+            }
+        }
         // returns appointments as JSON if
-        return $request->ajax() ? $appointments : view('appointments.index')
-            ->with('appointments', $appointments)
-            ->with('birthdays', $birthdays)
+        return $request->ajax() ? $appointments_raw : view('appointments.index')
+            ->with('calendar_days', $calendar_days)
             ->with('month', $month)
-            ->with('year', $year)
-            ->with('total_days', $total_days)
-            ->with('day_offset', $day_offset);
+            ->with('year', $year);
     }
 
     /**

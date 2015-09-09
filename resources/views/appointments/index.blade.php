@@ -38,7 +38,7 @@
                     data-date="{!! $calendar_days[$i]["data-date"] !!}">
                     {!! $calendar_days[$i]["num"] !!}
                     @foreach($calendar_days[$i]["appointments"] as $appointment)
-                        <div class="zc-event" data-id="{!! $appointment["id"] !!}">
+                        <div class="{!! $appointment["class"] !!}" data-id="{!! $appointment["id"] !!}">
                             {!! $appointment["title"] !!}
                         </div>
                     @endforeach
@@ -101,7 +101,7 @@
     <script>
         $(document).ready(function() {
 
-            $('.zc-event').click(function(event) {
+            $('.zc-event, .zc-event-left, .zc-event-middle, .zc-event-right').click(function(event) {
                 event.stopPropagation();
                 var that = this;
                 that.appointmentRoute = '{!! action('AppointmentController@show', null) !!}/' + event.target.getAttribute('data-id');

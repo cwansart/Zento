@@ -30,17 +30,35 @@ class AppointmentController extends Controller
         $appointments_raw = [];
         foreach ($results as $result)
         {
+            $start_new = Carbon::createFromFormat('Y-m-d H:i:s', $result->start);
             $start = Carbon::createFromFormat('Y-m-d H:i:s', $result->start);
             $end = Carbon::createFromFormat('Y-m-d H:i:s', $result->end);
             do
             {
-                $appointments_raw[$start->format('d.m.Y')][] = [
+                if($start->format('d.m.Y') == $end->format('d.m.Y'))
+                {
+                    $class = 'zc-event';
+                }
+                elseif($start_new->eq($start))
+                {
+                    $class = 'zc-event-left';
+                }
+                elseif($start_new->format('d.m.Y') == $end->format('d.m.Y'))
+                {
+                    $class = 'zc-event-right';
+                }
+                else
+                {
+                    $class = 'zc-event-middle';
+                }
+                $appointments_raw[$start_new->format('d.m.Y')][] = [
                     'id' => $result->id,
-                    'title' => $result->title
+                    'title' => $result->title,
+                    'class' => $class
                 ];
-                $start->addDay(1);
+                $start_new->addDay(1);
             }
-            while($start->lte($end));
+            while($start_new->lte($end));
         }
 
         // Get birthdays of month

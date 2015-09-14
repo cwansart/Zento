@@ -4,7 +4,56 @@
 
 @section('content')
     <div class="container">
-        <div id='calendar'></div>
+        <h1>{!! \Zento\Appointment::$months[$month - 1]." ".$year !!}</h1>
+        @if($month > 1)
+            <a href="{{ URL::route('appointments.index', ['year' => $year, 'month' => $month - 1]) }}">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+        @else
+            <a href="{{ URL::route('appointments.index', ['year' => $year - 1, 'month' => 12]) }}">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+        @endif
+        @if($month < 12)
+            <a href="{{ URL::route('appointments.index', ['year' => $year, 'month' => $month + 1]) }}">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        @else
+            <a href="{{ URL::route('appointments.index', ['year' => $year + 1, 'month' => 1]) }}">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        @endif
+        <table class="zento-calendar">
+            <tr>
+                <!-- Table headers -->
+                @foreach(\Zento\Appointment::$weekdays as $weekday)
+                    <th class="zc-header">{!! $weekday !!}</th>
+                @endforeach
+            </tr>
+            @for($i = 0; $i < count($calendar_days); $i++)
+                @if($i % 7 == 0)
+                    <tr>
+                @endif
+                <td class="{!! $calendar_days[$i]["class"] !!}"
+                    data-date="{!! $calendar_days[$i]["data-date"] !!}">
+                    {!! $calendar_days[$i]["num"] !!}
+                    @foreach($calendar_days[$i]["appointments"] as $appointment)
+                        <div class="{!! $appointment["class"] !!}" data-id="{!! $appointment["id"] !!}">
+                            {!! $appointment["title"] !!}
+                        </div>
+                    @endforeach
+                    @foreach($calendar_days[$i]["birthdays"] as $birthday)
+                        <div class="zc-event-birthday"
+                             data-href="{!! action('UserController@show', [$birthday["id"]]) !!}">
+                            {!! $birthday["name"]." (".strval($calendar_days[$i]["year"] - $birthday["year"]).")" !!}
+                        </div>
+                    @endforeach
+                </td>
+                @if(($i + 1) % 7 == 0)
+                    </tr>
+                @endif
+            @endfor
+        </table>
 
         <a class="btn btn-primary" id="show-create-dialog-button">Termin erstellen</a>
     </div>
@@ -52,6 +101,69 @@
     <script>
         $(document).ready(function() {
 
+<<<<<<< HEAD
+            $('.zc-event, .zc-event-left, .zc-event-middle, .zc-event-right').click(function(event) {
+                event.stopPropagation();
+                var that = this;
+                that.appointmentRoute = '{!! action('AppointmentController@show', null) !!}/' + event.target.getAttribute('data-id');
+
+                // these two lines enable the "fade out" effect
+                $('#appointment-tooltip').removeClass('in');
+                window.setTimeout(function() {
+                    $.getJSON(that.appointmentRoute  ,function(appointment) {
+                        var editRoute = ('{!! action('AppointmentController@edit') !!}').replace('%7Bappointments%7D', event.target.getAttribute('data-id'));
+                        var destroyRoute = ('{!! action('AppointmentController@destroy') !!}').replace('%7Bappointments%7D', event.target.getAttribute('data-id'));
+                        $('#appointment-tooltip .popover-controls .edit').attr('href', editRoute);
+                        $('#appointment-tooltip .popover-controls .delete').attr('href', destroyRoute);
+
+                        $('#appointment-tooltip .title').text(appointment.title);
+                        $('#appointment-tooltip .description').text(appointment.description ? appointment.description : '');
+
+                        var format = appointment.allDay ? 'dd.mm.yyyy' : 'dd.mm.yyyy hh:MM';
+                        var pattern = /(\d{2})\.(\d{2})\.(\d{4}).?(\d{2})?\:?(\d{2})?/;
+                        console.log(appointment.start);
+                        var start;
+                        var end;
+                        if(appointment.allDay) {
+                            start = (new Date(appointment.start.replace(pattern,'$3-$2-$1'))).format(format);
+                            end = (new Date(appointment.end.replace(pattern,'$3-$2-$1'))).format(format);
+                        } else {
+                            start = (new Date(appointment.start.replace(pattern,'$3-$2-$1T$4:$5:00'))).format(format);
+                            end = (new Date(appointment.end.replace(pattern,'$3-$2-$1T$4:$5:00'))).format(format);
+                        }
+
+                        $('#appointment-tooltip .start').text(start);
+                        $('#appointment-tooltip .end').text(end);
+
+                        if(appointment.user_id) {
+                            var trainerRoute = '{!! action('UserController@show', null) !!}/' + appointment.user_id;
+                            $.getJSON(trainerRoute, function(trainer) {
+                                $('#appointment-tooltip .actual-trainer').text(trainer.firstname + ' ' + trainer.lastname);
+                                $('#appointment-tooltip .trainer').removeClass('hidden');
+                            });
+                        } else {
+                            $('#appointment-tooltip .trainer').addClass('hidden');
+                        }
+
+                        var tooltipCenter = $('#appointment-tooltip').width() / 2;
+                        $('#appointment-tooltip').addClass('in').css('top', event.pageY).css('left', event.pageX - tooltipCenter);
+                    });
+                }, 50);
+            });
+
+            $('.zc-event-birthday').click(function(event) {
+                event.stopPropagation();
+                window.document.location = $(this).data("href");
+            });
+
+            $('.zc-day').click(function(event) {
+                $('.form-horizontal')[0].reset();
+                $('#start-picker').data().DateTimePicker.format = 'DD.MM.YYYY';
+                $('#end-picker').data().DateTimePicker.format = 'DD.MM.YYYY';
+                $('#start-picker').data().DateTimePicker.setDate(event.target.getAttribute('data-date'));
+                $('#end-picker').data().DateTimePicker.setDate(event.target.getAttribute('data-date'));
+                $('#appointment-create-dialog').modal('show');
+=======
             $('#calendar').fullCalendar({
                 lang: 'de',
                 timeFormat: 'HH:MM',
@@ -101,8 +213,8 @@
                     }, 50);
 
                 },
+>>>>>>> origin/dev
             });
-            $('#calendar').fullCalendar('rerenderEvents');
 
             $('#show-create-dialog-button').on('click', function() {
                 $('.form-horizontal')[0].reset();

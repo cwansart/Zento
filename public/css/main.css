@@ -169,26 +169,111 @@ html {
     overflow-y: scroll;
 }
 
-.fc-day:hover{
+.zento-calendar{
+    width:100%;
+    min-width: 600px;
+    min-height: 500px;
+    border-collapse: collapse;
+    border: 1px solid lightgray;
+    table-layout: fixed;
+}
+
+.zc-header{
+    border: 1px solid lightgray;
+    background: #4c4d53;
+    color:#fff;
+    text-align: center;
+}
+
+.zc-other-month{
+    color: lightgray;
+}
+
+.zc-day{
+    height: 100px;
+    width: 15%;
+    border: 1px solid lightgray;
+    text-align: right;
+    vertical-align: text-top;
+}
+
+.zc-day:hover{
     background-color:#eeeeee;
     cursor:pointer;
 }
 
-.fc-content{
+.zc-content{
     background:#2C9688;
 }
 
-.fc-event{
+.zc-event{
     background:#2C9688;
     border:1px solid #2C9688;
+    text-align: center;
+    color:black;
+    margin: 2px 5px 2px 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
-.fc-content:hover{
+.zc-event-left{
+    background:#2C9688;
+    border:1px solid #2C9688;
+    text-align: center;
+    color:black;
+    margin: 2px 0 2px 5px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.zc-event-middle{
+    background:#2C9688;
+    border:1px solid #2C9688;
+    text-align: center;
+    color:black;
+    margin: 2px 0 2px 0;
+}
+
+.zc-event-right{
+    background:#2C9688;
+    border:1px solid #2C9688;
+    text-align: center;
+    color:black;
+    margin: 2px 5px 2px 0;
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomright: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.zc-event-birthday{
+    background:#f1c40f;
+    border:1px solid #f1c40f;
+    text-align: center;
+    color:black;
+    margin: 2px 5px 2px 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.zc-content:hover{
     cursor:pointer;
     background:#30786E;
 }
 
-.fc-unthemed .fc-today{
+.zc-today{
+    background-color: rgba(255, 143, 0, 0.45);
+}
+
+.zc-unthemed{
 	background-color:#EBF2F1;
 }
 

@@ -49,4 +49,30 @@ class Appointment extends Model
     {
         $this->attributes['user_id'] = $userId > 0 ? $userId : null;
     }
+
+    public static $weekdays = [
+        'Montag',
+        'Dienstag',
+        'Mittwoch',
+        'Donnerstag',
+        'Freitag',
+        'Samstag',
+        'Sonntag'
+    ];
+
+
+    public static $months = [
+        'Januar',
+        'Februar',
+        'März',
+        'April',
+        'Mai',
+        'Juni',
+        'Juli',
+        'August',
+        'September',
+        'Oktober',
+        'November',
+        'Dezember'
+    ];
 }

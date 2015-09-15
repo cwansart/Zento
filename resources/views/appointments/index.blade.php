@@ -100,17 +100,15 @@
 
     <script>
         $(document).ready(function() {
-
-<<<<<<< HEAD
-            $('.zc-event, .zc-event-left, .zc-event-middle, .zc-event-right').click(function(event) {
+            $('.zc-event, .zc-event-left, .zc-event-middle, .zc-event-right').click(function (event) {
                 event.stopPropagation();
                 var that = this;
                 that.appointmentRoute = '{!! action('AppointmentController@show', null) !!}/' + event.target.getAttribute('data-id');
 
                 // these two lines enable the "fade out" effect
                 $('#appointment-tooltip').removeClass('in');
-                window.setTimeout(function() {
-                    $.getJSON(that.appointmentRoute  ,function(appointment) {
+                window.setTimeout(function () {
+                    $.getJSON(that.appointmentRoute, function (appointment) {
                         var editRoute = ('{!! action('AppointmentController@edit') !!}').replace('%7Bappointments%7D', event.target.getAttribute('data-id'));
                         var destroyRoute = ('{!! action('AppointmentController@destroy') !!}').replace('%7Bappointments%7D', event.target.getAttribute('data-id'));
                         $('#appointment-tooltip .popover-controls .edit').attr('href', editRoute);
@@ -124,20 +122,20 @@
                         console.log(appointment.start);
                         var start;
                         var end;
-                        if(appointment.allDay) {
-                            start = (new Date(appointment.start.replace(pattern,'$3-$2-$1'))).format(format);
-                            end = (new Date(appointment.end.replace(pattern,'$3-$2-$1'))).format(format);
+                        if (appointment.allDay) {
+                            start = (new Date(appointment.start.replace(pattern, '$3-$2-$1'))).format(format);
+                            end = (new Date(appointment.end.replace(pattern, '$3-$2-$1'))).format(format);
                         } else {
-                            start = (new Date(appointment.start.replace(pattern,'$3-$2-$1T$4:$5:00'))).format(format);
-                            end = (new Date(appointment.end.replace(pattern,'$3-$2-$1T$4:$5:00'))).format(format);
+                            start = (new Date(appointment.start.replace(pattern, '$3-$2-$1T$4:$5:00'))).format(format);
+                            end = (new Date(appointment.end.replace(pattern, '$3-$2-$1T$4:$5:00'))).format(format);
                         }
 
                         $('#appointment-tooltip .start').text(start);
                         $('#appointment-tooltip .end').text(end);
 
-                        if(appointment.user_id) {
+                        if (appointment.user_id) {
                             var trainerRoute = '{!! action('UserController@show', null) !!}/' + appointment.user_id;
-                            $.getJSON(trainerRoute, function(trainer) {
+                            $.getJSON(trainerRoute, function (trainer) {
                                 $('#appointment-tooltip .actual-trainer').text(trainer.firstname + ' ' + trainer.lastname);
                                 $('#appointment-tooltip .trainer').removeClass('hidden');
                             });
@@ -151,77 +149,77 @@
                 }, 50);
             });
 
-            $('.zc-event-birthday').click(function(event) {
+            $('.zc-event-birthday').click(function (event) {
                 event.stopPropagation();
                 window.document.location = $(this).data("href");
             });
 
-            $('.zc-day').click(function(event) {
+            $('.zc-day').click(function (event) {
                 $('.form-horizontal')[0].reset();
                 $('#start-picker').data().DateTimePicker.format = 'DD.MM.YYYY';
                 $('#end-picker').data().DateTimePicker.format = 'DD.MM.YYYY';
                 $('#start-picker').data().DateTimePicker.setDate(event.target.getAttribute('data-date'));
                 $('#end-picker').data().DateTimePicker.setDate(event.target.getAttribute('data-date'));
                 $('#appointment-create-dialog').modal('show');
-=======
-            $('#calendar').fullCalendar({
-                lang: 'de',
-                timeFormat: 'HH:MM',
-                events: '{!! action('AppointmentController@index') !!}',
 
-                dayClick: function (date, jsEvent, view) {
-                    $('#start-picker').data().DateTimePicker.setDate(date);
-                    $('#end-picker').data().DateTimePicker.setDate(date);
+                $('#calendar').fullCalendar({
+                    lang: 'de',
+                    timeFormat: 'HH:MM',
+                    events: '{!! action('AppointmentController@index') !!}',
+
+                    dayClick: function (date, jsEvent, view) {
+                        $('#start-picker').data().DateTimePicker.setDate(date);
+                        $('#end-picker').data().DateTimePicker.setDate(date);
+                        $('#appointment-create-dialog').modal('show');
+                    },
+
+                    eventClick: function (event, jsEvent, view) {
+                        var that = this;
+                        that.appointmentRoute = '{!! action('AppointmentController@show', null) !!}/' + event.id;
+
+                        // these two lines enable the "fade out" effect
+                        $('#appointment-tooltip').removeClass('in');
+                        window.setTimeout(function () {
+                            $.getJSON(that.appointmentRoute, function (appointment) {
+                                var editRoute = ('{!! action('AppointmentController@edit') !!}').replace('%7Bappointments%7D', event.id);
+                                var destroyRoute = ('{!! action('AppointmentController@destroy') !!}').replace('%7Bappointments%7D', event.id);
+                                $('#appointment-tooltip .popover-controls .edit').attr('href', editRoute);
+                                $('#appointment-tooltip .popover-controls .delete').attr('href', destroyRoute);
+
+                                $('#appointment-tooltip .title').text(event.title);
+                                $('#appointment-tooltip .description').text(event.description ? event.description : '');
+
+                                var format = event.allDay ? 'dd.mm.yyyy' : 'dd.mm.yyyy hh:MM';
+                                var start = (new Date(event.start)).format(format);
+                                var end = (new Date(event.end)).format(format);
+                                $('#appointment-tooltip .start').text(start);
+                                $('#appointment-tooltip .end').text(end);
+
+                                if (event.user_id) {
+                                    var trainerRoute = '{!! action('UserController@show', null) !!}/' + event.user_id;
+                                    $.getJSON(trainerRoute, function (trainer) {
+                                        $('#appointment-tooltip .actual-trainer').text(trainer.firstname + ' ' + trainer.lastname);
+                                        $('#appointment-tooltip .trainer').removeClass('hidden');
+                                    });
+                                } else {
+                                    $('#appointment-tooltip .trainer').addClass('hidden');
+                                }
+
+                                var tooltipCenter = $('#appointment-tooltip').width() / 2;
+                                $('#appointment-tooltip').addClass('in').css('top', jsEvent.pageY).css('left', jsEvent.pageX - tooltipCenter);
+                            });
+                        }, 50);
+
+                    },
+                });
+
+                $('#show-create-dialog-button').on('click', function () {
+                    $('.form-horizontal')[0].reset();
                     $('#appointment-create-dialog').modal('show');
-                },
+                });
 
-                eventClick: function (event, jsEvent, view) {
-                    var that = this;
-                    that.appointmentRoute = '{!! action('AppointmentController@show', null) !!}/' + event.id;
-
-                    // these two lines enable the "fade out" effect
-                    $('#appointment-tooltip').removeClass('in');
-                    window.setTimeout(function() {
-                        $.getJSON(that.appointmentRoute  ,function(appointment) {
-                            var editRoute = ('{!! action('AppointmentController@edit') !!}').replace('%7Bappointments%7D', event.id);
-                            var destroyRoute = ('{!! action('AppointmentController@destroy') !!}').replace('%7Bappointments%7D', event.id);
-                            $('#appointment-tooltip .popover-controls .edit').attr('href', editRoute);
-                            $('#appointment-tooltip .popover-controls .delete').attr('href', destroyRoute);
-
-                            $('#appointment-tooltip .title').text(event.title);
-                            $('#appointment-tooltip .description').text(event.description ? event.description : '');
-
-                            var format = event.allDay ? 'dd.mm.yyyy' : 'dd.mm.yyyy hh:MM';
-                            var start = (new Date(event.start)).format(format);
-                            var end = (new Date(event.end)).format(format);
-                            $('#appointment-tooltip .start').text(start);
-                            $('#appointment-tooltip .end').text(end);
-
-                            if(event.user_id) {
-                                var trainerRoute = '{!! action('UserController@show', null) !!}/' + event.user_id;
-                                $.getJSON(trainerRoute, function(trainer) {
-                                    $('#appointment-tooltip .actual-trainer').text(trainer.firstname + ' ' + trainer.lastname);
-                                    $('#appointment-tooltip .trainer').removeClass('hidden');
-                                });
-                            } else {
-                                $('#appointment-tooltip .trainer').addClass('hidden');
-                            }
-
-                            var tooltipCenter = $('#appointment-tooltip').width() / 2;
-                            $('#appointment-tooltip').addClass('in').css('top', jsEvent.pageY).css('left', jsEvent.pageX - tooltipCenter);
-                        });
-                    }, 50);
-
-                },
->>>>>>> origin/dev
+                $('[data-toggle="tooltip"]').tooltip()
             });
-
-            $('#show-create-dialog-button').on('click', function() {
-                $('.form-horizontal')[0].reset();
-                $('#appointment-create-dialog').modal('show');
-            });
-
-            $('[data-toggle="tooltip"]').tooltip()
         });
     </script>
 

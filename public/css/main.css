@@ -375,3 +375,12 @@ body, body.modal-open {
     display:inline-block;
 }
 
+.result-color {
+    height: 20px;
+    width: 20px;
+    float: left;
+    display: inline-block;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}

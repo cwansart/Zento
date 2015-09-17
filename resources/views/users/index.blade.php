@@ -27,7 +27,7 @@
                     <tr class="clickable-row" data-href="{{ action('UserController@show', [$user->id]) }}">
                         <td>{!! $user->firstname !!}</td>
                         <td>{!! $user->lastname !!}</td>
-                        <td>{!! $user->latestResult() !!}</td>
+                        <td><span class="result-color" style="background: {!! $user->latestResultColor() !!}"></span>{!! $user->latestResult() !!}</td>
                         @if(Auth::user()->is_admin)
                             <td>
                                 <a href="{!! action('UserController@edit', $user->id) !!}" class="edit" title="Benutzer bearbeiten" data-toggle="tooltip" data-placement="right"></a>

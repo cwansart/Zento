@@ -49,6 +49,33 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $hidden = ['password', 'remember_token'];
 
     /**
+     * The attributes map a color to an exam result.
+     *
+     * @var array
+     */
+    static private $colorResult = [
+        '9. Kyu' => 'LightYellow',
+        '8. Kyu' => 'Yellow',
+        '7. Kyu' => 'Orange',
+        '6. Kyu' => 'Green',
+        '5. Kyu' => 'Blue',
+        '4. Kyu' => 'Purple',
+        '3. Kyu' => 'Brown',
+        '2. Kyu' => 'Brown',
+        '1. Kyu' => 'Brown',
+        '1. Dan' => 'Black',
+        '2. Dan' => 'Black',
+        '3. Dan' => 'Black',
+        '4. Dan' => 'Black',
+        '5. Dan' => 'Black',
+        '6. Dan' => 'Black',
+        '7. Dan' => 'Black',
+        '8. Dan' => 'Black',
+        '9. Dan' => 'Black',
+        '10. Dan' => 'Black'
+    ];
+
+    /**
      * Address relationship
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -110,7 +137,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         $latestExam = $this->exams()->orderBy('date', 'desc')->first();
         return $latestExam == null ? 'Noch kein Ergebnis' : $latestExam->pivot->result;
-        return $latestExam;
+    }
+
+    /**
+     * Returns the latest result as color if exists, otherwise it'll return white.
+     *
+     * @return string
+     */
+    public function latestResultColor()
+    {
+        $latestColor = $this->exams()->orderBy('date', 'desc')->first();
+        return $latestColor == null ? 'White' : User::$colorResult[$latestColor->pivot->result];
     }
 
     /*

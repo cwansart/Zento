@@ -78,5 +78,14 @@ class LocationTableSeeder extends Seeder {
             'housenr' => '',
             'country' => 'Dänemark'
         ]);
+
+        Location::create([
+            'name' => null,
+            'zip' => 79312,
+            'city' => 'Emmendingen',
+            'street' => '',
+            'housenr' => '',
+            'country' => 'Deutschland'
+        ]);
     }
 }

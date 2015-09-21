@@ -12,6 +12,7 @@
                 <th>Vorname</th>
                 <th>Nachname</th>
                 <th>Ergebnis</th>
+                <th></th>
                 @if(Auth::user()->is_admin)
                     <th>Aktion</th>
                 @endif
@@ -23,6 +24,11 @@
                     <td>{!! $user->firstname !!}</td>
                     <td>{!! $user->lastname !!}</td>
                     <td>{!! $user->pivot->result !!}</td>
+                    @if(is_array($user->latestResultColor($user->pivot->result)))
+                        <td><div class="zento-result-color-first" style="background: {!! $user->latestResultColor($user->pivot->result)[0] !!}"><div class="zento-result-color-second" style="background: {!! $user->latestResultColor($user->pivot->result)[1] !!}"></div></div></td>
+                    @else
+                        <td><div class="zento-result-color-first" style="background: {!! $user->latestResultColor($user->pivot->result) !!}"></div></td>
+                    @endif
                     @if(Auth::user()->is_admin)
                         <td>
                             <a href="{!! action('ExamController@removeUser', [$exam->id, $user->id]) !!}" class="delete delete-confirm" title="Prüfling entfernen" data-toggle="tooltip" data-placement="right"></a>

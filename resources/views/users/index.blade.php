@@ -17,6 +17,7 @@
                     <th>Vorname <a href="{!! action('UserController@index', ['orderBy' => 'firstname:' . ($sortBy == 'firstname:ASC' ? 'DESC' : 'ASC')]) !!}"><span class="glyphicon {!! $sortBy == 'firstname:ASC' ? 'glyphicon glyphicon-sort-by-attributes-alt' : 'glyphicon glyphicon-sort-by-attributes' !!}" aria-hidden="true"></span></a></th>
                     <th>Nachname <a href="{!! action('UserController@index', ['orderBy' => 'lastname:' . ($sortBy == 'lastname:ASC' ? 'DESC' : 'ASC')]) !!}"><span class="glyphicon {!! $sortBy == 'lastname:ASC' ? 'glyphicon glyphicon-sort-by-attributes-alt' : 'glyphicon glyphicon-sort-by-attributes' !!}" aria-hidden="true"></span></a></th>
                     <th>Graduierung</th>
+                    <th></th>
                     @if(Auth::user()->is_admin)
                         <th>Aktion</th>
                     @endif
@@ -27,7 +28,12 @@
                     <tr class="clickable-row" data-href="{{ action('UserController@show', [$user->id]) }}">
                         <td>{!! $user->firstname !!}</td>
                         <td>{!! $user->lastname !!}</td>
-                        <td><span class="result-color" style="background: {!! $user->latestResultColor() !!}"></span>{!! $user->latestResult() !!}</td>
+                        <td>{!! $user->latestResult() !!}</td>
+                        @if(is_array($user->latestResultColor($user->latestResult())))
+                            <td><div class="zento-result-color-first" style="background: {!! $user->latestResultColor($user->latestResult())[0] !!}"><div class="zento-result-color-second" style="background: {!! $user->latestResultColor($user->latestResult())[1] !!}"></div></div></td>
+                        @else
+                            <td><div class="zento-result-color-first" style="background: {!! $user->latestResultColor($user->latestResult()) !!}"></div></td>
+                        @endif
                         @if(Auth::user()->is_admin)
                             <td>
                                 <a href="{!! action('UserController@edit', $user->id) !!}" class="edit" title="Benutzer bearbeiten" data-toggle="tooltip" data-placement="right"></a>

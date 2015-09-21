@@ -375,6 +375,21 @@ body, body.modal-open {
     display:inline-block;
 }
 
+.zento-result-color-first {
+    height: 20px;
+    width: 100%;
+    min-width: 40px;
+    padding: 7px 0 7px 0;
+    border: solid 1px lightgray;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.zento-result-color-second {
+    height: 6px;
+    width: 100%;
+}
 .result-color {
     height: 20px;
     width: 20px;

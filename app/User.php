@@ -54,7 +54,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     static private $colorResult = [
-        '9. Kyu' => 'LightYellow',
+        '9. Kyu' => ['White', 'Yellow'],
         '8. Kyu' => 'Yellow',
         '7. Kyu' => 'Orange',
         '6. Kyu' => 'Green',
@@ -144,10 +144,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @return string
      */
-    public function latestResultColor()
+    public function latestResultColor($result)
     {
-        $latestColor = $this->exams()->orderBy('date', 'desc')->first();
-        return $latestColor == null ? 'White' : User::$colorResult[$latestColor->pivot->result];
+        return $result == 'Noch kein Ergebnis' ? 'White' : User::$colorResult[$result];
     }
 
     /*

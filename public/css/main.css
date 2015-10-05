@@ -285,6 +285,10 @@ body, body.modal-open {
     padding-right: 0 !important;
 }
 
+body {
+    font-family: "Bitstream Vera Sans", "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
 #appointment-show-dialog .row div {
     padding-top: 7px;
     margin-bottom: 0px;

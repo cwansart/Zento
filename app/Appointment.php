@@ -27,9 +27,14 @@ class Appointment extends Model
      */
     protected $dates = ['start', 'end'];
 
+    /**
+     * Users relationship which also includes the exam result from the pivot table.
+     *
+     * @return $this
+     */
     public function trainer()
     {
-        return $this->belongsTo('Zento\User', 'user_id');
+        return $this->belongsToMany('Zento\User')->withPivot('priority');
     }
 
     public function getStartAttribute($date)

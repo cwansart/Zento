@@ -9,6 +9,7 @@ use Zento\Http\Requests\AppointmentRequest;
 use Carbon\Carbon;
 use Zento\Appointment;
 use Zento\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
@@ -170,6 +171,12 @@ class AppointmentController extends Controller
         }
 
         $appointment = Appointment::create($request->all());
+
+        // If train is checked (only possible for non admins) add the user to the trainer
+        if($request->has('train')) {
+            $appointment->trainer()->attach(Auth::id());
+            $appointment->trainer()->updateExistingPivot(Auth::id(), ['priority' => $request->get('priority')]);
+        }
 
         return redirect(action('AppointmentController@index'))->with('status', 'Termin „'.$appointment->title.'” wurde hinzugefügt.');
     }

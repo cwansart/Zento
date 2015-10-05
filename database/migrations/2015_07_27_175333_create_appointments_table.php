@@ -19,7 +19,6 @@ class CreateAppointmentsTable extends Migration
             $table->dateTime('start');
             $table->dateTime('end');
             $table->boolean('allDay');
-            $table->integer('user_id')->nullable(); // trainer id
             $table->timestamps();
             $table->softDeletes();
         });

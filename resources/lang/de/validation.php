@@ -87,8 +87,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'priority' => [
+            'between' => 'Priorität ist nicht ausgewählt.',
         ],
     ],
 
@@ -105,8 +105,8 @@ return [
 
     'attributes' => [
         'email' => 'E-Mail',
-        'password' => 'Password',
-        'password2' => 'Password-Wiederholung',
+        'password' => 'Passwort',
+        'password2' => 'Passwort-Wiederholung',
         'firstname' => 'Vorname',
         'lastname' => 'Nachname',
         'birthday' => 'Geburtstag',
@@ -120,6 +120,7 @@ return [
         'end_date' => 'End-Datum',
         'end_time' => 'End-Zeitpunkt',
         'title' => 'Titel',
+        'priority' => 'Priorität',
     ],
 
 ];

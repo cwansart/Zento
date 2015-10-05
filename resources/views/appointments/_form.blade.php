@@ -47,39 +47,24 @@
 
 <div class="form-group">
     {!! Form::label('train', 'Trainer', ['class' => 'col-md-4 control-label']) !!}
-    @if(Auth::user()->is_admin)
-        <div class="col-md-6">
-            <!-- TODO: Select2 is not ready for multiple options. Should throw exception -->
-            <select class="form-control select2" id="user_id" name="user_id" multiple="multiple">
-                @if(isset($appointment) && isset($appointment->user_id))
-                    <option value="{!! $appointment->trainer->id !!}">{!! $appointment->trainer->firstname !!} {!! $appointment->trainer->lastname !!}</option>
-                @endif
-            </select>
-        </div>
-    @else
-        <div class="col-md-6">
-            @if(isset($appointment) && isset($appointment->user_id))
-                <!-- TODO: Name of current User shouldn't be in this list. -->
-                @if(count($appointment))
-                    <ul>
-                        @foreach($appointment->trainer as $trainer)
-                            <!-- Throws exception. TODO: Change to multiple array first! -->
-                            @if($trainer->id != Auth::id())
-                                <li>{!! $appointment->trainer->firstname !!} {!! $appointment->trainer->lastname !!}</li>
-                            @endif
-                        @endforeach
-                    </ul>
-                @endif
-            @else
-                <p>Noch kein Trainer!</p>
+    <div class="col-md-6">
+        @if(isset($appointment))
+            @if(count($appointment))
+                <ul>
+                    @foreach($appointment->trainer as $trainer)
+                        <li>{!! $trainer !!}</li>
+                    @endforeach
+                </ul>
             @endif
-            <div class="checkbox" id="allDay-wrapper">
-                <label>
-                    {!! Form::checkbox('train') !!} Training geben?
-                </label>
-            </div>
+        @else
+            <p>Noch kein Trainer!</p>
+        @endif
+        <div class="checkbox" id="allDay-wrapper">
+            <label>
+                {!! Form::checkbox('train') !!} Training geben? {!! Form::select('priority', array(-1 => 'Priorität wählen',0 => 'Niedrig', 1 => 'Normal', 2 => 'Hoch'), null, ['class' => 'form-control']) !!}
+            </label>
         </div>
-    @endif
+    </div>
 </div>
 
 <script>

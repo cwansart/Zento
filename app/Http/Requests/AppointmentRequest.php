@@ -35,6 +35,7 @@ class AppointmentRequest extends Request
             'title' => 'required|min:3',
             'start' => 'required|regex:/\d{2}\.\d{2}\.\d{4}( \d{2}:\d{2})?/',
             'end' => 'required_if:allDay,true|regex:/\d{2}\.\d{2}\.\d{4}( \d{2}:\d{2})?/',
+            'priority' => 'required_if:train,true|numeric|between:0,2',
         ];
     }
 }

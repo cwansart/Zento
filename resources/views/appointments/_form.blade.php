@@ -49,7 +49,7 @@
     {!! Form::label('train', 'Trainer', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         @if(isset($appointment))
-            @if(count($appointment))
+            @if(count($appointment) && isset($appointment->trainer))
                 <ul>
                     @foreach($appointment->trainer as $trainer)
                         <li>{!! $trainer !!}</li>

@@ -88,7 +88,7 @@
                 <span class="end"></span>
             </div>
             <div class="description"></div>
-            <div class="trainer hidden">Trainer: <span class="actual-trainer"></span></div>
+            <div class="trainer hidden">Trainer (Priorität): <ul class="actual-trainer"></ul></div>
         </div>
         <div class="popover-controls">
             <div style="margin: 0; padding: 0; line-height: 22px;">
@@ -119,7 +119,6 @@
 
                         var format = appointment.allDay ? 'dd.mm.yyyy' : 'dd.mm.yyyy hh:MM';
                         var pattern = /(\d{2})\.(\d{2})\.(\d{4}).?(\d{2})?\:?(\d{2})?/;
-                        console.log(appointment.start);
                         var start;
                         var end;
                         if (appointment.allDay) {
@@ -133,15 +132,21 @@
                         $('#appointment-tooltip .start').text(start);
                         $('#appointment-tooltip .end').text(end);
 
-                        if (appointment.user_id) {
-                            var trainerRoute = '{!! action('UserController@show', null) !!}/' + appointment.user_id;
-                            $.getJSON(trainerRoute, function (trainer) {
-                                $('#appointment-tooltip .actual-trainer').text(trainer.firstname + ' ' + trainer.lastname);
+                        var trainerRoute = '{!! action('AppointmentController@getTrainer', null) !!}/' + event.target.getAttribute('data-id');
+                        $.getJSON(trainerRoute, function (trainer) {
+                            if (trainer.length) {
+                                var trainerList = "";
+                                for (i = 0; i < trainer.length; i++) {
+                                    var prio = ["Niedrig", "Normal", "Hoch"];
+                                    trainerList += "<li>" + trainer[i].firstname + " " + trainer[i].lastname;
+                                    trainerList += " (" + prio[trainer[i].pivot.priority] + ")"+ "</li>";
+                                }
+                                $('#appointment-tooltip .actual-trainer').html(trainerList);
                                 $('#appointment-tooltip .trainer').removeClass('hidden');
-                            });
-                        } else {
-                            $('#appointment-tooltip .trainer').addClass('hidden');
-                        }
+                            } else {
+                                $('#appointment-tooltip .trainer').addClass('hidden');
+                            }
+                        });
 
                         var tooltipCenter = $('#appointment-tooltip').width() / 2;
                         $('#appointment-tooltip').addClass('in').css('top', event.pageY).css('left', event.pageX - tooltipCenter);

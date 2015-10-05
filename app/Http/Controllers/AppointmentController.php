@@ -134,6 +134,7 @@ class AppointmentController extends Controller
                 $calendar_days[$i]['class'] = $calendar_days[$i]['class'] . ' zc-today';
             }
         }
+
         // returns appointments as JSON if
         return $request->ajax() ? $appointments_raw : view('appointments.index')
             ->with('calendar_days', $calendar_days)
@@ -183,7 +184,6 @@ class AppointmentController extends Controller
     public function show(Request $request, $id)
     {
         $appointment = Appointment::findOrFail($id);
-
         return $request->ajax() ?
             $appointment :
             view('appointments.show')
@@ -240,5 +240,17 @@ class AppointmentController extends Controller
         $appointment->delete();
         return redirect(action('AppointmentController@index'))
             ->with('status', 'Termin erfolgreich gelöscht!');
+    }
+
+    /**
+     * Return all trainer to one specific appointment.
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getTrainer($id)
+    {
+        $appointment = Appointment::findOrFail($id);
+        return $appointment->trainer;
     }
 }

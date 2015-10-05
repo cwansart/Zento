@@ -116,6 +116,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
+     * Users relationship which also includes the exam result from the pivot table.
+     *
+     * @return $this
+     */
+    public function appointments()
+    {
+        return $this->belongsToMany('Zento\Appointment')->withPivot('priority');
+    }
+
+    /**
      * Returns a formatted address string.
      *
      * @return string

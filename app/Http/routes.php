@@ -29,6 +29,8 @@ Route::get('seminars/get_unreg_users/{id}', 'SeminarController@getUnregisteredUs
 Route::put('seminars/{id}/addUser', 'SeminarController@addUser');
 Route::delete('seminars/{seminarid}/{userid}', 'SeminarController@removeUser');
 
+Route::get('appointments/get_trainer/{id}', 'AppointmentController@getTrainer');
+
 // resources
 Route::resource('users', 'UserController');
 Route::resource('exams', 'ExamController');

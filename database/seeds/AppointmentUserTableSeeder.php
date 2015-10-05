@@ -9,6 +9,7 @@
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 use Zento\Appointment;
+use Zento\User;
 
 class AppointmentUserTableSeeder extends Seeder
 {
@@ -18,9 +19,9 @@ class AppointmentUserTableSeeder extends Seeder
         DB::table('appointment_user')->delete();
 
         $appointment = Appointment::find(1);
-        $appointment->users()->attach(User::find(1));
-        $appointment->users()->attach(User::find(2));
-        $appointment->users()->updateExistingPivot(1, ['priority' => 0]);
-        $appointment->users()->updateExistingPivot(2, ['priority' => 1]);
+        $appointment->trainer()->attach(User::find(1));
+        $appointment->trainer()->attach(User::find(2));
+        $appointment->trainer()->updateExistingPivot(1, ['priority' => 0]);
+        $appointment->trainer()->updateExistingPivot(2, ['priority' => 1]);
     }
 }

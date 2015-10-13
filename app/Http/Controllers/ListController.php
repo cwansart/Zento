@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use Zento\Http\Requests;
 use Zento\Http\Controllers\Controller;
+use Zento\User;
+use Illuminate\Support\Facades\DB;
 
 class ListController extends Controller
 {
@@ -24,8 +26,31 @@ class ListController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $select = "";
+        $order = $request->get('firstnameOrder').",".$request->get('lastnameOrder');
+        if($request->has('firstname')) {
+            $select = $select."FIRSTNAME";
+        }
+        if($request->has('lastname')) {
+            if (!empty($select))
+            {
+                $select = $select.",";
+            }
+            $select = $select."LASTNAME";
+        }
+        if($request->has('email')) {
+            if (!empty($select))
+            {
+                $select = $select.",";
+            }
+            $select = $select."EMAIL";
+        }
+
+        $content = DB::table('users')
+            ->select(DB::raw($select." ORDER BY ".$order));
+        dd($content);
         return view('lists.create');
     }
 

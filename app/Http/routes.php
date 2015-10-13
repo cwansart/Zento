@@ -36,6 +36,7 @@ Route::resource('users', 'UserController');
 Route::resource('exams', 'ExamController');
 Route::resource('seminars', 'SeminarController');
 Route::resource('appointments', 'AppointmentController');
+Route::resource('lists', 'ListController');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

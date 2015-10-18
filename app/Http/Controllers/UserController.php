@@ -33,37 +33,15 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $orderBy = $order = null;
-        if(!empty($request->get('orderBy')) && strpos($request->get('orderBy'), ':') !== false) {
-            list($orderBy, $order) = explode(':', $request->get('orderBy'));
-        }
-        switch($orderBy) {
-            case 'id':
-            case 'firstname':
-            case 'lastname':
-                break;
-            default:
-                $orderBy = 'id';
-                break;
-        }
-        switch($order) {
-            case 'ASC':
-            case 'DESC':
-                break;
-            default:
-                $order = 'ASC';
-                break;
-        }
-
         $users = null;
 
         if($request->has('q')) {
             $users = User::where('firstname', 'LIKE', '%'.$request->get('q').'%')
                 ->orWhere('lastname', 'LIKE', '%'.$request->get('q').'%')
                 ->orWhere('email', 'LIKE', '%'.$request->get('q').'%')
-                ->orderBy($orderBy, $order)->paginate(15);
+                ->getOrdered($request->get('orderBy'))->paginate(15);
         } else {
-            $users = User::orderBy($orderBy, $order)->paginate(15);
+            $users = User::getOrdered($request->get('orderBy'))->paginate(15);
         }
 
         // returns users as JSON if requested by $.getJSON

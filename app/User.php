@@ -221,4 +221,28 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->address->country;
     }
+
+    public function scopeGetOrdered($query, $orderBy) {
+        $_orderBy = $order = null;
+        if(!empty($orderBy) && strpos($orderBy, ':') !== false) {
+            list($_orderBy, $order) = explode(':', $orderBy);
+        }
+
+        switch($_orderBy) {
+            case 'id':
+            case 'firstname':
+            case 'lastname':
+            case 'email':
+            case 'birthday':
+            case 'entry_date':
+            case 'group_id':
+                break;
+            default:
+                $_orderBy = 'id';
+                break;
+        }
+
+        $order = $order == 'DESC' ? $order : 'ASC';
+        return $query->orderBy($_orderBy, $order);
+    }
 }

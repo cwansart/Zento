@@ -207,8 +207,8 @@ html {
 }
 
 .zc-event{
-    background:#2C9688;
-    border:1px solid #2C9688;
+    background:#7f8c8d;
+    border:1px solid #7f8c8d;
     text-align: center;
     color:black;
     margin: 2px 5px 2px 5px;
@@ -218,8 +218,8 @@ html {
 }
 
 .zc-event-left{
-    background:#2C9688;
-    border:1px solid #2C9688;
+    background:#7f8c8d;
+    border:1px solid #7f8c8d;
     text-align: center;
     color:black;
     margin: 2px 0 2px 5px;
@@ -232,16 +232,16 @@ html {
 }
 
 .zc-event-middle{
-    background:#2C9688;
-    border:1px solid #2C9688;
+    background:#7f8c8d;
+    border:1px solid #7f8c8d;
     text-align: center;
     color:black;
     margin: 2px 0 2px 0;
 }
 
 .zc-event-right{
-    background:#2C9688;
-    border:1px solid #2C9688;
+    background:#7f8c8d;
+    border:1px solid #7f8c8d;
     text-align: center;
     color:black;
     margin: 2px 5px 2px 0;
@@ -251,6 +251,21 @@ html {
     -moz-border-radius-bottomright: 5px;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+}
+
+.zc-event-training{
+    background:#3498db;
+    border:1px solid #3498db;
+}
+
+.zc-event-seminar{
+    background:#27ae60;
+    border:1px solid #27ae60;
+}
+
+.zc-event-exam{
+    background:#d35400;
+    border:1px solid #d35400;
 }
 
 .zc-event-birthday{

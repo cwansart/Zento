@@ -12,6 +12,7 @@ class Appointment extends Model
      * @var array
      */
     protected $fillable = [
+        'type',
         'title',
         'description',
         'start',

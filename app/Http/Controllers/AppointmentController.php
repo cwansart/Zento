@@ -52,6 +52,20 @@ class AppointmentController extends Controller
                 {
                     $class = 'zc-event-middle';
                 }
+
+                if($result->type == 'Training')
+                {
+                    $class = $class.' zc-event-training';
+                }
+                elseif($result->type == 'Lehrgang')
+                {
+                    $class = $class.' zc-event-seminar';
+                }
+                elseif($result->type == 'Prüfung')
+                {
+                    $class = $class.' zc-event-exam';
+                }
+
                 $appointments_raw[$start_new->format('d.m.Y')][] = [
                     'id' => $result->id,
                     'title' => $result->title,

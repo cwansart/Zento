@@ -1,4 +1,11 @@
 <div class="form-group">
+    {!! Form::label('type', 'Terminart', ['class' => 'col-md-4 control-label']) !!}
+    <div class="col-md-6">
+        {!! Form::select('type', array('Allgemein' => 'Allgemein', 'Training' => 'Training', 'Lehrgang' => 'Lehrgang', 'Prüfung' => 'Prüfung'), null, ['class' => 'form-control']) !!}
+    </div>
+</div>
+
+<div class="form-group">
     {!! Form::label('title', 'Titel', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         {!! Form::input('text', 'title', null, ['class' => 'form-control', 'placeholder' => 'Titel', 'required']) !!}

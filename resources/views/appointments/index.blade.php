@@ -39,7 +39,7 @@
                     {!! $calendar_days[$i]["num"] !!}
                     @foreach($calendar_days[$i]["appointments"] as $appointment)
                         <div class="{!! $appointment["class"] !!}" data-id="{!! $appointment["id"] !!}">
-                            {!! $appointment["title"] !!}
+                            {{ $appointment["title"] }}
                         </div>
                     @endforeach
                     @foreach($calendar_days[$i]["birthdays"] as $birthday)
@@ -53,6 +53,15 @@
                     </tr>
                 @endif
             @endfor
+        </table>
+
+        <table>
+            <tr>
+                <td width="120px"><div class="zc-event zc-event-training">Training</div></td>
+                <td width="120px"><div class="zc-event zc-event-seminar">Lehrgang</div></td>
+                <td width="120px"><div class="zc-event zc-event-exam">Prüfung</div></td>
+                <td width="120px"><div class="zc-event">Allgemein</div></td>
+            </tr>
         </table>
 
         <a class="btn btn-primary" id="show-create-dialog-button">Termin erstellen</a>

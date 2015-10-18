@@ -176,12 +176,12 @@
                 $('#end-picker').data().DateTimePicker.setDate(event.target.getAttribute('data-date'));
                 $('#appointment-create-dialog').modal('show');
 
-                $('#show-create-dialog-button').on('click', function () {
-                    $('.form-horizontal')[0].reset();
-                    $('#appointment-create-dialog').modal('show');
-                });
-
                 $('[data-toggle="tooltip"]').tooltip()
+            });
+
+            $('#show-create-dialog-button').on('click', function () {
+                $('.form-horizontal')[0].reset();
+                $('#appointment-create-dialog').modal('show');
             });
         });
     </script>

@@ -61,6 +61,7 @@
                 <td width="120px"><div class="zc-event zc-event-seminar">Lehrgang</div></td>
                 <td width="120px"><div class="zc-event zc-event-exam">Prüfung</div></td>
                 <td width="120px"><div class="zc-event">Allgemein</div></td>
+                <td width="120px"><div class="zc-event zc-event-birthday">Geburtstag</div></td>
             </tr>
         </table>
 

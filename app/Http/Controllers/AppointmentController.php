@@ -9,7 +9,9 @@ use Zento\Http\Requests\AppointmentRequest;
 use Carbon\Carbon;
 use Zento\Appointment;
 use Zento\Http\Requests;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use Zento\User;
 
 class AppointmentController extends Controller
 {
@@ -53,9 +55,15 @@ class AppointmentController extends Controller
                     $class = 'zc-event-middle';
                 }
 
+                $trainer = '';
                 if($result->type == 'Training')
                 {
                     $class = $class.' zc-event-training';
+
+                    if(!count(\DB::select( \DB::raw("SELECT * FROM appointment_user WHERE appointment_id = '$result->id' AND priority > '0'"))))
+                    {
+                        $trainer = 'glyphicon glyphicon-question-sign zc-red';
+                    }
                 }
                 elseif($result->type == 'Lehrgang')
                 {
@@ -69,7 +77,8 @@ class AppointmentController extends Controller
                 $appointments_raw[$start_new->format('d.m.Y')][] = [
                     'id' => $result->id,
                     'title' => $result->title,
-                    'class' => $class
+                    'class' => $class,
+                    'trainer' => $trainer
                 ];
                 $start_new->addDay(1);
             }
@@ -186,7 +195,7 @@ class AppointmentController extends Controller
 
         $appointment = Appointment::create($request->all());
 
-        // If train is checked (only possible for non admins) add the user to the trainer
+        // If train is checked add the user to the trainer
         if($request->has('train')) {
             $appointment->trainer()->attach(Auth::id());
             $appointment->trainer()->updateExistingPivot(Auth::id(), ['priority' => $request->get('priority')]);
@@ -267,11 +276,70 @@ class AppointmentController extends Controller
      * Return all trainer to one specific appointment.
      *
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return $appointment->trainer
      */
     public function getTrainer($id)
     {
         $appointment = Appointment::findOrFail($id);
         return $appointment->trainer;
+    }
+
+    /**
+     * Notify all trainer on appointments without a trainer
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function notifyTrainer()
+    {
+        $dateTime = Carbon::now()->toDateTimeString();
+        $appointments = \DB::select( \DB::raw("SELECT * FROM appointments WHERE appointments.type = 'Training' && appointments.start >= '$dateTime' AND appointments.id NOT IN (SELECT appointment_id FROM appointment_user WHERE priority > 0);"));
+        $appointments_prio = \DB::select( \DB::raw("SELECT * FROM appointments WHERE appointments.type = 'Training' && appointments.start >= '$dateTime' AND appointments.id NOT IN (SELECT appointment_id FROM appointment_user WHERE priority > 1) AND appointments.id IN (SELECT appointment_id FROM appointment_user WHERE priority = 1);"));
+
+        if(!count($appointments) && !count($appointments_prio))
+        {
+            return redirect(action('AppointmentController@index'))
+                ->with('status', 'Keine Termine ohne Trainer');
+        }
+        $users = User::where('id', '!=', Auth::id())
+            ->whereNotNull('password')
+            ->where('password', '!=', '0') // TODO: Remove this line! Seeder creates users with "0" instead of null
+            ->get();
+
+        $to = [];
+        foreach($users as $user)
+        {
+            $to[] = $user->email;
+        }
+
+        if(!count($to))
+        {
+            return redirect(action('AppointmentController@index'))
+                ->with('status', 'Keine weiteren Trainer vorhanden!');
+        }
+
+        $sender = User::where('id', '=', Auth::id())->first();
+
+        $errors = [];
+
+        $data = array(
+            'appointments' => $appointments,
+            'appointments_prio' => $appointments_prio,
+            'sender' => $sender
+        );
+
+        try
+        {
+            Mail::send('emails.notify', $data, function($message) use($to, $sender)
+            {
+                $message->from('notify@Zento.dev', 'Zento');
+                $message->to($to)->subject('Offene Termine in Zento');
+                $message->replyTo($sender->email);
+            });
+        } catch (Exception $e) {
+            $errors[] = $e;
+        }
+
+        return redirect(action('AppointmentController@index'))
+            ->with('status', 'Benachrichtigung gesendet');
     }
 }

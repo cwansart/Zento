@@ -68,7 +68,7 @@
         @endif
         <div class="checkbox" id="allDay-wrapper">
             <label>
-                {!! Form::checkbox('train') !!} Training geben? {!! Form::select('priority', array(-1 => 'Priorität wählen',0 => 'Niedrig', 1 => 'Normal', 2 => 'Hoch'), null, ['class' => 'form-control']) !!}
+                {!! Form::checkbox('train') !!} Training geben? {!! Form::select('priority', array(-1 => 'Priorität wählen',0 => 'Nicht möglich', 1 => 'Niedrig', 2 => 'Normal', 3 => 'Hoch'), null, ['class' => 'form-control']) !!}
             </label>
         </div>
     </div>

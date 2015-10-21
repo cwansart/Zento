@@ -3,6 +3,10 @@
 @section('title', 'Termine')
 
 @section('content')
+    <a class="btn btn-default pull-right" href="{!! action('AppointmentController@notifyTrainer') !!}"
+       data-toggle="tooltip"  data-placement="bottom"
+       title="Trainer werden über ausstehende Termine ohne eingetragenen Trainer benachrichtigt">Benachrichtigung senden</a>
+    <a class="btn btn-primary pull-right" id="show-create-dialog-button">Termin erstellen</a>
     <div class="container">
         <h1>{!! \Zento\Appointment::$months[$month - 1]." ".$year !!}</h1>
         @if($month > 1)
@@ -39,7 +43,7 @@
                     {!! $calendar_days[$i]["num"] !!}
                     @foreach($calendar_days[$i]["appointments"] as $appointment)
                         <div class="{!! $appointment["class"] !!}" data-id="{!! $appointment["id"] !!}">
-                            {{ $appointment["title"] }}
+                            <span class="{!! $appointment["trainer"] !!}"></span>{{ $appointment["title"] }}
                         </div>
                     @endforeach
                     @foreach($calendar_days[$i]["birthdays"] as $birthday)
@@ -58,14 +62,13 @@
         <table>
             <tr>
                 <td width="120px"><div class="zc-event zc-event-training">Training</div></td>
+                <td width="120px"><div class="zc-event zc-event-training"><span class="glyphicon glyphicon-question-sign zc-red"></span>Kein Trainer</div></td>
                 <td width="120px"><div class="zc-event zc-event-seminar">Lehrgang</div></td>
                 <td width="120px"><div class="zc-event zc-event-exam">Prüfung</div></td>
                 <td width="120px"><div class="zc-event">Allgemein</div></td>
                 <td width="120px"><div class="zc-event zc-event-birthday">Geburtstag</div></td>
             </tr>
         </table>
-
-        <a class="btn btn-primary" id="show-create-dialog-button">Termin erstellen</a>
     </div>
 
     <div class="modal fade" id="appointment-create-dialog" role="dialog">
@@ -110,6 +113,8 @@
 
     <script>
         $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+
             $('.zc-event, .zc-event-left, .zc-event-middle, .zc-event-right').click(function (event) {
                 event.stopPropagation();
                 var that = this;
@@ -147,7 +152,7 @@
                             if (trainer.length) {
                                 var trainerList = "";
                                 for (i = 0; i < trainer.length; i++) {
-                                    var prio = ["Niedrig", "Normal", "Hoch"];
+                                    var prio = ["Nicht möglich", "Niedrig", "Normal", "Hoch"];
                                     trainerList += "<li>" + trainer[i].firstname + " " + trainer[i].lastname;
                                     trainerList += " (" + prio[trainer[i].pivot.priority] + ")"+ "</li>";
                                 }

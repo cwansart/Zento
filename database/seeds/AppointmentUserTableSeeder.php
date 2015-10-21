@@ -21,7 +21,17 @@ class AppointmentUserTableSeeder extends Seeder
         $appointment = Appointment::find(1);
         $appointment->trainer()->attach(User::find(1));
         $appointment->trainer()->attach(User::find(2));
+        $appointment->trainer()->attach(User::find(3));
         $appointment->trainer()->updateExistingPivot(1, ['priority' => 0]);
         $appointment->trainer()->updateExistingPivot(2, ['priority' => 1]);
+        $appointment->trainer()->updateExistingPivot(3, ['priority' => 2]);
+
+        $appointment = Appointment::find(4);
+        $appointment->trainer()->attach(User::find(1));
+        $appointment->trainer()->updateExistingPivot(1, ['priority' => 0]);
+
+        $appointment = Appointment::find(8);
+        $appointment->trainer()->attach(User::find(1));
+        $appointment->trainer()->updateExistingPivot(1, ['priority' => 1]);
     }
 }

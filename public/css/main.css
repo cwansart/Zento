@@ -294,6 +294,10 @@ html {
 	background-color:#EBF2F1;
 }
 
+.zc-mail{
+    max-width: 400px;
+}
+
 .table-2cols td {
     width: 50%;
 }
@@ -419,4 +423,8 @@ body {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
+}
+
+.zc-red{
+    color: #2c3e50;
 }

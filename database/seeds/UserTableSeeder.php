@@ -85,7 +85,7 @@ class UserTableSeeder extends Seeder {
         User::create([
             'firstname' => 'Ina',
             'lastname' => 'Müller',
-            'email' => 'ina@müller.de',
+            'email' => 'ina@mueller.de',
             'password' => null,
             'birthday' => '27.03.1989', //Carbon::createFromDate(2005,7,25),
             'entry_date' => '18.07.2010', //Carbon::createFromDate(2013,8,15),
@@ -150,7 +150,7 @@ class UserTableSeeder extends Seeder {
         User::create([
             'firstname' => 'Costa',
             'lastname' => 'Cordalis',
-            'email' => 'super@sänger.de',
+            'email' => 'super@saenger.de',
             'password' => null,
             'birthday' => '13.06.1987', //Carbon::createFromDate(2005,7,25),
             'entry_date' => '22.12.1999', //Carbon::createFromDate(2013,8,15),
@@ -163,7 +163,7 @@ class UserTableSeeder extends Seeder {
         User::create([
             'firstname' => 'Axel',
             'lastname' => 'Schweiß',
-            'email' => 'axel@bschweiß.de',
+            'email' => 'axel@bschweiss.de',
             'password' => null,
             'birthday' => '18.09.1983', //Carbon::createFromDate(2005,7,25),
             'entry_date' => '01.06.1998', //Carbon::createFromDate(2013,8,15),
@@ -202,7 +202,7 @@ class UserTableSeeder extends Seeder {
         User::create([
             'firstname' => 'Arne',
             'lastname' => 'Töpfer',
-            'email' => 'Arne@Töpfer.de',
+            'email' => 'Arne@toepfer.de',
             'password' => null,
             'birthday' => '09.07.1977', //Carbon::createFromDate(2005,7,25),
             'entry_date' => '22.12.1990', //Carbon::createFromDate(2013,8,15),
@@ -228,7 +228,7 @@ class UserTableSeeder extends Seeder {
         User::create([
             'firstname' => 'Detlef',
             'lastname' => 'Treter',
-            'email' => 'diddi@Treter.de',
+            'email' => 'diddi@treter.de',
             'password' => null,
             'birthday' => '09.07.1969', //Carbon::createFromDate(2005,7,25),
             'entry_date' => '18.11.2013', //Carbon::createFromDate(2013,8,15),

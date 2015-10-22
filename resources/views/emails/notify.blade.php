@@ -17,9 +17,9 @@
             @foreach($appointments as $appointment)
                 <li>
                     @if($appointment->allDay)
-                        {!! $appointment->start !!} - {!! $appointment->end !!}
+                        {!! \Carbon\Carbon::parse($appointment->start)->format('d.m.Y') !!} - {!! \Carbon\Carbon::parse($appointment->end)->format('d.m.Y') !!}
                     @else
-                        {!! $appointment->start !!} - {!! $appointment->end !!}
+                        {!! \Carbon\Carbon::parse($appointment->start)->format('d.m.Y H:i') !!} - {!! \Carbon\Carbon::parse($appointment->end)->format('d.m.Y H:i') !!}
                     @endif
                         <a href="{!! action('AppointmentController@edit', $appointment->id) !!}">{!! $appointment->title !!}</a>
                     @if(!is_null($appointment->description))
@@ -38,9 +38,9 @@
             @foreach($appointments_prio as $appointment)
                 <li>
                     @if($appointment->allDay)
-                        {!! $appointment->start !!} - {!! $appointment->end !!}
+                        {!! \Carbon\Carbon::parse($appointment->start)->format('d.m.Y') !!} - {!! \Carbon\Carbon::parse($appointment->end)->format('d.m.Y') !!}
                     @else
-                        {!! $appointment->start !!} - {!! $appointment->end !!}
+                        {!! \Carbon\Carbon::parse($appointment->start)->format('d.m.Y H:i') !!} - {!! \Carbon\Carbon::parse($appointment->end)->format('d.m.Y H:i') !!}
                     @endif
                         <a href="{!! action('AppointmentController@edit', $appointment->id) !!}">{!! $appointment->title !!}</a>
                     @if(!is_null($appointment->description))

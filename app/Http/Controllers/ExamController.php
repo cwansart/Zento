@@ -33,8 +33,9 @@ class ExamController extends Controller
      */
     public function index(Request $request)
     {
-        $exams = Exam::orderBy('date', 'asc')->paginate(15);
-        return view('exams.index')->with('exams', $exams);
+        $exams = Exam::getOrdered($request->get('orderBy'))->paginate(15);
+        return view('exams.index')->with('exams', $exams)
+                ->with('sortBy', $request->get('orderBy'));
     }
 
     /**

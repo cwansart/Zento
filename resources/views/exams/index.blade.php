@@ -17,7 +17,7 @@
             <table class="table table-hover table-exam">
                 <thead>
                 <tr>
-                    <th>Datum</th>
+                    <th>Datum <a href="{!! action('ExamController@index', ['orderBy' => 'date:' . ($sortBy == 'date:ASC' ? 'DESC' : 'ASC')]) !!}"><span class="glyphicon {!! $sortBy == 'date:ASC' ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt' !!}" aria-hidden="true"></span></a></th>
                     <th>Ort</th>
                     <th>Teilnehmer</th>
                     @if(Auth::user()->is_admin)

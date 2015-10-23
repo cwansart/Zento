@@ -238,7 +238,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             case 'group_id':
                 break;
             default:
-                $_orderBy = 'id';
+                $_orderBy = 'firstname';
                 break;
         }
 

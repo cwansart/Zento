@@ -16,8 +16,8 @@
             <table class="table table-hover table-seminar">
                 <thead>
                 <tr>
-                    <th>Datum</th>
-                    <th>Titel</th>
+                    <th>Datum <a href="{!! action('SeminarController@index', ['orderBy' => 'date:' . ($sortBy == 'date:ASC' ? 'DESC' : 'ASC')]) !!}"><span class="glyphicon {!! $sortBy == 'date:ASC' ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt' !!}" aria-hidden="true"></span></a></th>
+                    <th>Titel <a href="{!! action('SeminarController@index', ['orderBy' => 'title:' . ($sortBy == 'title:ASC' ? 'DESC' : 'ASC')]) !!}"><span class="glyphicon {!! $sortBy == 'title:ASC' ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt' !!}" aria-hidden="true"></span></a></th>
                     <th>Ort</th>
                     <th>Teilnehmer</th>
                     @if(Auth::user()->is_admin)

@@ -29,8 +29,9 @@ class SeminarController extends Controller
      */
     public function index(Request $request)
     {
-        $seminars = Seminar::orderBy('date', 'asc')->paginate(15);
-        return view('seminars.index')->with('seminars', $seminars);
+        $seminars = Seminar::getOrdered($request->get('orderBy'))->paginate(15);
+        return view('seminars.index')->with('seminars', $seminars)
+            ->with('sortBy', $request->get('orderBy'));
     }
 
     /**

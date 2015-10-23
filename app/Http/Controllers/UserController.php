@@ -49,7 +49,7 @@ class UserController extends Controller
             view('users.index')
                 ->with('users', $users)
                 ->with('groups', Group::groupsArray())
-                ->with('sortBy', $request->get('orderBy'));
+                ->with('sortBy', $request->has('orderBy') ? $request->get('orderBy') : 'firstname:ASC');
     }
 
     /**

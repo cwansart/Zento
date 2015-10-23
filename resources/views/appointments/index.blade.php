@@ -115,6 +115,10 @@
         $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
 
+            $('#appointment-tooltip').click(function () {
+                $('#appointment-tooltip').removeClass('in');
+            });
+
             $('.zc-event, .zc-event-left, .zc-event-middle, .zc-event-right').click(function (event) {
                 event.stopPropagation();
                 var that = this;

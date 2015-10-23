@@ -29,7 +29,7 @@ class AppointmentController extends Controller
         $start_date = Carbon::create($year, $month, 1)->addDay(-7)->format('Y-m-d');
         $end_date = Carbon::create($year, $month, 31)->addDay(7)->format('Y-m-d');
 
-        $results = \DB::select( \DB::raw("SELECT * FROM appointments WHERE (start BETWEEN '$start_date' AND '$end_date') OR (end BETWEEN '$start_date' AND '$end_date')"));
+        $results = \DB::select( \DB::raw("SELECT * FROM appointments WHERE (start BETWEEN '$start_date' AND '$end_date') OR (end BETWEEN '$start_date' AND '$end_date') ORDER BY start ASC"));
         $appointments_raw = [];
         foreach ($results as $result)
         {

@@ -176,8 +176,8 @@
 
             $('.zc-day').click(function (event) {
                 $('.form-horizontal')[0].reset();
-                $('#start-picker').data().DateTimePicker.format = 'DD.MM.YYYY';
-                $('#end-picker').data().DateTimePicker.format = 'DD.MM.YYYY';
+                $('#start-picker').data().DateTimePicker.format = 'DD.MM.YYYY hh:MM';
+                $('#end-picker').data().DateTimePicker.format = 'DD.MM.YYYY hh:MM';
                 $('#start-picker').data().DateTimePicker.setDate(event.target.getAttribute('data-date'));
                 $('#end-picker').data().DateTimePicker.setDate(event.target.getAttribute('data-date'));
                 $('#appointment-create-dialog').modal('show');

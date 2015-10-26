@@ -1,7 +1,7 @@
 <div class="form-group">
     {!! Form::label('type', 'Terminart', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::select('type', array('Allgemein' => 'Allgemein', 'Training' => 'Training', 'Lehrgang' => 'Lehrgang', 'Prüfung' => 'Prüfung'), null, ['class' => 'form-control']) !!}
+        {!! Form::select('type', array('Allgemein' => 'Allgemein', 'Training' => 'Training', 'Lehrgang' => 'Lehrgang', 'Prüfung' => 'Prüfung'), null, ['class' => 'form-control', 'id' => 'type-select']) !!}
     </div>
 </div>
 
@@ -52,24 +52,26 @@
     </div>
 </div>
 
-<div class="form-group">
-    {!! Form::label('train', 'Trainer', ['class' => 'col-md-4 control-label']) !!}
-    <div class="col-md-6">
-        @if(isset($appointment))
-            @if(count($appointment) && isset($appointment->trainer))
-                <ul>
-                    @foreach($appointment->trainer as $trainer)
-                        <li>{!! $trainer !!}</li>
-                    @endforeach
-                </ul>
+<div id="trainer-section">
+    <div class="form-group">
+        {!! Form::label('train', 'Trainer', ['class' => 'col-md-4 control-label']) !!}
+        <div class="col-md-6">
+            @if(isset($appointment))
+                @if(count($appointment) && isset($appointment->trainer))
+                    <ul>
+                        @foreach($appointment->trainer as $trainer)
+                            <li>{!! $trainer !!}</li>
+                        @endforeach
+                    </ul>
+                @endif
+            @else
+                <p>Noch kein Trainer!</p>
             @endif
-        @else
-            <p>Noch kein Trainer!</p>
-        @endif
-        <div class="checkbox" id="allDay-wrapper">
-            <label>
-                {!! Form::checkbox('train') !!} Training geben? {!! Form::select('priority', array(-1 => 'Priorität wählen',0 => 'Nicht möglich', 1 => 'Niedrig', 2 => 'Normal', 3 => 'Hoch'), null, ['class' => 'form-control']) !!}
-            </label>
+            <div class="checkbox" id="allDay-wrapper">
+                <label>
+                    {!! Form::checkbox('train') !!} Training geben? {!! Form::select('priority', array(-1 => 'Priorität wählen',0 => 'Nicht möglich', 1 => 'Niedrig', 2 => 'Normal', 3 => 'Hoch'), null, ['class' => 'form-control']) !!}
+                </label>
+            </div>
         </div>
     </div>
 </div>
@@ -127,6 +129,24 @@
                     var name = user.firstname + ' ' + user.lastname;
                 }
                 return name || user.text;
+            }
+        });
+
+        $('#type-select').change(function() {
+            if(this.value != 'Training')
+            {
+                $('#trainer-section').addClass('hidden');
+            } else {
+                $('#trainer-section').removeClass('hidden');
+            }
+        });
+
+        $(function() {
+            if($('#type-select option:selected').text() != 'Training')
+            {
+                $('#trainer-section').addClass('hidden');
+            } else {
+                $('#trainer-section').removeClass('hidden');
             }
         });
     });

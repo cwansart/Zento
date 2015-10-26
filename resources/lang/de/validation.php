@@ -88,7 +88,7 @@ return [
 
     'custom' => [
         'priority' => [
-            'between' => 'Priorität ist nicht ausgewählt.',
+            'required_train_select' => 'Priorität ist nicht ausgewählt.',
         ],
     ],
 

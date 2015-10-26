@@ -9,6 +9,7 @@ use Zento\Http\Requests\AppointmentRequest;
 use Carbon\Carbon;
 use Zento\Appointment;
 use Zento\Http\Requests;
+
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Zento\User;

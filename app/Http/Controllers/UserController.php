@@ -8,6 +8,7 @@ use Zento\Http\Requests\UserRequest;
 use Zento\Http\Requests\UpdateProfileRequest;
 
 use Auth;
+use DB;
 use Hash;
 use Validator;
 use Zento\Http\Requests;
@@ -33,23 +34,40 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = null;
+        $users = User::query();
+
+        if($request->has('g')) {
+            if(is_numeric($request->get('g')) && $request->get('g') > 0)
+            {
+                $users = $users->where('group_id', '=', $request->get('g'));
+                echo 'Hallo G';
+            }
+        }
+
+        if($request->has('a')) {
+            if(is_numeric($request->get('a')))
+            {
+                $users = $users->where('active', '=', (bool)$request->get('a'));
+                echo 'Hallo A';
+            }
+        }
 
         if($request->has('q')) {
-            $users = User::where('firstname', 'LIKE', '%'.$request->get('q').'%')
-                ->orWhere('lastname', 'LIKE', '%'.$request->get('q').'%')
-                ->orWhere('email', 'LIKE', '%'.$request->get('q').'%')
-                ->getOrdered($request->get('orderBy'))->paginate(15);
-        } else {
-            $users = User::getOrdered($request->get('orderBy'))->paginate(15);
+            $users = $users->where(function ($query) use ($request) {
+                $query->where('firstname', 'LIKE', '%' . $request->get('q') . '%')
+                    ->orWhere('lastname', 'LIKE', '%' . $request->get('q') . '%')
+                    ->orWhere('email', 'LIKE', '%' . $request->get('q') . '%');
+            });
         }
 
         // returns users as JSON if requested by $.getJSON
+        $users = $users->getOrdered($request->get('orderBy'))->paginate(15);
         return $request->ajax() ? $users :
             view('users.index')
                 ->with('users', $users)
                 ->with('groups', Group::groupsArray())
-                ->with('sortBy', $request->has('orderBy') ? $request->get('orderBy') : 'firstname:ASC');
+                ->with('sortBy', $request->has('orderBy') ? $request->get('orderBy') : 'firstname:ASC')
+                ->with('filterGroup', $request->has('g') ? $request->get('g') : '-1');
     }
 
     /**

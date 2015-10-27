@@ -56,20 +56,20 @@
     <div class="form-group">
         {!! Form::label('train', 'Trainer', ['class' => 'col-md-4 control-label']) !!}
         <div class="col-md-6">
-            @if(isset($appointment))
-                @if(count($appointment) && isset($appointment->trainer))
-                    <ul>
-                        @foreach($appointment->trainer as $trainer)
-                            <li>{!! $trainer !!}</li>
-                        @endforeach
-                    </ul>
-                @endif
+            @if(isset($trainer) && count($trainer))
+                <ul>
+                    @foreach($trainer as $train)
+                        @if($train->id != Auth::id())
+                            <li>{!! $train->firstname !!} {!! $train->lastname !!} ({!! \Zento\Appointment::$priority[$train->pivot->priority] !!})</li>
+                        @endif
+                    @endforeach
+                </ul>
             @else
                 <p>Noch kein Trainer!</p>
             @endif
             <div class="checkbox" id="allDay-wrapper">
                 <label>
-                    {!! Form::checkbox('train') !!} Training geben? {!! Form::select('priority', array(-1 => 'Priorität wählen',0 => 'Nicht möglich', 1 => 'Niedrig', 2 => 'Normal', 3 => 'Hoch'), null, ['class' => 'form-control']) !!}
+                    {!! Form::checkbox('train', 1, $trainChecked) !!} Training geben? {!! Form::select('priority', array(-1 => 'Priorität wählen',0 => 'Nicht möglich', 1 => 'Niedrig', 2 => 'Normal', 3 => 'Hoch'), $prioSelect, ['class' => 'form-control']) !!}
                 </label>
             </div>
         </div>

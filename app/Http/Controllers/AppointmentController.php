@@ -164,7 +164,9 @@ class AppointmentController extends Controller
         return $request->ajax() ? $appointments_raw : view('appointments.index')
             ->with('calendar_days', $calendar_days)
             ->with('month', $month)
-            ->with('year', $year);
+            ->with('year', $year)
+            ->with('trainChecked', false)
+            ->with('prioSelect', -1);
     }
 
     /**
@@ -230,9 +232,11 @@ class AppointmentController extends Controller
     public function edit($id)
     {
         $appointment = Appointment::findOrFail($id);
-
         return view('appointments.edit')
-            ->with('appointment', $appointment);
+            ->with('appointment', $appointment)
+            ->with('trainer', $appointment->trainer)
+            ->with('trainChecked', $appointment->trainer->contains(Auth::id()))
+            ->with('prioSelect', $appointment->trainer->contains(Auth::id()) ? $appointment->trainer->find(Auth::id())->pivot->priority : -1);
     }
 
     /**
@@ -255,6 +259,18 @@ class AppointmentController extends Controller
 
         $appointment= Appointment::findOrFail($id);
         $appointment->update($request->all());
+
+        // If train is checked add the user to the trainer
+        if($request->has('train')) {
+            if(!$appointment->trainer->contains(Auth::id()))
+                $appointment->trainer()->attach(Auth::id());
+            $appointment->trainer()->updateExistingPivot(Auth::id(), ['priority' => $request->get('priority')]);
+        } else {
+            if($appointment->trainer->contains(Auth::id()))
+            {
+                $appointment->trainer()->detach(Auth::id());
+            }
+        }
 
         return redirect(action('AppointmentController@index'))->with('status', 'Termin „'.$appointment->title.'” wurde bearbeitet.');
     }

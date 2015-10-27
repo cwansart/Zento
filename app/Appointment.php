@@ -29,6 +29,18 @@ class Appointment extends Model
     protected $dates = ['start', 'end'];
 
     /**
+     * The attributes map a integer to a priority
+     *
+     * @var array
+     */
+    static public $priority = [
+        0 => 'Nicht möglich',
+        1 => 'Niedrig',
+        2 => 'Normal',
+        3 => 'Hoch'
+    ];
+
+    /**
      * Users relationship which also includes the exam result from the pivot table.
      *
      * @return $this

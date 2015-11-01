@@ -123,6 +123,10 @@ img {
     margin: 10px 0px 10px 0px;
 }
 
+#delete-confirm-dialog .btn-default, #delete-confirm-dialog .btn-primary {
+    margin-bottom: 0;
+}
+
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover{
     background:#cccccc;
 }

@@ -18,12 +18,7 @@ class ListController extends Controller
      */
     public function index(Request $request)
     {
-        $sortBy = $request->has('orderBy') ? $request->orderBy : 'user_id:ASC';
-        $users = User::getOrdered($sortBy)->paginate(5);
-
-        return view('lists.index')
-            ->with('sortBy', 'lastname:ASC')
-            ->with('users', $users);
+        return view('lists.index');
     }
 
     /**
@@ -33,30 +28,12 @@ class ListController extends Controller
      */
     public function create(Request $request)
     {
-        $select = "";
-        $order = $request->get('firstnameOrder').",".$request->get('lastnameOrder');
-        if($request->has('firstname')) {
-            $select = $select."FIRSTNAME";
-        }
-        if($request->has('lastname')) {
-            if (!empty($select))
-            {
-                $select = $select.",";
-            }
-            $select = $select."LASTNAME";
-        }
-        if($request->has('email')) {
-            if (!empty($select))
-            {
-                $select = $select.",";
-            }
-            $select = $select."EMAIL";
-        }
+        $sortBy = $request->has('orderBy') ? $request->orderBy : 'user_id:ASC';
+        $users = User::getOrdered($sortBy)->paginate(5);
 
-        $content = DB::table('users')
-            ->select(DB::raw($select." ORDER BY ".$order));
-        dd($content);
-        return view('lists.create');
+        return view('lists.create')
+            ->with('sortBy', 'lastname:ASC')
+            ->with('users', $users);
     }
 
     /**

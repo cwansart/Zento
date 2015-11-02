@@ -11,6 +11,4 @@
         {!! Form::close() !!}
     </div>
 
-    {!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}
-
 @endsection

@@ -109,7 +109,9 @@
 
         function filter() {
             var search = "<?php echo $filterSearch; ?>";
-            if($('#filterG option:selected').val() != '0' || $('#filterA option:selected').val() != '-1' || $('#filterS').val() != "" || ($('#filterS').val() == "" && search != "")) {
+            var group = "<?php echo $filterGroup; ?>";
+            var status = "<?php echo $filterStatus; ?>";
+            if($('#filterG option:selected').val() != '0' || $('#filterA option:selected').val() != '-1' || $('#filterS').val() != "" || ($('#filterS').val() == "" && search != "") || ($('#filterG option:selected').val() == '0' && group != '0') || ($('#filterA option:selected').val() == '-1' && search != '-1')) {
                 window.location.href = '{!! action('UserController@index') !!}?' + ($('#filterG option:selected').val() != '0' ? 'g=' + $('#filterG option:selected').val() + '&' : '') + ($('#filterA option:selected').val() != '-1' ? 'a=' + $('#filterA option:selected').val() + '&' : '') + ($('#filterS').val() != '' ? 'q=' + $('#filterS').val() : '');
             }
         }

@@ -29,7 +29,7 @@ class ListController extends Controller
     public function create(Request $request)
     {
         $sortBy = $request->has('orderBy') ? $request->orderBy : 'user_id:ASC';
-        $users = User::getOrdered($sortBy)->paginate(5);
+        $users = User::getOrdered($sortBy)->paginate(15);
 
         return view('lists.create')
             ->with('sortBy', 'lastname:ASC')

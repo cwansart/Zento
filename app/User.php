@@ -132,8 +132,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function addressStr()
     {
-        return //$this->firstname.' '.$this->lastname.'<br>'.
-               $this->address->street.' '.$this->address->housenr.'<br>'.
+        return ($this->address->street ? $this->address->street.' '.$this->address->housenr.'<br>' : '').
                $this->address->zip.' '.$this->address->city.'<br>'.
                $this->address->country;
     }

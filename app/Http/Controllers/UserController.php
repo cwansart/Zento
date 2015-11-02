@@ -244,4 +244,15 @@ class UserController extends Controller
         return redirect(action('UserController@index'))
             ->with('status', 'Password für '.$user->firstname.' '.$user->lastname.' gesetzt.'.$request['password']);
     }
+
+    /**
+     * Returns the user address as a formatted string.
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function getAddress($id) {
+        $user = User::findOrFail($id);
+        return $user->addressStr();
+    }
 }

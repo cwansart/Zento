@@ -21,6 +21,8 @@ Route::put('edit_profile', 'UserController@updateProfile');
 Route::get('users/{id}/change_password', 'UserController@changePassword');
 Route::put('users/{id}/change_password', 'UserController@updatePassword');
 
+Route::get('users/get_address/{id}', 'UserController@getAddress');
+
 Route::get('exams/get_unreg_users/{id}', 'ExamController@getUnregisteredUsers');
 Route::put('exams/{id}/addUser', 'ExamController@addUser');
 Route::delete('exams/{examid}/{userid}', 'ExamController@removeUser');

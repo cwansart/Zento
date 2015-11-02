@@ -10,6 +10,8 @@
             <button type="button" class="btn btn-primary pull-right btn-create" data-toggle="modal" data-target="#myModal">Benutzer erstellen</button>
         @endif
 
+        @include('users._filter')
+
         @if(count($users))
             <table class="table table-hover table-user">
                 <thead>
@@ -46,7 +48,11 @@
                 </tbody>
             </table>
         @else
-            Noch keine Benutzer vorhanden!
+            @if($filterSearch == '')
+                    Noch keine Benutzer vorhanden!
+                @else
+                    Keine Benutzer gefunden!
+                @endif
         @endif
 
         
@@ -86,7 +92,26 @@
     <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
-        })
+        });
+
+        $(document).ready(function() {
+            $('#set-filter').click(function () {
+                filter();
+            });
+
+            $('#filterS').keypress(function (e) {
+                if (e.which == 13) {
+                    filter();
+                    return false;    //<---- Add this line
+                }
+            });
+        });
+
+        function filter() {
+            if($('#filterG option:selected').val() != '0' || $('#filterA option:selected').val() != '-1' || $('#filterS').val() != "") {
+                window.location.href = '{!! action('UserController@index') !!}?' + ($('#filterG option:selected').val() != '0' ? 'g=' + $('#filterG option:selected').val() + '&' : '') + ($('#filterA option:selected').val() != '-1' ? 'a=' + $('#filterA option:selected').val() + '&' : '') + ($('#filterS').val() != '' ? 'q=' + $('#filterS').val() : '');
+            }
+        }
     </script>
 
 @endsection

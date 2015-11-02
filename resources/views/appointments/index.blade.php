@@ -3,10 +3,10 @@
 @section('title', 'Termine')
 
 @section('content')
+    <a class="btn btn-primary pull-right" id="show-create-dialog-button">Termin erstellen</a>
     <a class="btn btn-default pull-right" href="{!! action('AppointmentController@notifyTrainer') !!}"
        data-toggle="tooltip"  data-placement="bottom"
        title="Trainer werden über ausstehende Termine ohne eingetragenen Trainer benachrichtigt">Benachrichtigung senden</a>
-    <a class="btn btn-primary pull-right" id="show-create-dialog-button">Termin erstellen</a>
     <div class="container">
         <h1>{!! \Zento\Appointment::$months[$month - 1]." ".$year !!}</h1>
         @if($month > 1)

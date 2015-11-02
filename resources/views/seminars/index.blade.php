@@ -5,7 +5,9 @@
 @section('content')
 
     <div class="container">
-        <h1 class="h1-index">Seminarübersicht</h1>
+        <h1>Seminarübersicht</h1>
+
+        @include('seminars._filter')
 
 		@if(Auth::user()->is_admin)
             <button type="button" class="btn btn-primary  pull-right btn-create" data-toggle="modal" data-target="#myModal">Seminar erstellen</button>
@@ -43,7 +45,11 @@
                 </tbody>
             </table>
         @else
-            Noch keine Seminare vorhanden!
+            @if($filterSearch == '')
+                Noch keine Seminare vorhanden!
+            @else
+                Keine Seminare gefunden!
+            @endif
         @endif
         
 
@@ -76,7 +82,27 @@
     <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
-        })
+        });
+
+        $(document).ready(function() {
+            $('#set-filter').click(function () {
+                filter();
+            });
+
+            $('#filterS').keypress(function (e) {
+                if (e.which == 13) {
+                    filter();
+                    return false;    //<---- Add this line
+                }
+            });
+        });
+
+        function filter() {
+            var search = "<?php echo $filterSearch; ?>";
+            if($('#filterS').val() != "" || ($('#filterS').val() == "" && search != "")) {
+                window.location.href = '{!! action('SeminarController@index') !!}?' + ($('#filterS').val() != '' ? 'q=' + $('#filterS').val() : '');
+            }
+        }
     </script>
 
 @endsection

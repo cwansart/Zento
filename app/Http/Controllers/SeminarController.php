@@ -11,6 +11,7 @@ use Zento\Seminar;
 use Zento\User;
 use Zento\Location;
 use Auth;
+use DB;
 use Validator;
 
 class SeminarController extends Controller
@@ -29,9 +30,30 @@ class SeminarController extends Controller
      */
     public function index(Request $request)
     {
-        $seminars = Seminar::getOrdered($request->get('orderBy'))->paginate(15);
+        $seminars = Seminar::query();
+
+        if($request->has('q')) {
+            $seminars = $seminars->where(function ($query) use ($request) {
+                $query->where('title', 'LIKE', '%' . $request->get('q') . '%')
+                    ->orWhereExists(function ($query) use ($request) {
+                        $query->select(DB::raw(1))
+                            ->from('locations')
+                            ->whereRaw('locations.id = seminars.location_id')
+                            ->where(function ($query) use ($request) {
+                               $query->where('street', 'LIKE', '%' . $request->get('q') . '%')
+                                   ->orWhere('housenr', 'LIKE', '%' . $request->get('q') . '%')
+                                   ->orWhere('zip', 'LIKE', '%' . $request->get('q') . '%')
+                                   ->orWhere('city', 'LIKE', '%' . $request->get('q') . '%')
+                                   ->orWhere('country', 'LIKE', '%' . $request->get('q') . '%');
+                            });
+                    });
+            });
+        }
+
+        $seminars = $seminars->getOrdered($request->get('orderBy'))->paginate(15);
         return view('seminars.index')->with('seminars', $seminars)
-            ->with('sortBy', $request->get('orderBy'));
+            ->with('sortBy', $request->get('orderBy'))
+            ->with('filterSearch', $request->has('q') ? $request->get('q') : '');
     }
 
     /**

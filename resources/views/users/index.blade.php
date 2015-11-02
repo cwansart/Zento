@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-        <h1 class="h1-index">Benutzerliste</h1>
+        <h1>Benutzerliste</h1>
 
 		@if(Auth::user()->is_admin)
             <button type="button" class="btn btn-primary pull-right btn-create" data-toggle="modal" data-target="#myModal">Benutzer erstellen</button>
@@ -55,7 +55,7 @@
                 @endif
         @endif
 
-        
+
 
         {!! $users->render() !!}
     </div>
@@ -108,7 +108,8 @@
         });
 
         function filter() {
-            if($('#filterG option:selected').val() != '0' || $('#filterA option:selected').val() != '-1' || $('#filterS').val() != "") {
+            var search = "<?php echo $filterSearch; ?>";
+            if($('#filterG option:selected').val() != '0' || $('#filterA option:selected').val() != '-1' || $('#filterS').val() != "" || ($('#filterS').val() == "" && search != "")) {
                 window.location.href = '{!! action('UserController@index') !!}?' + ($('#filterG option:selected').val() != '0' ? 'g=' + $('#filterG option:selected').val() + '&' : '') + ($('#filterA option:selected').val() != '-1' ? 'a=' + $('#filterA option:selected').val() + '&' : '') + ($('#filterS').val() != '' ? 'q=' + $('#filterS').val() : '');
             }
         }

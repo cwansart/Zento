@@ -40,15 +40,13 @@ class UserController extends Controller
             if(is_numeric($request->get('g')) && $request->get('g') > 0)
             {
                 $users = $users->where('group_id', '=', $request->get('g'));
-                echo 'Hallo G';
             }
         }
 
         if($request->has('a')) {
-            if(is_numeric($request->get('a')))
+            if(is_numeric($request->get('a')) && $request->get('a') >= 0)
             {
                 $users = $users->where('active', '=', (bool)$request->get('a'));
-                echo 'Hallo A';
             }
         }
 
@@ -67,7 +65,9 @@ class UserController extends Controller
                 ->with('users', $users)
                 ->with('groups', Group::groupsArray())
                 ->with('sortBy', $request->has('orderBy') ? $request->get('orderBy') : 'firstname:ASC')
-                ->with('filterGroup', $request->has('g') ? $request->get('g') : '-1');
+                ->with('filterSearch', $request->has('q') ? $request->get('q') : '')
+                ->with('filterGroup', $request->has('g') ? $request->get('g') : '-1')
+                ->with('filterStatus', $request->has('a') ? $request->get('a') : '-1');
     }
 
     /**

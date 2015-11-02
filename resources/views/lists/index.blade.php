@@ -15,6 +15,4 @@
         erzeugt werden. Anschließend wird eine PDF-Datei zum Download angeboten, sodass die Liste ausgedruck werden kann.
     </div>
 
-    {!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}
-
 @endsection

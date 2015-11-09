@@ -110,7 +110,7 @@ img {
 .btn-primary{
     background: #e24b3e;
     border:0px;
-    margin: 10px 0px 10px 0px;
+    /*margin: 10px 0px 10px 0px;*/
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover, .open>.dropdown-toggle.btn-primary.focus, .open>.dropdown-toggle.btn-primary:focus, .open>.dropdown-toggle.btn-primary:hover{

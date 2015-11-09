@@ -2,10 +2,10 @@
     <table>
         <tr>
             <td>
-                {!! Form::select('g_id', array_merge(array(-1 => 'Gruppe'), $groups), $filterGroup, ['class' => 'form-control', 'id' => 'filterG']) !!}
+                {!! Form::select('a', array(-1 => 'Alle Mitglieder', 0 => 'Nur Inaktive', 1 => 'Nur Aktive'), $filterStatus, ['class' => 'form-control', 'id' => 'filterA']) !!}
             </td>
             <td>
-                {!! Form::select('a', array(-1 => 'Status', 0 => 'Inaktiv', 1 => 'Aktiv'), $filterStatus, ['class' => 'form-control', 'id' => 'filterA']) !!}
+                {!! Form::select('g_id', array_merge(array(-1 => 'Alle Gruppen'), $groups), $filterGroup, ['class' => 'form-control', 'id' => 'filterG']) !!}
             </td>
             <td>
                 <div class="input-group">

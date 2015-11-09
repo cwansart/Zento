@@ -7,7 +7,7 @@
     <div class="container">
         <h1 class="h1-index">Listen</h1>
 
-        <button type="button" class="btn btn-primary pull-right btn-create">Liste erstellen</button>
+        <button type="button" class="btn btn-primary btn-margin pull-right">Liste erstellen</button>
         <div class="clearfix"></div>
 
         Listen sind zum Ausdrucken gedacht. Sie können zuvor beliebig angepasst werden, zum Beispiel in dem neben den

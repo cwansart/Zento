@@ -7,11 +7,11 @@
     <div class="container">
         <h1>Seminarübersicht</h1>
 
-        @include('seminars._filter')
-
-		@if(Auth::user()->is_admin)
-            <button type="button" class="btn btn-primary  pull-right btn-create" data-toggle="modal" data-target="#myModal">Seminar erstellen</button>
+        @if(Auth::user()->is_admin)
+            <button type="button" class="btn btn-primary  pull-right" data-toggle="modal" data-target="#myModal">Seminar erstellen</button>
         @endif
+
+        @include('seminars._filter')
 
         @if(count($seminars))
 

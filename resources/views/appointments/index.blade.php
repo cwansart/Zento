@@ -3,8 +3,8 @@
 @section('title', 'Termine')
 
 @section('content')
-    <a class="btn btn-primary pull-right" id="show-create-dialog-button">Termin erstellen</a>
-    <a class="btn btn-default pull-right" href="{!! action('AppointmentController@notifyTrainer') !!}"
+    <a class="btn btn-primary btn-margin pull-right" id="show-create-dialog-button">Termin erstellen</a>
+    <a class="btn btn-default btn-margin pull-right" href="{!! action('AppointmentController@notifyTrainer') !!}"
        data-toggle="tooltip"  data-placement="bottom"
        title="Trainer werden über ausstehende Termine ohne eingetragenen Trainer benachrichtigt">Benachrichtigung senden</a>
     <div class="container">

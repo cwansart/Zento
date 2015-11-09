@@ -7,7 +7,7 @@
         <h1>Benutzerliste</h1>
 
 		@if(Auth::user()->is_admin)
-            <button type="button" class="btn btn-primary pull-right btn-create" data-toggle="modal" data-target="#myModal">Benutzer erstellen</button>
+            <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">Benutzer erstellen</button>
         @endif
 
         @include('users._filter')

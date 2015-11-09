@@ -119,8 +119,10 @@ img {
 
 .btn-default{
     background: #e0e0e0;
+    /*
     border:0px;
     margin: 10px 0px 10px 0px;
+    */
 }
 
 #delete-confirm-dialog .btn-default, #delete-confirm-dialog .btn-primary {

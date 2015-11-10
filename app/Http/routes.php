@@ -34,6 +34,8 @@ Route::delete('seminars/{seminarid}/{userid}', 'SeminarController@removeUser');
 Route::get('appointments/get_trainer/{id}', 'AppointmentController@getTrainer');
 Route::get('appointments/notify_trainer', 'AppointmentController@notifyTrainer');
 
+Route::get('lists/generate_list', 'ListController@generateList');
+
 // resources
 Route::resource('users', 'UserController');
 Route::resource('exams', 'ExamController');

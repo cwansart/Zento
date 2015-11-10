@@ -89,4 +89,14 @@ class ListController extends Controller
     {
         //
     }
+
+    /**
+     * Erzeugt eine Liste als PDF und gibt anschließend eine Listen-ID zurück.
+     * @param Request $request
+     * @return Listen-ID
+     */
+    public function generateList(Request $request) {
+
+        return $request;
+    }
 }

@@ -176,6 +176,7 @@ html {
 }
 
 .zento-calendar{
+    margin-top: 20px;
     width:100%;
     min-width: 600px;
     min-height: 500px;
@@ -433,4 +434,16 @@ body {
 
 .zc-red{
     color: #2c3e50;
+}
+
+/* Wenn zwei .pull-right Buttons hintereinander sind, dann soll diese Klasse
+ * einen kleinen Abstand zwischen diese bringen. */
+.btn-space-right {
+    margin-right: 5px;
+}
+
+/* Da einige Boostrap-Elemente einen Rahmen haben, diese für unser Design
+ * jedoch nicht vorgesehen haben, nutzen wir eine Klasse um dies zu unterbinden. */
+.btn-no-border {
+    border: none;
 }

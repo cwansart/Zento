@@ -3,12 +3,15 @@
 @section('title', 'Termine')
 
 @section('content')
-    <a class="btn btn-primary btn-margin pull-right" id="show-create-dialog-button">Termin erstellen</a>
-    <a class="btn btn-default btn-margin pull-right" href="{!! action('AppointmentController@notifyTrainer') !!}"
-       data-toggle="tooltip"  data-placement="bottom"
-       title="Trainer werden über ausstehende Termine ohne eingetragenen Trainer benachrichtigt">Benachrichtigung senden</a>
     <div class="container">
         <h1>{!! \Zento\Appointment::$months[$month - 1]." ".$year !!}</h1>
+
+
+        <a class="btn btn-primary pull-right" id="show-create-dialog-button">Termin erstellen</a>
+        <a class="btn btn-default pull-right btn-space-right btn-no-border" href="{!! action('AppointmentController@notifyTrainer') !!}"
+           data-toggle="tooltip"  data-placement="bottom" title="Trainer werden über ausstehende Termine ohne eingetragenen Trainer benachrichtigt">Benachrichtigung senden</a>
+        <br>
+
         @if($month > 1)
             <a href="{{ URL::route('appointments.index', ['year' => $year, 'month' => $month - 1]) }}">
                 <span class="glyphicon glyphicon-chevron-left"></span>
@@ -27,6 +30,7 @@
                 <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
         @endif
+
         <table class="zento-calendar">
             <tr>
                 <!-- Table headers -->

@@ -447,3 +447,14 @@ body {
 .btn-no-border {
     border: none;
 }
+
+.list-head-input {
+    font-weight: normal;
+    border: 1px solid #FFF;
+}
+
+.list-head-input:hover {
+    color: #555;
+    background-color: #FFF;
+    border: 1px solid #CCC;
+}

@@ -42,6 +42,30 @@
 
     </div>
 
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Liste bereit zum Herunterladen</h4>
+                </div>
+                <div class="modal-body">
+                    Die erzeugte Liste ist nun zum Herunterladen bereit. Um den Download zu beginnen, einfach die
+                    folgende Schaltfläche anklicken:<br><br>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary" id="list-download-button">Liste als PDF herunterladen</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-no-border" data-dismiss="modal">Schließen</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <script>
         // Lädt die Benutzertabelle mit den übergebenen Spalten neu
         function reloadTable(columns, selectedId) {
@@ -78,7 +102,9 @@
 
                 // Nun muss noch der neue Tabellenkopf eingefügt werden
                 var header = $('<input/>', {
-                    'type': 'text'
+                    'type': 'text',
+                    'class': 'list-head-input',
+                    'placeholder': 'leer'
                 });
                 switch (selectedId) {
                     case 'address': header = 'Adresse'; break;
@@ -144,8 +170,15 @@
             $('#submit-list-button').on('click', function() {
                 var getRequest = $.get('{!! action('ListController@generateList') !!}', { 'currentColumns[]': currentColumns });
                 getRequest.done(function(listId) {
-                    console.log(listId);
+                    $('#list-download-button').attr('data-linkid', listId);
+                    $('#myModal').modal('show');
                 });
+            });
+
+            // Startet den Download
+            $('#list-download-button').on('click', function() {
+                alert('Noch nicht implementiert: LADE DATEI ' + $(this).attr('data-linkid'));
+                // Hier muss noch mittels $.get() oder so der Download gestartet werden
             });
         });
     </script>

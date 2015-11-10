@@ -5,14 +5,16 @@
 @section('content')
 
     <div class="container">
-        <h1 class="h1-index">Listen</h1>
+        <h1>Listen</h1>
 
-        <button type="button" class="btn btn-primary btn-margin pull-right" id="list-create-button">Liste erstellen</button>
+        <button type="button" class="btn btn-primary pull-right" id="list-create-button">Liste erstellen</button>
         <div class="clearfix"></div>
 
-        Listen sind zum Ausdrucken gedacht. Sie können zuvor beliebig angepasst werden, zum Beispiel in dem neben den
-        Vor- und Nachnamen noch Gruppen oder das Alter stehen. Außerdem können beliebig viele leere Spalten und Zeilen
-        erzeugt werden. Anschließend wird eine PDF-Datei zum Download angeboten, sodass die Liste ausgedruck werden kann.
+        <div class="row">
+            Listen sind zum Ausdrucken gedacht. Sie können zuvor beliebig angepasst werden, zum Beispiel in dem neben den
+            Vor- und Nachnamen noch Gruppen oder das Alter stehen. Außerdem können beliebig viele leere Spalten und Zeilen
+            erzeugt werden. Anschließend wird eine PDF-Datei zum Download angeboten, sodass die Liste ausgedruck werden kann.
+        </div>
     </div>
 
     <script>

@@ -7,10 +7,10 @@
     <div class="container">
 
 
-        <h1 class="h1-index">Prüfungsübersicht</h1>
+        <h1>Prüfungsübersicht</h1>
 
 		@if(Auth::user()->is_admin)
-            <button type="button" class="btn btn-primary btn-margin pull-right" data-toggle="modal" data-target="#myModal">Prüfung erstellen</button>
+            <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">Prüfung erstellen</button>
         @endif
 
         @if(count($exams))

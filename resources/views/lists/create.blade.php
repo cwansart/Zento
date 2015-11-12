@@ -57,6 +57,7 @@
                     <div class="text-center">
                         <button type="button" class="btn btn-primary" id="list-download-button">Liste als PDF herunterladen</button>
                     </div>
+                    <iframe id="download_iframe" style="display: none;"></iframe>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default btn-no-border" data-dismiss="modal">Schließen</button>
@@ -168,17 +169,14 @@
             // Sendet einen Request an den Server und erstellt dort eine PDF mit der Liste. Anschließend sendet der
             // Server die ID der PDF zurück, damit ein Download-Link angeboten werden kann.
             $('#submit-list-button').on('click', function() {
-                var getRequest = $.get('{!! action('ListController@generateList') !!}', { 'currentColumns[]': currentColumns });
-                getRequest.done(function(listId) {
-                    $('#list-download-button').attr('data-linkid', listId);
-                    $('#myModal').modal('show');
-                });
+                $('#myModal').modal('show');
             });
 
             // Startet den Download
             $('#list-download-button').on('click', function() {
-                alert('Noch nicht implementiert: LADE DATEI ' + $(this).attr('data-linkid'));
-                // Hier muss noch mittels $.get() oder so der Download gestartet werden
+                var downloadUrl = '{!! action('ListController@generateList') !!}?' + $.param({ 'currentColumns[]': currentColumns });
+                $('#download_iframe').attr('src', downloadUrl);
+
             });
         });
     </script>

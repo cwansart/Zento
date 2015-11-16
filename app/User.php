@@ -221,6 +221,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->address->country;
     }
 
+    public function isTrainer()
+    {
+        return ($this->attributes['password'] != null && $this->attributes['password'] != "0");
+    }
+
     public function scopeGetOrdered($query, $orderBy) {
         $_orderBy = $order = null;
         if(!empty($orderBy) && strpos($orderBy, ':') !== false) {

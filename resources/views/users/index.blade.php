@@ -34,6 +34,13 @@
                     <th>Nachname <a href="{!! action('UserController@index', ['orderBy' => 'lastname:' . ($sortBy == 'lastname:ASC' ? 'DESC' : 'ASC')]) !!}"><span class="glyphicon {!! $sortBy == 'lastname:ASC' ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt' !!}" aria-hidden="true"></span></a></th>
                     <th>Graduierung</th>
                     <th></th>
+                    @if($filterStatus == -1)
+                        <th></th>
+                    @endif
+                    @if($filterGroup == -1)
+                        <th></th>
+                    @endif
+                    <th></th>
                     @if(Auth::user()->is_admin)
                         <th>Aktion</th>
                     @endif
@@ -50,6 +57,29 @@
                         @else
                             <td><div class="zento-result-color-first" style="background: {!! $user->latestResultColor($user->latestResult()) !!}"></div></td>
                         @endif
+
+                        @if($filterStatus == -1)
+                            @if($user->active)
+                                <td><div class="active" data-toggle="tooltip"  data-placement="bottom" title="Aktiv"></div></td>
+                            @else
+                                <td><div class="inactive" data-toggle="tooltip"  data-placement="bottom" title="Inaktiv"></div></td>
+                            @endif
+                        @endif
+
+                        @if($filterGroup == -1)
+                            @if($user->group_id == 1)
+                                <td><div class="adult" data-toggle="tooltip"  data-placement="bottom" title="Erwachsener"></div></td>
+                            @else
+                                <td><div class="kid" data-toggle="tooltip"  data-placement="bottom" title="Kind"></div></td>
+                            @endif
+                        @endif
+
+                        @if($user->isTrainer())
+                            <td><div class="trainer" data-toggle="tooltip"  data-placement="bottom" title="Trainer"></div></td>
+                        @else
+                            <td></td>
+                        @endif
+
                         @if(Auth::user()->is_admin)
                             <td>
                                 <a href="{!! action('UserController@edit', $user->id) !!}" class="edit" title="Benutzer bearbeiten" data-toggle="tooltip" data-placement="right"></a>
@@ -119,6 +149,8 @@
                     return false;    //<---- Add this line
                 }
             });
+
+            $('[data-toggle="tooltip"]').tooltip();
         });
 
         function filter() {

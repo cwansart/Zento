@@ -155,6 +155,36 @@ img {
     min-height:22px;
 }
 
+.active{
+    background:url(../images/active.png) no-repeat;
+    min-width:22px;
+    min-height:22px;
+}
+
+.inactive{
+    background:url(../images/inactive.png) no-repeat;
+    min-width:22px;
+    min-height:22px;
+}
+
+.adult{
+    background:url(../images/adults.png) no-repeat;
+    min-width:22px;
+    min-height:22px;
+}
+
+.kid{
+    background:url(../images/kids.png) no-repeat;
+    min-width:22px;
+    min-height:22px;
+}
+
+.trainer{
+    background:url(../images/trainer.png) no-repeat;
+    min-width:22px;
+    min-height:22px;
+}
+
 .table-user tbody a, .table-user tbody input, .table-exam tbody a, .table-exam tbody input, .table-seminar tbody a, .table-seminar tbody input{
     display:block;
     float:left;

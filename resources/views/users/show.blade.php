@@ -9,7 +9,7 @@
         <table class="table table-2cols">
             <tr>
                 <td>Adresse:</td>
-                <td>{!! $user->addressStr() !!}</td>
+                <td>{!! $user->isTrainer() !!}</td>
             </tr>
             <tr>
                 <td>E-Mail:</td>

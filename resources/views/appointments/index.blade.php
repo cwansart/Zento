@@ -105,7 +105,7 @@
                 <span class="end"></span>
             </div>
             <div class="description"></div>
-            <div class="trainer hidden">Trainer (Priorität): <ul class="actual-trainer"></ul></div>
+            <div class="trainer-div hidden">Trainer (Priorität): <ul class="actual-trainer"></ul></div>
         </div>
         <div class="popover-controls">
             <div style="margin: 0; padding: 0; line-height: 22px;">
@@ -165,9 +165,9 @@
                                     trainerList += " (" + prio[trainer[i].pivot.priority] + ")"+ "</li>";
                                 }
                                 $('#appointment-tooltip .actual-trainer').html(trainerList);
-                                $('#appointment-tooltip .trainer').removeClass('hidden');
+                                $('#appointment-tooltip .trainer-div').removeClass('hidden');
                             } else {
-                                $('#appointment-tooltip .trainer').addClass('hidden');
+                                $('#appointment-tooltip .trainer-div').addClass('hidden');
                             }
                         });
 

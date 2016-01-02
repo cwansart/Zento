@@ -155,31 +155,31 @@ img {
     min-height:22px;
 }
 
-.active{
+.zc-active{
     background:url(../images/active.png) no-repeat;
     min-width:22px;
     min-height:22px;
 }
 
-.inactive{
+.zc-inactive{
     background:url(../images/inactive.png) no-repeat;
     min-width:22px;
     min-height:22px;
 }
 
-.adult{
+.zc-adult{
     background:url(../images/adults.png) no-repeat;
     min-width:22px;
     min-height:22px;
 }
 
-.kid{
+.zc-kid{
     background:url(../images/kids.png) no-repeat;
     min-width:22px;
     min-height:22px;
 }
 
-.trainer{
+.zc-trainer{
     background:url(../images/trainer.png) no-repeat;
     min-width:22px;
     min-height:22px;

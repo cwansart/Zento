@@ -60,22 +60,22 @@
 
                         @if($filterStatus == -1)
                             @if($user->active)
-                                <td><div class="active" data-toggle="tooltip"  data-placement="bottom" title="Aktiv"></div></td>
+                                <td><div class="zc-active" data-toggle="tooltip"  data-placement="bottom" title="Aktiv"></div></td>
                             @else
-                                <td><div class="inactive" data-toggle="tooltip"  data-placement="bottom" title="Inaktiv"></div></td>
+                                <td><div class="zc-inactive" data-toggle="tooltip"  data-placement="bottom" title="Inaktiv"></div></td>
                             @endif
                         @endif
 
                         @if($filterGroup == -1)
                             @if($user->group_id == 1)
-                                <td><div class="adult" data-toggle="tooltip"  data-placement="bottom" title="Erwachsener"></div></td>
+                                <td><div class="zc-adult" data-toggle="tooltip"  data-placement="bottom" title="Erwachsener"></div></td>
                             @else
-                                <td><div class="kid" data-toggle="tooltip"  data-placement="bottom" title="Kind"></div></td>
+                                <td><div class="zc-kid" data-toggle="tooltip"  data-placement="bottom" title="Kind"></div></td>
                             @endif
                         @endif
 
                         @if($user->isTrainer())
-                            <td><div class="trainer" data-toggle="tooltip"  data-placement="bottom" title="Trainer"></div></td>
+                            <td><div class="zc-trainer" data-toggle="tooltip"  data-placement="bottom" title="Trainer"></div></td>
                         @else
                             <td></td>
                         @endif

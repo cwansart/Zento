@@ -11,6 +11,7 @@ use Zento\Http\Requests;
 use Zento\Http\Controllers\Controller;
 
 use Zento\Location;
+use Zento\Group;
 use Zento\Exam;
 use Zento\Seminar;
 use Zento\User;
@@ -80,9 +81,11 @@ class ExamController extends Controller
                 ->with('exam', $exam)
                 ->with('users', $users)
                 ->with('results', Exam::$results)
+                ->with('groups', Group::groupsArray())
                 ->with('sortBy', $request->has('orderBy') ? $request->get('orderBy') : 'firstname:ASC')
-                ->with('filterStatus', -1)
-                ->with('filterGroup', -1);
+                ->with('filterSearch', $request->has('q') ? $request->get('q') : '')
+                ->with('filterGroup', $request->has('g') ? $request->get('g') : '-1')
+                ->with('filterStatus', $request->has('a') ? $request->get('a') : '-1');
     }
 
     /**

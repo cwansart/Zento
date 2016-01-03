@@ -6,6 +6,23 @@
 
     <div class="container">
         <h1>Prüflinge vom {!! $exam->date !!}</h1>
+
+        <div class="form-inline">
+            <div class="input-group">
+                {!! Form::select('a', array(-1 => 'Alle Mitglieder', 0 => 'Nur Inaktive', 1 => 'Nur Aktive'), $filterStatus, ['class' => 'form-control', 'id' => 'filterA']) !!}
+            </div>
+
+            <div class="input-group">
+                {!! Form::select('g_id', array_merge(array(-1 => 'Alle Gruppen'), $groups), $filterGroup, ['class' => 'form-control', 'id' => 'filterG']) !!}
+            </div>
+            <div class="input-group">
+                {!! Form::input('text', 's', $filterSearch, ['class' => 'form-control', 'id' => 'filterS', 'placeholder' => 'Suche...']) !!}
+                <span class="input-group-btn">
+                <button class="btn btn-default" type="button" id="set-filter">Suchen</button>
+            </span>
+            </div>
+        </div>
+
         <table class="table table-hover table-exam">
             <thead>
             <tr>

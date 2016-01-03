@@ -8,6 +8,7 @@ use Zento\Http\Requests\SeminarRequest;
 use Zento\Http\Requests;
 use Zento\Http\Controllers\Controller;
 use Zento\Seminar;
+use Zento\Group;
 use Zento\User;
 use Zento\Location;
 use Auth;
@@ -95,9 +96,11 @@ class SeminarController extends Controller
         return view('seminars.show')
             ->with('users', $users)
             ->with('seminar', $seminar)
+            ->with('groups', Group::groupsArray())
             ->with('sortBy', $request->has('orderBy') ? $request->get('orderBy') : 'firstname:ASC')
-            ->with('filterStatus', -1)
-            ->with('filterGroup', -1);
+            ->with('filterSearch', $request->has('q') ? $request->get('q') : '')
+            ->with('filterGroup', $request->has('g') ? $request->get('g') : '-1')
+            ->with('filterStatus', $request->has('a') ? $request->get('a') : '-1');
     }
 
     /**

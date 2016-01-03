@@ -95,6 +95,7 @@ class SeminarController extends Controller
         return view('seminars.show')
             ->with('users', $users)
             ->with('seminar', $seminar)
+            ->with('sortBy', $request->has('orderBy') ? $request->get('orderBy') : 'firstname:ASC')
             ->with('filterStatus', -1)
             ->with('filterGroup', -1);
     }

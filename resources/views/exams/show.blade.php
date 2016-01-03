@@ -9,7 +9,8 @@
         <table class="table table-hover table-exam">
             <thead>
             <tr>
-                <th>Vorname</th>
+                <th>Vorname <a href="{!! action('ExamController@show', ['orderBy' => 'firstname:' . ($sortBy == 'firstname:ASC' ? 'DESC' : 'ASC')]) !!}"><span class="glyphicon {!! $sortBy == 'firstname:ASC' ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt' !!}" aria-hidden="true"></span></a></th>
+                <th>Nachname <a href="{!! action('ExamController@show', ['orderBy' => 'lastname:' . ($sortBy == 'lastname:ASC' ? 'DESC' : 'ASC')]) !!}"><span class="glyphicon {!! $sortBy == 'lastname:ASC' ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt' !!}" aria-hidden="true"></span></a></th>
                 <th>Nachname</th>
                 <th>Ergebnis</th>
                 <th></th>

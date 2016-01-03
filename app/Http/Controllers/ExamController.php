@@ -80,6 +80,7 @@ class ExamController extends Controller
                 ->with('exam', $exam)
                 ->with('users', $users)
                 ->with('results', Exam::$results)
+                ->with('sortBy', $request->has('orderBy') ? $request->get('orderBy') : 'firstname:ASC')
                 ->with('filterStatus', -1)
                 ->with('filterGroup', -1);
     }

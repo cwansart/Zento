@@ -9,8 +9,8 @@
         <table class="table table-hover table-seminar">
             <thead>
             <tr>
-                <th>Vorname</th>
-                <th>Nachname</th>
+                <th>Vorname <a href="{!! action('SeminarController@show', ['orderBy' => 'firstname:' . ($sortBy == 'firstname:ASC' ? 'DESC' : 'ASC')]) !!}"><span class="glyphicon {!! $sortBy == 'firstname:ASC' ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt' !!}" aria-hidden="true"></span></a></th>
+                <th>Nachname <a href="{!! action('SeminarController@show', ['orderBy' => 'lastname:' . ($sortBy == 'lastname:ASC' ? 'DESC' : 'ASC')]) !!}"><span class="glyphicon {!! $sortBy == 'lastname:ASC' ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt' !!}" aria-hidden="true"></span></a></th>
                 @if($filterStatus == -1)
                     <th></th>
                 @endif

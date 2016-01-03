@@ -13,6 +13,13 @@
                 <th>Nachname</th>
                 <th>Ergebnis</th>
                 <th></th>
+                @if($filterStatus == -1)
+                    <th></th>
+                @endif
+                @if($filterGroup == -1)
+                    <th></th>
+                @endif
+                <th></th>
                 @if(Auth::user()->is_admin)
                     <th>Aktion</th>
                 @endif
@@ -29,6 +36,29 @@
                     @else
                         <td><div class="zento-result-color-first" style="background: {!! $user->latestResultColor($user->pivot->result) !!}"></div></td>
                     @endif
+
+                    @if($filterStatus == -1)
+                        @if($user->active)
+                            <td><div class="zc-active" data-toggle="tooltip"  data-placement="bottom" title="Aktiv"></div></td>
+                        @else
+                            <td><div class="zc-inactive" data-toggle="tooltip"  data-placement="bottom" title="Inaktiv"></div></td>
+                        @endif
+                    @endif
+
+                    @if($filterGroup == -1)
+                        @if($user->group_id == 1)
+                            <td><div class="zc-adult" data-toggle="tooltip"  data-placement="bottom" title="Erwachsener"></div></td>
+                        @else
+                            <td><div class="zc-kid" data-toggle="tooltip"  data-placement="bottom" title="Kind"></div></td>
+                        @endif
+                    @endif
+
+                    @if($user->isTrainer())
+                        <td><div class="zc-trainer" data-toggle="tooltip"  data-placement="bottom" title="Trainer"></div></td>
+                    @else
+                        <td></td>
+                    @endif
+
                     @if(Auth::user()->is_admin)
                         <td>
                             <a href="{!! action('ExamController@removeUser', [$exam->id, $user->id]) !!}" class="delete delete-confirm" title="Prüfling entfernen" data-toggle="tooltip" data-placement="right"></a>

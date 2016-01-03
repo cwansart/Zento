@@ -94,7 +94,9 @@ class SeminarController extends Controller
         $users = $seminar->users;
         return view('seminars.show')
             ->with('users', $users)
-            ->with('seminar', $seminar);
+            ->with('seminar', $seminar)
+            ->with('filterStatus', -1)
+            ->with('filterGroup', -1);
     }
 
     /**

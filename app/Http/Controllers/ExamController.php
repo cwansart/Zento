@@ -79,7 +79,9 @@ class ExamController extends Controller
             view('exams.show')
                 ->with('exam', $exam)
                 ->with('users', $users)
-                ->with('results', Exam::$results);
+                ->with('results', Exam::$results)
+                ->with('filterStatus', -1)
+                ->with('filterGroup', -1);
     }
 
     /**

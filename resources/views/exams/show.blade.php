@@ -26,8 +26,8 @@
         <table class="table table-hover table-exam">
             <thead>
             <tr>
-                <th>Vorname <a href="{!! action('ExamController@show', ['orderBy' => 'firstname:' . ($sortBy == 'firstname:ASC' ? 'DESC' : 'ASC')]) !!}"><span class="glyphicon {!! $sortBy == 'firstname:ASC' ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt' !!}" aria-hidden="true"></span></a></th>
-                <th>Nachname <a href="{!! action('ExamController@show', ['orderBy' => 'lastname:' . ($sortBy == 'lastname:ASC' ? 'DESC' : 'ASC')]) !!}"><span class="glyphicon {!! $sortBy == 'lastname:ASC' ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt' !!}" aria-hidden="true"></span></a></th>
+                <th>Vorname <a href="?orderBy={!! 'firstname:' . ($sortBy == 'firstname:ASC' ? 'DESC' : 'ASC') !!}"><span class="glyphicon {!! $sortBy == 'firstname:ASC' ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt' !!}" aria-hidden="true"></span></a></th>
+                <th>Nachname <a href="?orderBy={!! 'lastname:' . ($sortBy == 'lastname:ASC' ? 'DESC' : 'ASC') !!}"><span class="glyphicon {!! $sortBy == 'lastname:ASC' ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt' !!}" aria-hidden="true"></span></a></th>
                 <th>Nachname</th>
                 <th>Ergebnis</th>
                 <th></th>
@@ -48,11 +48,12 @@
                 <tr class="clickable-row" data-href="{{ action('UserController@show', [$user->id]) }}">
                     <td>{!! $user->firstname !!}</td>
                     <td>{!! $user->lastname !!}</td>
-                    <td>{!! $user->pivot->result !!}</td>
-                    @if(is_array($user->latestResultColor($user->pivot->result)))
-                        <td><div class="zento-result-color-first" style="background: {!! $user->latestResultColor($user->pivot->result)[0] !!}"><div class="zento-result-color-second" style="background: {!! $user->latestResultColor($user->pivot->result)[1] !!}"></div></div></td>
+                    <td>{!! $user->result !!}</td>
+
+                    @if(is_array($user->latestResultColor($user->result)))
+                        <td><div class="zento-result-color-first" style="background: {!! $user->latestResultColor($user->result)[0] !!}"><div class="zento-result-color-second" style="background: {!! $user->latestResultColor($user->result)[1] !!}"></div></div></td>
                     @else
-                        <td><div class="zento-result-color-first" style="background: {!! $user->latestResultColor($user->pivot->result) !!}"></div></td>
+                        <td><div class="zento-result-color-first" style="background: {!! $user->latestResultColor($user->result) !!}"></div></td>
                     @endif
 
                     @if($filterStatus == -1)
@@ -162,8 +163,28 @@
                 $('#add-exam-form').submit();
             });
 
+            $('#set-filter').click(function () {
+                filter();
+            });
+
+            $('#filterS').keypress(function (e) {
+                if (e.which == 13) {
+                    filter();
+                    return false;    //<---- Add this line
+                }
+            });
+
             $('[data-toggle="tooltip"]').tooltip();
         });
+
+        function filter() {
+            var search = "<?php echo $filterSearch; ?>";
+            var group = "<?php echo $filterGroup; ?>";
+            var status = "<?php echo $filterStatus; ?>";
+            if($('#filterG option:selected').val() != '0' || $('#filterA option:selected').val() != '-1' || $('#filterS').val() != "" || ($('#filterS').val() == "" && search != "") || ($('#filterG option:selected').val() == '0' && group != '0') || ($('#filterA option:selected').val() == '-1' && search != '-1')) {
+                window.location.href = '?' + ($('#filterG option:selected').val() != '0' ? 'g=' + $('#filterG option:selected').val() + '&' : '') + ($('#filterA option:selected').val() != '-1' ? 'a=' + $('#filterA option:selected').val() + '&' : '') + ($('#filterS').val() != '' ? 'q=' + $('#filterS').val() : '');
+            }
+        }
     </script>
 
 @endsection

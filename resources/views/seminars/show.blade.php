@@ -26,8 +26,8 @@
         <table class="table table-hover table-seminar">
             <thead>
             <tr>
-                <th>Vorname <a href="{!! action('SeminarController@show', ['orderBy' => 'firstname:' . ($sortBy == 'firstname:ASC' ? 'DESC' : 'ASC')]) !!}"><span class="glyphicon {!! $sortBy == 'firstname:ASC' ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt' !!}" aria-hidden="true"></span></a></th>
-                <th>Nachname <a href="{!! action('SeminarController@show', ['orderBy' => 'lastname:' . ($sortBy == 'lastname:ASC' ? 'DESC' : 'ASC')]) !!}"><span class="glyphicon {!! $sortBy == 'lastname:ASC' ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt' !!}" aria-hidden="true"></span></a></th>
+                <th>Vorname <a href="?orderBy={!! 'firstname:' . ($sortBy == 'firstname:ASC' ? 'DESC' : 'ASC') !!}"><span class="glyphicon {!! $sortBy == 'firstname:ASC' ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt' !!}" aria-hidden="true"></span></a></th>
+                <th>Nachname <a href="?orderBy={!! 'lastname:' . ($sortBy == 'lastname:ASC' ? 'DESC' : 'ASC') !!}"><span class="glyphicon {!! $sortBy == 'lastname:ASC' ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt' !!}" aria-hidden="true"></span></a></th>
                 @if($filterStatus == -1)
                     <th></th>
                 @endif
@@ -134,17 +134,29 @@
             $('.select2').on('select2:select', function(e) {
                 $('#add-seminar-form').submit();
             });
-        });
-    </script>
 
-    {{--
-    {!! $seminarUsers->render() !!}
-    --}}
+            $('#set-filter').click(function () {
+                filter();
+            });
 
-    <script>
-        $(function () {
+            $('#filterS').keypress(function (e) {
+                if (e.which == 13) {
+                    filter();
+                    return false;    //<---- Add this line
+                }
+            });
+
             $('[data-toggle="tooltip"]').tooltip()
-        })
+        });
+
+        function filter() {
+            var search = "<?php echo $filterSearch; ?>";
+            var group = "<?php echo $filterGroup; ?>";
+            var status = "<?php echo $filterStatus; ?>";
+            if($('#filterG option:selected').val() != '0' || $('#filterA option:selected').val() != '-1' || $('#filterS').val() != "" || ($('#filterS').val() == "" && search != "") || ($('#filterG option:selected').val() == '0' && group != '0') || ($('#filterA option:selected').val() == '-1' && search != '-1')) {
+                window.location.href = '?' + ($('#filterG option:selected').val() != '0' ? 'g=' + $('#filterG option:selected').val() + '&' : '') + ($('#filterA option:selected').val() != '-1' ? 'a=' + $('#filterA option:selected').val() + '&' : '') + ($('#filterS').val() != '' ? 'q=' + $('#filterS').val() : '');
+            }
+        }
     </script>
 
 @endsection

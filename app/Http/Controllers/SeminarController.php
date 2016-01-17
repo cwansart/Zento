@@ -92,7 +92,35 @@ class SeminarController extends Controller
     public function show(Request $request, $id)
     {
         $seminar = Seminar::findOrFail($id);
-        $users = $seminar->users;
+
+        $users = User::query()
+            ->join('seminar_user', 'users.id', '=', 'seminar_user.user_id')
+            ->where('seminar_user.seminar_id', '=', $id);
+
+        if($request->has('g')) {
+            if(is_numeric($request->get('g')) && $request->get('g') > 0)
+            {
+                $users = $users->where('group_id', '=', $request->get('g'));
+            }
+        }
+
+        if($request->has('a')) {
+            if(is_numeric($request->get('a')) && $request->get('a') >= 0)
+            {
+                $users = $users->where('active', '=', (bool)$request->get('a'));
+            }
+        }
+
+        if($request->has('q')) {
+            $users = $users->where(function ($query) use ($request) {
+                $query->where('firstname', 'LIKE', '%' . $request->get('q') . '%')
+                    ->orWhere('lastname', 'LIKE', '%' . $request->get('q') . '%')
+                    ->orWhere('email', 'LIKE', '%' . $request->get('q') . '%');
+            });
+        }
+
+        $users = $users->getOrdered($request->get('orderBy'))->paginate(15);
+
         return view('seminars.show')
             ->with('users', $users)
             ->with('seminar', $seminar)

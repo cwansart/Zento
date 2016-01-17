@@ -81,6 +81,175 @@ class UserTableSeeder extends Seeder {
             'is_admin' => false,
             'group_id' => 2,
         ]);
+
+        User::create([
+            'firstname' => 'Ina',
+            'lastname' => 'Müller',
+            'email' => 'ina@mueller.de',
+            'password' => null,
+            'birthday' => '27.03.1989', //Carbon::createFromDate(2005,7,25),
+            'entry_date' => '18.07.2010', //Carbon::createFromDate(2013,8,15),
+            'location_id' => 7,
+            'active' => true,
+            'is_admin' => false,
+            'group_id' => 1,
+        ]);
+
+        User::create([
+            'firstname' => 'Tanja',
+            'lastname' => 'Kaufmann',
+            'email' => 'tanja@kaufmann.de',
+            'password' => null,
+            'birthday' => '27.12.1988', //Carbon::createFromDate(2005,7,25),
+            'entry_date' => '22.08.2009', //Carbon::createFromDate(2013,8,15),
+            'location_id' => 7,
+            'active' => true,
+            'is_admin' => false,
+            'group_id' => 1,
+        ]);
+
+        User::create([
+            'firstname' => 'Alisa',
+            'lastname' => 'Kaufmann',
+            'email' => 'alisa@kaufmann.de',
+            'password' => null,
+            'birthday' => '02.11.1994', //Carbon::createFromDate(2005,7,25),
+            'entry_date' => '22.08.2009', //Carbon::createFromDate(2013,8,15),
+            'location_id' => 7,
+            'active' => true,
+            'is_admin' => false,
+            'group_id' => 1,
+        ]);
+
+        User::create([
+            'firstname' => 'Thomas',
+            'lastname' => 'Schnitzler',
+            'email' => 'thomy@schnitzler.de',
+            'password' => null,
+            'birthday' => '02.05.1975', //Carbon::createFromDate(2005,7,25),
+            'entry_date' => '08.02.2003', //Carbon::createFromDate(2013,8,15),
+            'location_id' => 7,
+            'active' => true,
+            'is_admin' => false,
+            'group_id' => 1,
+        ]);
+
+        User::create([
+            'firstname' => 'Michael',
+            'lastname' => 'Bozlofski',
+            'email' => 'michi@bozli.de',
+            'password' => null,
+            'birthday' => '09.07.1973', //Carbon::createFromDate(2005,7,25),
+            'entry_date' => '22.12.1992', //Carbon::createFromDate(2013,8,15),
+            'location_id' => 7,
+            'active' => true,
+            'is_admin' => false,
+            'group_id' => 1,
+        ]);
+
+        User::create([
+            'firstname' => 'Costa',
+            'lastname' => 'Cordalis',
+            'email' => 'super@saenger.de',
+            'password' => null,
+            'birthday' => '13.06.1987', //Carbon::createFromDate(2005,7,25),
+            'entry_date' => '22.12.1999', //Carbon::createFromDate(2013,8,15),
+            'location_id' => 7,
+            'active' => true,
+            'is_admin' => false,
+            'group_id' => 1,
+        ]);
+
+        User::create([
+            'firstname' => 'Axel',
+            'lastname' => 'Schweiß',
+            'email' => 'axel@bschweiss.de',
+            'password' => null,
+            'birthday' => '18.09.1983', //Carbon::createFromDate(2005,7,25),
+            'entry_date' => '01.06.1998', //Carbon::createFromDate(2013,8,15),
+            'location_id' => 7,
+            'active' => true,
+            'is_admin' => false,
+            'group_id' => 1,
+        ]);
+
+        User::create([
+            'firstname' => 'Leo',
+            'lastname' => 'Pard',
+            'email' => 'leo@pard.de',
+            'password' => null,
+            'birthday' => '24.10.2001', //Carbon::createFromDate(2005,7,25),
+            'entry_date' => '22.12.2008', //Carbon::createFromDate(2013,8,15),
+            'location_id' => 7,
+            'active' => true,
+            'is_admin' => false,
+            'group_id' => 2,
+        ]);
+
+        User::create([
+            'firstname' => 'Anna',
+            'lastname' => 'Param',
+            'email' => 'anna@param.de',
+            'password' => null,
+            'birthday' => '12.07.1992', //Carbon::createFromDate(2005,7,25),
+            'entry_date' => '22.12.2001', //Carbon::createFromDate(2013,8,15),
+            'location_id' => 7,
+            'active' => true,
+            'is_admin' => false,
+            'group_id' => 1,
+        ]);
+
+        User::create([
+            'firstname' => 'Arne',
+            'lastname' => 'Töpfer',
+            'email' => 'Arne@toepfer.de',
+            'password' => null,
+            'birthday' => '09.07.1977', //Carbon::createFromDate(2005,7,25),
+            'entry_date' => '22.12.1990', //Carbon::createFromDate(2013,8,15),
+            'location_id' => 7,
+            'active' => true,
+            'is_admin' => false,
+            'group_id' => 1,
+        ]);
+
+        User::create([
+            'firstname' => 'Anna-Lena',
+            'lastname' => 'Schnabelmüller-Steffens',
+            'email' => 'ann@lena.de',
+            'password' => null,
+            'birthday' => '10.07.2005', //Carbon::createFromDate(2005,7,25),
+            'entry_date' => '01.06.2012', //Carbon::createFromDate(2013,8,15),
+            'location_id' => 7,
+            'active' => true,
+            'is_admin' => false,
+            'group_id' => 2,
+        ]);
+
+        User::create([
+            'firstname' => 'Detlef',
+            'lastname' => 'Treter',
+            'email' => 'diddi@treter.de',
+            'password' => null,
+            'birthday' => '09.07.1969', //Carbon::createFromDate(2005,7,25),
+            'entry_date' => '18.11.2013', //Carbon::createFromDate(2013,8,15),
+            'location_id' => 7,
+            'active' => false,
+            'is_admin' => false,
+            'group_id' => 1,
+        ]);
+
+        User::create([
+            'firstname' => 'Dieter',
+            'lastname' => 'Merkur',
+            'email' => 'dd@merkur.de',
+            'password' => null,
+            'birthday' => '24.03.1976', //Carbon::createFromDate(2005,7,25),
+            'entry_date' => '01.03.1992', //Carbon::createFromDate(2013,8,15),
+            'location_id' => 7,
+            'active' => false,
+            'is_admin' => false,
+            'group_id' => 1,
+        ]);
     }
 
 }

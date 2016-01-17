@@ -128,4 +128,23 @@ class Seminar extends Model
     {
         return $this->location->country;
     }
+
+    public function scopeGetOrdered($query, $orderBy) {
+        $_orderBy = $order = null;
+        if(!empty($orderBy) && strpos($orderBy, ':') !== false) {
+            list($_orderBy, $order) = explode(':', $orderBy);
+        }
+
+        switch($_orderBy) {
+            case 'date':
+            case 'title':
+                break;
+            default:
+                $_orderBy = 'date';
+                break;
+        }
+
+        $order = $order == 'ASC' ? $order : 'DESC';
+        return $query->orderBy($_orderBy, $order);
+    }
 }

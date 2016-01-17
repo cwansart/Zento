@@ -110,7 +110,7 @@ img {
 .btn-primary{
     background: #e24b3e;
     border:0px;
-    margin: 10px 0px 10px 0px;
+    /*margin: 10px 0px 10px 0px;*/
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover, .open>.dropdown-toggle.btn-primary.focus, .open>.dropdown-toggle.btn-primary:focus, .open>.dropdown-toggle.btn-primary:hover{
@@ -119,16 +119,22 @@ img {
 
 .btn-default{
     background: #e0e0e0;
+    /*
     border:0px;
     margin: 10px 0px 10px 0px;
+    */
+}
+
+#delete-confirm-dialog .btn-default, #delete-confirm-dialog .btn-primary {
+    margin-bottom: 0;
 }
 
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover{
     background:#cccccc;
 }
 
-.btn-create{
-	margin-top:22px;
+.btn-margin{
+	margin-top: 10px;
 }
 
 .edit{
@@ -145,6 +151,36 @@ img {
 
 .change-password{
     background:url(../images/picto-changePassword.png) no-repeat;
+    min-width:22px;
+    min-height:22px;
+}
+
+.zc-active{
+    background:url(../images/active.png) no-repeat;
+    min-width:22px;
+    min-height:22px;
+}
+
+.zc-inactive{
+    background:url(../images/inactive.png) no-repeat;
+    min-width:22px;
+    min-height:22px;
+}
+
+.zc-adult{
+    background:url(../images/adults.png) no-repeat;
+    min-width:22px;
+    min-height:22px;
+}
+
+.zc-kid{
+    background:url(../images/kids.png) no-repeat;
+    min-width:22px;
+    min-height:22px;
+}
+
+.zc-trainer{
+    background:url(../images/trainer.png) no-repeat;
     min-width:22px;
     min-height:22px;
 }
@@ -169,27 +205,134 @@ html {
     overflow-y: scroll;
 }
 
-.fc-day:hover{
+.zento-calendar{
+    margin-top: 20px;
+    width:100%;
+    min-width: 600px;
+    min-height: 500px;
+    border-collapse: collapse;
+    border: 1px solid lightgray;
+    table-layout: fixed;
+}
+
+.zc-header{
+    border: 1px solid lightgray;
+    background: #4c4d53;
+    color:#fff;
+    text-align: center;
+}
+
+.zc-other-month{
+    color: lightgray;
+}
+
+.zc-day{
+    height: 100px;
+    width: 15%;
+    border: 1px solid lightgray;
+    text-align: right;
+    vertical-align: text-top;
+}
+
+.zc-day:hover{
     background-color:#eeeeee;
     cursor:pointer;
 }
 
-.fc-content{
+.zc-content{
     background:#2C9688;
 }
 
-.fc-event{
-    background:#2C9688;
-    border:1px solid #2C9688;
+.zc-event{
+    background:#7f8c8d;
+    border:1px solid #7f8c8d;
+    text-align: center;
+    color:black;
+    margin: 2px 5px 2px 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.fc-content:hover{
+.zc-event-left{
+    background:#7f8c8d;
+    border:1px solid #7f8c8d;
+    text-align: center;
+    color:black;
+    margin: 2px 0 2px 5px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.zc-event-middle{
+    background:#7f8c8d;
+    border:1px solid #7f8c8d;
+    text-align: center;
+    color:black;
+    margin: 2px 0 2px 0;
+}
+
+.zc-event-right{
+    background:#7f8c8d;
+    border:1px solid #7f8c8d;
+    text-align: center;
+    color:black;
+    margin: 2px 5px 2px 0;
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomright: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.zc-event-training{
+    background:#3498db;
+    border:1px solid #3498db;
+}
+
+.zc-event-seminar{
+    background:#27ae60;
+    border:1px solid #27ae60;
+}
+
+.zc-event-exam{
+    background:#d35400;
+    border:1px solid #d35400;
+}
+
+.zc-event-birthday{
+    background:#f1c40f;
+    border:1px solid #f1c40f;
+    text-align: center;
+    color:black;
+    margin: 2px 5px 2px 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.zc-content:hover{
     cursor:pointer;
     background:#30786E;
 }
 
-.fc-unthemed .fc-today{
+.zc-today{
+    background-color: rgba(255, 143, 0, 0.45);
+}
+
+.zc-unthemed{
 	background-color:#EBF2F1;
+}
+
+.zc-mail{
+    max-width: 400px;
 }
 
 .table-2cols td {
@@ -198,6 +341,10 @@ html {
 
 body, body.modal-open {
     padding-right: 0 !important;
+}
+
+body {
+    font-family: "Bitstream Vera Sans", "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
 #appointment-show-dialog .row div {
@@ -290,3 +437,54 @@ body, body.modal-open {
     display:inline-block;
 }
 
+.zento-result-color-first {
+    height: 20px;
+    width: 100%;
+    min-width: 40px;
+    padding: 7px 0 7px 0;
+    border: solid 1px lightgray;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.zento-result-color-second {
+    height: 6px;
+    width: 100%;
+}
+.result-color {
+    height: 20px;
+    width: 20px;
+    float: left;
+    display: inline-block;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.zc-red{
+    color: #2c3e50;
+}
+
+/* Wenn zwei .pull-right Buttons hintereinander sind, dann soll diese Klasse
+ * einen kleinen Abstand zwischen diese bringen. */
+.btn-space-right {
+    margin-right: 5px;
+}
+
+/* Da einige Boostrap-Elemente einen Rahmen haben, diese für unser Design
+ * jedoch nicht vorgesehen haben, nutzen wir eine Klasse um dies zu unterbinden. */
+.btn-no-border {
+    border: none;
+}
+
+.list-head-input {
+    font-weight: normal;
+    border: 1px solid #FFF;
+}
+
+.list-head-input:hover {
+    color: #555;
+    background-color: #FFF;
+    border: 1px solid #CCC;
+}

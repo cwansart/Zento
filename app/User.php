@@ -49,6 +49,33 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $hidden = ['password', 'remember_token'];
 
     /**
+     * The attributes map a color to an exam result.
+     *
+     * @var array
+     */
+    static private $colorResult = [
+        '9. Kyu' => ['White', 'Yellow'],
+        '8. Kyu' => 'Yellow',
+        '7. Kyu' => 'Orange',
+        '6. Kyu' => 'Green',
+        '5. Kyu' => 'Blue',
+        '4. Kyu' => 'Purple',
+        '3. Kyu' => 'Brown',
+        '2. Kyu' => 'Brown',
+        '1. Kyu' => 'Brown',
+        '1. Dan' => 'Black',
+        '2. Dan' => 'Black',
+        '3. Dan' => 'Black',
+        '4. Dan' => 'Black',
+        '5. Dan' => 'Black',
+        '6. Dan' => 'Black',
+        '7. Dan' => 'Black',
+        '8. Dan' => 'Black',
+        '9. Dan' => 'Black',
+        '10. Dan' => 'Black'
+    ];
+
+    /**
      * Address relationship
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -89,14 +116,23 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
     /**
+     * Users relationship which also includes the exam result from the pivot table.
+     *
+     * @return $this
+     */
+    public function appointments()
+    {
+        return $this->belongsToMany('Zento\Appointment')->withPivot('priority');
+    }
+
+    /**
      * Returns a formatted address string.
      *
      * @return string
      */
     public function addressStr()
     {
-        return //$this->firstname.' '.$this->lastname.'<br>'.
-               $this->address->street.' '.$this->address->housenr.'<br>'.
+        return ($this->address->street ? $this->address->street.' '.$this->address->housenr.'<br>' : '').
                $this->address->zip.' '.$this->address->city.'<br>'.
                $this->address->country;
     }
@@ -110,7 +146,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         $latestExam = $this->exams()->orderBy('date', 'desc')->first();
         return $latestExam == null ? 'Noch kein Ergebnis' : $latestExam->pivot->result;
-        return $latestExam;
+    }
+
+    /**
+     * Returns the latest result as color if exists, otherwise it'll return white.
+     *
+     * @return string
+     */
+    public function latestResultColor($result)
+    {
+        return $result == 'Noch kein Ergebnis' ? 'White' : User::$colorResult[$result];
     }
 
     /*
@@ -174,5 +219,34 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function getCountryAttribute($null)
     {
         return $this->address->country;
+    }
+
+    public function isTrainer()
+    {
+        return ($this->attributes['password'] != null && $this->attributes['password'] != "0");
+    }
+
+    public function scopeGetOrdered($query, $orderBy) {
+        $_orderBy = $order = null;
+        if(!empty($orderBy) && strpos($orderBy, ':') !== false) {
+            list($_orderBy, $order) = explode(':', $orderBy);
+        }
+
+        switch($_orderBy) {
+            case 'id':
+            case 'firstname':
+            case 'lastname':
+            case 'email':
+            case 'birthday':
+            case 'entry_date':
+            case 'group_id':
+                break;
+            default:
+                $_orderBy = 'firstname';
+                break;
+        }
+
+        $order = $order == 'DESC' ? $order : 'ASC';
+        return $query->orderBy($_orderBy, $order);
     }
 }

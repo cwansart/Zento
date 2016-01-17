@@ -21,6 +21,8 @@ Route::put('edit_profile', 'UserController@updateProfile');
 Route::get('users/{id}/change_password', 'UserController@changePassword');
 Route::put('users/{id}/change_password', 'UserController@updatePassword');
 
+Route::get('users/get_address/{id}', 'UserController@getAddress');
+
 Route::get('exams/get_unreg_users/{id}', 'ExamController@getUnregisteredUsers');
 Route::put('exams/{id}/addUser', 'ExamController@addUser');
 Route::delete('exams/{examid}/{userid}', 'ExamController@removeUser');
@@ -29,11 +31,17 @@ Route::get('seminars/get_unreg_users/{id}', 'SeminarController@getUnregisteredUs
 Route::put('seminars/{id}/addUser', 'SeminarController@addUser');
 Route::delete('seminars/{seminarid}/{userid}', 'SeminarController@removeUser');
 
+Route::get('appointments/get_trainer/{id}', 'AppointmentController@getTrainer');
+Route::get('appointments/notify_trainer', 'AppointmentController@notifyTrainer');
+
+Route::get('lists/generate_list', 'ListController@generateList');
+
 // resources
 Route::resource('users', 'UserController');
 Route::resource('exams', 'ExamController');
 Route::resource('seminars', 'SeminarController');
 Route::resource('appointments', 'AppointmentController');
+Route::resource('lists', 'ListController');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',

@@ -1,4 +1,11 @@
 <div class="form-group">
+    {!! Form::label('type', 'Terminart', ['class' => 'col-md-4 control-label']) !!}
+    <div class="col-md-6">
+        {!! Form::select('type', array('Allgemein' => 'Allgemein', 'Training' => 'Training', 'Lehrgang' => 'Lehrgang', 'Prüfung' => 'Prüfung'), null, ['class' => 'form-control', 'id' => 'type-select']) !!}
+    </div>
+</div>
+
+<div class="form-group">
     {!! Form::label('title', 'Titel', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         {!! Form::input('text', 'title', null, ['class' => 'form-control', 'placeholder' => 'Titel', 'required']) !!}
@@ -23,7 +30,7 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('start', 'Bis', ['class' => 'col-md-4 control-label']) !!}
+    {!! Form::label('end', 'Bis', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         <div class="input-group date picker" id="end-picker">
             {!! Form::input('text', 'end', null, ['class' => 'form-control', 'placeholder' => 'z. B. '.date('d.m.Y')]) !!}
@@ -45,16 +52,27 @@
     </div>
 </div>
 
-<div class="form-group">
-    {!! Form::label('start', 'Trainer', ['class' => 'col-md-4 control-label']) !!}
-    <div class="col-md-6">
-        <select class="form-control select2" id="user_id" name="user_id">
-            @if(isset($appointment) && isset($appointment->user_id))
-                <option value="{!! $appointment->trainer->id !!}">{!! $appointment->trainer->firstname !!} {!! $appointment->trainer->lastname !!}</option>
+<div id="trainer-section">
+    <div class="form-group">
+        {!! Form::label('train', 'Trainer', ['class' => 'col-md-4 control-label']) !!}
+        <div class="col-md-6">
+            @if(isset($trainer) && count($trainer))
+                <ul>
+                    @foreach($trainer as $train)
+                        @if($train->id != Auth::id())
+                            <li>{!! $train->firstname !!} {!! $train->lastname !!} ({!! \Zento\Appointment::$priority[$train->pivot->priority] !!})</li>
+                        @endif
+                    @endforeach
+                </ul>
             @else
-                <option value="-1">Trainer hinzufügen...</option>
+                <p>Noch kein Trainer!</p>
             @endif
-        </select>
+            <div class="checkbox" id="allDay-wrapper">
+                <label>
+                    {!! Form::checkbox('train', 1, $trainChecked) !!} Training geben? {!! Form::select('priority', array(-1 => 'Priorität wählen',0 => 'Nicht möglich', 1 => 'Niedrig', 2 => 'Normal', 3 => 'Hoch'), $prioSelect, ['class' => 'form-control']) !!}
+                </label>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -80,6 +98,7 @@
         $('.select2').select2({
             width: '100%',
             language: 'de',
+            placeholder: "Hinzufügen...",
             ajax: {
                 url: '{!! action('UserController@index') !!}',
                 dataType: 'json',
@@ -110,6 +129,24 @@
                     var name = user.firstname + ' ' + user.lastname;
                 }
                 return name || user.text;
+            }
+        });
+
+        $('#type-select').change(function() {
+            if(this.value != 'Training')
+            {
+                $('#trainer-section').addClass('hidden');
+            } else {
+                $('#trainer-section').removeClass('hidden');
+            }
+        });
+
+        $(function() {
+            if($('#type-select option:selected').text() != 'Training')
+            {
+                $('#trainer-section').addClass('hidden');
+            } else {
+                $('#trainer-section').removeClass('hidden');
             }
         });
     });

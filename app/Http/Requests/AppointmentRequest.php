@@ -2,6 +2,7 @@
 
 namespace Zento\Http\Requests;
 
+use Validator;
 use Zento\Http\Requests\Request;
 
 class AppointmentRequest extends Request
@@ -35,6 +36,7 @@ class AppointmentRequest extends Request
             'title' => 'required|min:3',
             'start' => 'required|regex:/\d{2}\.\d{2}\.\d{4}( \d{2}:\d{2})?/',
             'end' => 'required_if:allDay,true|regex:/\d{2}\.\d{2}\.\d{4}( \d{2}:\d{2})?/',
+            'priority' => 'required_train_select:train|numeric',
         ];
     }
 }

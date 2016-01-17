@@ -7,17 +7,17 @@
     <div class="container">
 
 
-        <h1 class="h1-index">Prüfungsübersicht</h1>
+        <h1>Prüfungsübersicht</h1>
 
 		@if(Auth::user()->is_admin)
-            <button type="button" class="btn btn-primary pull-right btn-create" data-toggle="modal" data-target="#myModal">Prüfung erstellen</button>
+            <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">Prüfung erstellen</button>
         @endif
 
         @if(count($exams))
             <table class="table table-hover table-exam">
                 <thead>
                 <tr>
-                    <th>Datum</th>
+                    <th>Datum <a href="{!! action('ExamController@index', ['orderBy' => 'date:' . ($sortBy == 'date:ASC' ? 'DESC' : 'ASC')]) !!}"><span class="glyphicon {!! $sortBy == 'date:ASC' ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt' !!}" aria-hidden="true"></span></a></th>
                     <th>Ort</th>
                     <th>Teilnehmer</th>
                     @if(Auth::user()->is_admin)
@@ -63,7 +63,7 @@
                         @include('exams.createFormContainer')
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                        <button type="button" class="btn btn-default btn-no-border" data-dismiss="modal">Schließen</button>
                     </div>
                 </div>
 

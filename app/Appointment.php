@@ -12,6 +12,7 @@ class Appointment extends Model
      * @var array
      */
     protected $fillable = [
+        'type',
         'title',
         'description',
         'start',
@@ -27,9 +28,26 @@ class Appointment extends Model
      */
     protected $dates = ['start', 'end'];
 
+    /**
+     * The attributes map a integer to a priority
+     *
+     * @var array
+     */
+    static public $priority = [
+        0 => 'Nicht möglich',
+        1 => 'Niedrig',
+        2 => 'Normal',
+        3 => 'Hoch'
+    ];
+
+    /**
+     * Users relationship which also includes the exam result from the pivot table.
+     *
+     * @return $this
+     */
     public function trainer()
     {
-        return $this->belongsTo('Zento\User', 'user_id');
+        return $this->belongsToMany('Zento\User')->withPivot('priority');
     }
 
     public function getStartAttribute($date)
@@ -49,4 +67,30 @@ class Appointment extends Model
     {
         $this->attributes['user_id'] = $userId > 0 ? $userId : null;
     }
+
+    public static $weekdays = [
+        'Montag',
+        'Dienstag',
+        'Mittwoch',
+        'Donnerstag',
+        'Freitag',
+        'Samstag',
+        'Sonntag'
+    ];
+
+
+    public static $months = [
+        'Januar',
+        'Februar',
+        'März',
+        'April',
+        'Mai',
+        'Juni',
+        'Juli',
+        'August',
+        'September',
+        'Oktober',
+        'November',
+        'Dezember'
+    ];
 }

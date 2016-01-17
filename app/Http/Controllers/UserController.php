@@ -8,6 +8,7 @@ use Zento\Http\Requests\UserRequest;
 use Zento\Http\Requests\UpdateProfileRequest;
 
 use Auth;
+use DB;
 use Hash;
 use Validator;
 use Zento\Http\Requests;
@@ -33,45 +34,40 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $orderBy = $order = null;
-        if(!empty($request->get('orderBy')) && strpos($request->get('orderBy'), ':') !== false) {
-            list($orderBy, $order) = explode(':', $request->get('orderBy'));
-        }
-        switch($orderBy) {
-            case 'id':
-            case 'firstname':
-            case 'lastname':
-                break;
-            default:
-                $orderBy = 'id';
-                break;
-        }
-        switch($order) {
-            case 'ASC':
-            case 'DESC':
-                break;
-            default:
-                $order = 'ASC';
-                break;
+        $users = User::query();
+
+        if($request->has('g')) {
+            if(is_numeric($request->get('g')) && $request->get('g') > 0)
+            {
+                $users = $users->where('group_id', '=', $request->get('g'));
+            }
         }
 
-        $users = null;
+        if($request->has('a')) {
+            if(is_numeric($request->get('a')) && $request->get('a') >= 0)
+            {
+                $users = $users->where('active', '=', (bool)$request->get('a'));
+            }
+        }
 
         if($request->has('q')) {
-            $users = User::where('firstname', 'LIKE', '%'.$request->get('q').'%')
-                ->orWhere('lastname', 'LIKE', '%'.$request->get('q').'%')
-                ->orWhere('email', 'LIKE', '%'.$request->get('q').'%')
-                ->orderBy($orderBy, $order)->paginate(15);
-        } else {
-            $users = User::orderBy($orderBy, $order)->paginate(15);
+            $users = $users->where(function ($query) use ($request) {
+                $query->where('firstname', 'LIKE', '%' . $request->get('q') . '%')
+                    ->orWhere('lastname', 'LIKE', '%' . $request->get('q') . '%')
+                    ->orWhere('email', 'LIKE', '%' . $request->get('q') . '%');
+            });
         }
 
         // returns users as JSON if requested by $.getJSON
+        $users = $users->getOrdered($request->get('orderBy'))->paginate(15);
         return $request->ajax() ? $users :
             view('users.index')
                 ->with('users', $users)
                 ->with('groups', Group::groupsArray())
-                ->with('sortBy', $request->get('orderBy'));
+                ->with('sortBy', $request->has('orderBy') ? $request->get('orderBy') : 'firstname:ASC')
+                ->with('filterSearch', $request->has('q') ? $request->get('q') : '')
+                ->with('filterGroup', $request->has('g') ? $request->get('g') : '-1')
+                ->with('filterStatus', $request->has('a') ? $request->get('a') : '-1');
     }
 
     /**
@@ -247,5 +243,16 @@ class UserController extends Controller
 
         return redirect(action('UserController@index'))
             ->with('status', 'Password für '.$user->firstname.' '.$user->lastname.' gesetzt.'.$request['password']);
+    }
+
+    /**
+     * Returns the user address as a formatted string.
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function getAddress($id) {
+        $user = User::findOrFail($id);
+        return $user->addressStr();
     }
 }

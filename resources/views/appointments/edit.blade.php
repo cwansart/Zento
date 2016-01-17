@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Termin '.$appointment->title.' bearbeiten')
+@section('title', 'Termin „'.$appointment->title.'” bearbeiten')
 
 @section('content')
 

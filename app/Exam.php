@@ -32,9 +32,10 @@ class Exam extends Model
         '9. Kyu', '8. Kyu', '7. Kyu',
         '6. Kyu', '5. Kyu', '4. Kyu',
         '3. Kyu', '2. Kyu', '1. Kyu',
-        '2. Dan', '3. Dan', '4. Dan',
-        '5. Dan', '6. Dan', '7. Dan',
-        '8. Dan', '9. Dan', '10. Dan',
+        '1. Dan', '2. Dan', '3. Dan',
+        '4. Dan', '5. Dan', '6. Dan',
+        '7. Dan', '8. Dan', '9. Dan',
+        '10. Dan'
     ];
 
     /**
@@ -144,5 +145,23 @@ class Exam extends Model
     public function getCountryAttribute($null)
     {
         return $this->location->country;
+    }
+
+    public function scopeGetOrdered($query, $orderBy) {
+        $_orderBy = $order = null;
+        if(!empty($orderBy) && strpos($orderBy, ':') !== false) {
+            list($_orderBy, $order) = explode(':', $orderBy);
+        }
+
+        switch($_orderBy) {
+            case 'date':
+                break;
+            default:
+                $_orderBy = 'date';
+                break;
+        }
+
+        $order = $order == 'ASC' ? $order : 'DESC';
+        return $query->orderBy($_orderBy, $order);
     }
 }

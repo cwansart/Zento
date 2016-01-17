@@ -5,19 +5,26 @@
 @section('content')
 
     <div class="container">
-        <h1 class="h1-index">Seminarübersicht</h1>
+        <h1>Seminarübersicht</h1>
 
-		@if(Auth::user()->is_admin)
-            <button type="button" class="btn btn-primary  pull-right btn-create" data-toggle="modal" data-target="#myModal">Seminar erstellen</button>
+        @if(Auth::user()->is_admin)
+            <button type="button" class="btn btn-primary  pull-right" data-toggle="modal" data-target="#myModal">Seminar erstellen</button>
         @endif
+
+        <div class="form-inline">
+            <div class="input-group">
+                {!! Form::input('text', 's', $filterSearch, ['class' => 'form-control', 'id' => 'filterS', 'placeholder' => 'Suche...']) !!}
+                <span class="input-group-btn"><button class="btn btn-default" id="set-filter" type="button">Los!</button></span>
+            </div>
+        </div>
 
         @if(count($seminars))
 
             <table class="table table-hover table-seminar">
                 <thead>
                 <tr>
-                    <th>Datum</th>
-                    <th>Titel</th>
+                    <th>Datum <a href="{!! action('SeminarController@index', ['orderBy' => 'date:' . ($sortBy == 'date:ASC' ? 'DESC' : 'ASC')]) !!}"><span class="glyphicon {!! $sortBy == 'date:ASC' ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt' !!}" aria-hidden="true"></span></a></th>
+                    <th>Titel <a href="{!! action('SeminarController@index', ['orderBy' => 'title:' . ($sortBy == 'title:ASC' ? 'DESC' : 'ASC')]) !!}"><span class="glyphicon {!! $sortBy == 'title:ASC' ? 'glyphicon glyphicon-sort-by-attributes' : 'glyphicon glyphicon-sort-by-attributes-alt' !!}" aria-hidden="true"></span></a></th>
                     <th>Ort</th>
                     <th>Teilnehmer</th>
                     @if(Auth::user()->is_admin)
@@ -43,7 +50,11 @@
                 </tbody>
             </table>
         @else
-            Noch keine Seminare vorhanden!
+            @if($filterSearch == '')
+                Noch keine Seminare vorhanden!
+            @else
+                Keine Seminare gefunden!
+            @endif
         @endif
         
 
@@ -65,7 +76,7 @@
                         @include('seminars.createFormContainer')
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                        <button type="button" class="btn btn-default btn-no-border" data-dismiss="modal">Schließen</button>
                     </div>
                 </div>
 
@@ -76,7 +87,27 @@
     <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
-        })
+        });
+
+        $(document).ready(function() {
+            $('#set-filter').click(function () {
+                filter();
+            });
+
+            $('#filterS').keypress(function (e) {
+                if (e.which == 13) {
+                    filter();
+                    return false;    //<---- Add this line
+                }
+            });
+        });
+
+        function filter() {
+            var search = "<?php echo $filterSearch; ?>";
+            if($('#filterS').val() != "" || ($('#filterS').val() == "" && search != "")) {
+                window.location.href = '{!! action('SeminarController@index') !!}?' + ($('#filterS').val() != '' ? 'q=' + $('#filterS').val() : '');
+            }
+        }
     </script>
 
 @endsection

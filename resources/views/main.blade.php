@@ -9,7 +9,6 @@
     {!! HTML::style('bootstrap/css/bootstrap-theme.css') !!}
     {!! HTML::style('bootstrap/css/bootstrap.datetimepicker.css') !!}
     {!! HTML::style('select2/css/select2.min.css') !!}
-    {!! HTML::style('fullcalendar-2.3.2/fullcalendar.css') !!}
     {!! HTML::style('css/main.css') !!}
     {!! HTML::script('jquery-1.11.3.min.js') !!}
     {!! HTML::script('bootstrap/js/bootstrap.min.js') !!}
@@ -21,9 +20,6 @@
     {!! HTML::script('js/dateFormat.js') !!}
     {!! HTML::script('js/deleteConfirm.js') !!}
     {!! HTML::script('js/main.js') !!}
-    {!! HTML::script('fullcalendar-2.3.2/lib/moment.min.js') !!}
-    {!! HTML::script('fullcalendar-2.3.2/fullcalendar.js') !!}
-    {!! HTML::script('fullcalendar-2.3.2/lang/de.js') !!}
 
 </head>
 <body>
@@ -34,10 +30,11 @@
             <li role="presentation" class="{!! HTML::isActive('users') !!}">{!! HTML::linkRoute('users.index', 'Benutzer') !!}</li>
             <li role="presentation" class="{!! HTML::isActive('exams') !!}">{!! HTML::linkRoute('exams.index', 'Prüfungen') !!}</li>
             <li role="presentation" class="{!! HTML::isActive('seminars') !!}">{!! HTML::linkRoute('seminars.index', 'Seminare') !!}</li>
+            <li role="presentation" class="{!! HTML::isActive('lists') !!}">{!! HTML::linkRoute('lists.index', 'Listen') !!}</li>
             <li role="presentation" class="{!! HTML::isActive('appointments') !!}">{!! HTML::linkRoute('appointments.index', 'Termine') !!}</li>
         </ul>
         <div class="dropdown pull-right dropdown-head">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <button class="btn btn-default btn-margin dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 {!! Auth::user()->firstname !!}
                 {!! Auth::user()->lastname !!}
                 <span class="caret"></span>

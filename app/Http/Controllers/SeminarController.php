@@ -8,9 +8,11 @@ use Zento\Http\Requests\SeminarRequest;
 use Zento\Http\Requests;
 use Zento\Http\Controllers\Controller;
 use Zento\Seminar;
+use Zento\Group;
 use Zento\User;
 use Zento\Location;
 use Auth;
+use DB;
 use Validator;
 
 class SeminarController extends Controller
@@ -29,8 +31,30 @@ class SeminarController extends Controller
      */
     public function index(Request $request)
     {
-        $seminars = Seminar::orderBy('date', 'asc')->paginate(15);
-        return view('seminars.index')->with('seminars', $seminars);
+        $seminars = Seminar::query();
+
+        if($request->has('q')) {
+            $seminars = $seminars->where(function ($query) use ($request) {
+                $query->where('title', 'LIKE', '%' . $request->get('q') . '%')
+                    ->orWhereExists(function ($query) use ($request) {
+                        $query->select(DB::raw(1))
+                            ->from('locations')
+                            ->whereRaw('locations.id = seminars.location_id')
+                            ->where(function ($query) use ($request) {
+                               $query->where('street', 'LIKE', '%' . $request->get('q') . '%')
+                                   ->orWhere('housenr', 'LIKE', '%' . $request->get('q') . '%')
+                                   ->orWhere('zip', 'LIKE', '%' . $request->get('q') . '%')
+                                   ->orWhere('city', 'LIKE', '%' . $request->get('q') . '%')
+                                   ->orWhere('country', 'LIKE', '%' . $request->get('q') . '%');
+                            });
+                    });
+            });
+        }
+
+        $seminars = $seminars->getOrdered($request->get('orderBy'))->paginate(15);
+        return view('seminars.index')->with('seminars', $seminars)
+            ->with('sortBy', $request->get('orderBy'))
+            ->with('filterSearch', $request->has('q') ? $request->get('q') : '');
     }
 
     /**
@@ -68,10 +92,43 @@ class SeminarController extends Controller
     public function show(Request $request, $id)
     {
         $seminar = Seminar::findOrFail($id);
-        $users = $seminar->users;
+
+        $users = User::query()
+            ->join('seminar_user', 'users.id', '=', 'seminar_user.user_id')
+            ->where('seminar_user.seminar_id', '=', $id);
+
+        if($request->has('g')) {
+            if(is_numeric($request->get('g')) && $request->get('g') > 0)
+            {
+                $users = $users->where('group_id', '=', $request->get('g'));
+            }
+        }
+
+        if($request->has('a')) {
+            if(is_numeric($request->get('a')) && $request->get('a') >= 0)
+            {
+                $users = $users->where('active', '=', (bool)$request->get('a'));
+            }
+        }
+
+        if($request->has('q')) {
+            $users = $users->where(function ($query) use ($request) {
+                $query->where('firstname', 'LIKE', '%' . $request->get('q') . '%')
+                    ->orWhere('lastname', 'LIKE', '%' . $request->get('q') . '%')
+                    ->orWhere('email', 'LIKE', '%' . $request->get('q') . '%');
+            });
+        }
+
+        $users = $users->getOrdered($request->get('orderBy'))->paginate(15);
+
         return view('seminars.show')
             ->with('users', $users)
-            ->with('seminar', $seminar);
+            ->with('seminar', $seminar)
+            ->with('groups', Group::groupsArray())
+            ->with('sortBy', $request->has('orderBy') ? $request->get('orderBy') : 'firstname:ASC')
+            ->with('filterSearch', $request->has('q') ? $request->get('q') : '')
+            ->with('filterGroup', $request->has('g') ? $request->get('g') : '-1')
+            ->with('filterStatus', $request->has('a') ? $request->get('a') : '-1');
     }
 
     /**

@@ -9,7 +9,7 @@
         <table class="table table-2cols">
             <tr>
                 <td>Adresse:</td>
-                <td>{!! $user->addressStr() !!}</td>
+                <td>{!! $user->isTrainer() !!}</td>
             </tr>
             <tr>
                 <td>E-Mail:</td>
@@ -44,6 +44,7 @@
                     <tr>
                         <th>Datum</th>
                         <th>Ergebnis</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,6 +52,11 @@
                         <tr class="clickable-row" data-href="{{ action('ExamController@show', [$exam->id]) }}">
                             <td>{!! $exam->date !!}</td>
                             <td>{!! $exam->pivot->result !!}</td>
+                            @if(is_array($user->latestResultColor($exam->pivot->result)))
+                                <td><div class="zento-result-color-first" style="background: {!! $user->latestResultColor($exam->pivot->result)[0] !!}"><div class="zento-result-color-second" style="background: {!! $user->latestResultColor($exam->pivot->result)[1] !!}"></div></div></td>
+                            @else
+                                <td><div class="zento-result-color-first" style="background: {!! $user->latestResultColor($exam->pivot->result) !!}"></div></td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>

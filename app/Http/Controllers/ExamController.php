@@ -11,6 +11,7 @@ use Zento\Http\Requests;
 use Zento\Http\Controllers\Controller;
 
 use Zento\Location;
+use Zento\Group;
 use Zento\Exam;
 use Zento\Seminar;
 use Zento\User;
@@ -33,8 +34,9 @@ class ExamController extends Controller
      */
     public function index(Request $request)
     {
-        $exams = Exam::orderBy('date', 'asc')->paginate(15);
-        return view('exams.index')->with('exams', $exams);
+        $exams = Exam::getOrdered($request->get('orderBy'))->paginate(15);
+        return view('exams.index')->with('exams', $exams)
+                ->with('sortBy', $request->get('orderBy'));
     }
 
     /**
@@ -73,12 +75,44 @@ class ExamController extends Controller
     public function show(Request $request, $id)
     {
         $exam = Exam::findOrFail($id);
-        $users = $exam->users;
+        $users = User::query()
+            ->join('exam_user', 'users.id', '=', 'exam_user.user_id')
+            ->where('exam_user.exam_id', '=', $id);
+
+        if($request->has('g')) {
+            if(is_numeric($request->get('g')) && $request->get('g') > 0)
+            {
+                $users = $users->where('group_id', '=', $request->get('g'));
+            }
+        }
+
+        if($request->has('a')) {
+            if(is_numeric($request->get('a')) && $request->get('a') >= 0)
+            {
+                $users = $users->where('active', '=', (bool)$request->get('a'));
+            }
+        }
+
+        if($request->has('q')) {
+            $users = $users->where(function ($query) use ($request) {
+                $query->where('firstname', 'LIKE', '%' . $request->get('q') . '%')
+                    ->orWhere('lastname', 'LIKE', '%' . $request->get('q') . '%')
+                    ->orWhere('email', 'LIKE', '%' . $request->get('q') . '%');
+            });
+        }
+
+        $users = $users->getOrdered($request->get('orderBy'))->paginate(15);
+        // dd($users);
         return $request->ajax() ? $users :
             view('exams.show')
                 ->with('exam', $exam)
                 ->with('users', $users)
-                ->with('results', Exam::$results);
+                ->with('results', Exam::$results)
+                ->with('groups', Group::groupsArray())
+                ->with('sortBy', $request->has('orderBy') ? $request->get('orderBy') : 'firstname:ASC')
+                ->with('filterSearch', $request->has('q') ? $request->get('q') : '')
+                ->with('filterGroup', $request->has('g') ? $request->get('g') : '-1')
+                ->with('filterStatus', $request->has('a') ? $request->get('a') : '-1');
     }
 
     /**

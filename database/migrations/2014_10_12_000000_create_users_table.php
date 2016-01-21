@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->boolean('active');
             $table->boolean('is_admin');
             $table->integer('group_id')->unsigned();
+            $table->boolean('first_login')->default(true);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

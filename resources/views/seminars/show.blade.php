@@ -7,6 +7,10 @@
     <div class="container">
         <h1>Teilnehmer des Seminars „{!! $seminar->title !!}“</h1>
 
+        @if(Auth::user()->is_admin)
+            <a class="btn btn-primary pull-right" href="{!! action('SeminarController@edit', $seminar->id) !!}" role="button">Seminar bearbeiten</a>
+        @endif
+
         <div class="form-inline">
             <div class="input-group">
                 {!! Form::select('a', array(-1 => 'Alle Mitglieder', 0 => 'Nur Inaktive', 1 => 'Nur Aktive'), $filterStatus, ['class' => 'form-control', 'id' => 'filterA']) !!}

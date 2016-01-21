@@ -54,7 +54,7 @@
     <div class="col-md-6">
         <div class="checkbox">
             <label>
-                {!! Form::checkbox('active') !!} Aktives Mitglied?
+                {!! Form::checkbox('active', 1, true) !!} Aktives Mitglied?
             </label>
         </div>
     </div>

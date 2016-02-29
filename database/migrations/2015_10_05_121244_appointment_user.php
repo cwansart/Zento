@@ -17,6 +17,7 @@ class AppointmentUser extends Migration
             $table->integer('appointment_id');
             $table->integer('user_id');
             $table->integer('priority');
+            $table->integer('reminder');
             $table->timestamps();
             $table->softDeletes();
         });

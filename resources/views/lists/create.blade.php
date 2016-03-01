@@ -107,7 +107,7 @@
                 // Nun muss noch der neue Tabellenkopf eingefügt werden
                 var header = $('<input/>', {
                     'type': 'text',
-                    'class': 'list-head-input',
+                    'class': 'list-head-input empty',
                     'placeholder': 'leer'
                 });
                 switch (selectedId) {
@@ -134,6 +134,7 @@
         $(function() {
             // Enthält die aktuell ausgewählten Spalten mit ihren IDs.
             var currentColumns = new Array('firstname', 'lastname');
+            var emptyColumns = [];
 
             // Wenn Adresse hinzugefügt werden soll
             $('#add-col-address').on('click', function() {
@@ -177,7 +178,14 @@
 
             // Startet den Download
             $('#list-download-button').on('click', function() {
-                var downloadUrl = '{!! action('ListController@generateList') !!}?' + $.param({ 'currentColumns[]': currentColumns });
+                emptyColumns = [];
+                $('.empty').each(function(index, element) {
+                    emptyColumns.push(element.value);
+                });
+
+                var downloadUrl = '{!! action('ListController@generateList') !!}?'
+                        + $.param({ 'currentColumns[]': currentColumns })
+                        + '&' + $.param({ 'emptyColumns[]': emptyColumns });
                 $('#download_iframe').attr('src', downloadUrl);
 
             });

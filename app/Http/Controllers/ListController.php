@@ -97,6 +97,8 @@ class ListController extends Controller
      */
     public function generateList(Request $request) {
         $currentColumns = $request->get('currentColumns');
+        $emptyColumns = $request->get('emptyColumns');
+        $emptyColumnsId = 0;
         $shaId = sha1(implode(',', $currentColumns));
 
         // Tabellen-CSS
@@ -146,7 +148,7 @@ EOF;
                     $tableHead .= '<th>Gruppe</th>';
                     break;
                 default: //empty
-                    $tableHead .= '<th></th>';
+                    $tableHead .= '<th>' . $emptyColumns[$emptyColumnsId++] . '</th>';
             }
         }
         $tableHead .= '</tr></thead>';
@@ -192,6 +194,6 @@ EOF;
         // PDF erzeugen
         return PDF::loadHTML($table)->setPaper('a4')->setOrientation('landscape')->setWarnings(false)->download();
 
-        return $shaId;
+        //return $shaId;
     }
 }

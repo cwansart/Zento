@@ -132,8 +132,8 @@
                 $('#appointment-tooltip').removeClass('in');
                 window.setTimeout(function () {
                     $.getJSON(that.appointmentRoute, function (appointment) {
-                        var editRoute = ('{!! action('AppointmentController@edit') !!}').replace('%7Bappointments%7D', event.target.getAttribute('data-id'));
-                        var destroyRoute = ('{!! action('AppointmentController@destroy') !!}').replace('%7Bappointments%7D', event.target.getAttribute('data-id'));
+                        var editRoute = ('{!! action('AppointmentController@edit', ['id' => '%7Bappointments%7D']) !!}').replace('%7Bappointments%7D', event.target.getAttribute('data-id'));
+                        var destroyRoute = ('{!! action('AppointmentController@destroy', ['id' => '%7Bappointments%7D']) !!}').replace('%7Bappointments%7D', event.target.getAttribute('data-id'));
                         $('#appointment-tooltip .popover-controls .edit').attr('href', editRoute);
                         $('#appointment-tooltip .popover-controls .delete').attr('href', destroyRoute);
 

@@ -86,6 +86,9 @@
                                 newColumn.attr('data-locid', user['location_id']);
                                 locationIds.push(user['location_id']);
                                 break;
+                            case 'group':
+                                newColumn.append(user.group_id == 1 ? 'Erwachsene' : 'Kinder');
+                                break;
                             default: // Einfach Inhalt einfügen
                                 newColumn.append(user[columnId]);
                         }

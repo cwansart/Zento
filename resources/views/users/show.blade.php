@@ -6,10 +6,15 @@
 
     <div class="container">
         <h1>{!! $user->firstname !!} {!! $user->lastname !!}</h1>
+
+        @if(Auth::user()->is_admin)
+            <a class="btn btn-primary pull-right" href="{!! action('UserController@edit', $user->id) !!}" role="button">Benutzer bearbeiten</a>
+        @endif
+
         <table class="table table-2cols">
             <tr>
                 <td>Adresse:</td>
-                <td>{!! $user->isTrainer() !!}</td>
+                <td>{!! $user->addressStr()!!}</td>
             </tr>
             <tr>
                 <td>E-Mail:</td>

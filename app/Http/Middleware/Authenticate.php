@@ -3,7 +3,9 @@
 namespace Zento\Http\Middleware;
 
 use Closure;
+use DB;
 use Illuminate\Contracts\Auth\Guard;
+use Redirect;
 
 class Authenticate
 {
@@ -40,6 +42,9 @@ class Authenticate
             } else {
                 return redirect()->guest('auth/login');
             }
+        } elseif ($this->auth->user()->first_login) {
+            DB::update('update users set first_login = false where id = ?', array($this->auth->user()->getAuthIdentifier()));
+            return redirect($request->url())->with('first_login', true);
         }
 
         return $next($request);

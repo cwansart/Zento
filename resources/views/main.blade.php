@@ -66,6 +66,36 @@
         </div>
     @endif
 
+    @if (session('first_login'))
+            <div class="modal fade" id="firstLogin" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Willkommen bei Zento</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Was ist Zento?</p>
+
+                            <p>Zento ist ein Online Tool zum Verwalten eurer Mitglieder, Prüfungen, Seminare und Termine.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default btn-no-border" data-dismiss="modal">Schließen</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <script>
+                $(function() {
+                    $('#firstLogin').modal('show');
+                });
+            </script>
+        @endif
+
     @yield('content')
 
     @include('delete_confirm')

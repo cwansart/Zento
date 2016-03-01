@@ -47,7 +47,7 @@ class Appointment extends Model
      */
     public function trainer()
     {
-        return $this->belongsToMany('Zento\User')->withPivot('priority');
+        return $this->belongsToMany('Zento\User')->withPivot('priority', 'reminder');
     }
 
     public function getStartAttribute($date)

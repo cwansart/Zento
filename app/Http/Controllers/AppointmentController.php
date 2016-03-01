@@ -166,7 +166,8 @@ class AppointmentController extends Controller
             ->with('month', $month)
             ->with('year', $year)
             ->with('trainChecked', false)
-            ->with('prioSelect', -1);
+            ->with('prioSelect', 0)
+            ->with('reminderSelect', 0);
     }
 
     /**
@@ -202,6 +203,7 @@ class AppointmentController extends Controller
         if($request->has('train')) {
             $appointment->trainer()->attach(Auth::id());
             $appointment->trainer()->updateExistingPivot(Auth::id(), ['priority' => $request->get('priority')]);
+            $appointment->trainer()->updateExistingPivot(Auth::id(), ['reminder' => $request->get('reminder')]);
         }
 
         return redirect(action('AppointmentController@index'))->with('status', 'Termin „'.$appointment->title.'” wurde hinzugefügt.');
@@ -236,7 +238,8 @@ class AppointmentController extends Controller
             ->with('appointment', $appointment)
             ->with('trainer', $appointment->trainer)
             ->with('trainChecked', $appointment->trainer->contains(Auth::id()))
-            ->with('prioSelect', $appointment->trainer->contains(Auth::id()) ? $appointment->trainer->find(Auth::id())->pivot->priority : -1);
+            ->with('prioSelect', $appointment->trainer->contains(Auth::id()) ? $appointment->trainer->find(Auth::id())->pivot->priority : 0)
+            ->with('reminderSelect', $appointment->trainer->contains(Auth::id()) ? $appointment->trainer->find(Auth::id())->pivot->reminder : 0);
     }
 
     /**
@@ -265,6 +268,7 @@ class AppointmentController extends Controller
             if(!$appointment->trainer->contains(Auth::id()))
                 $appointment->trainer()->attach(Auth::id());
             $appointment->trainer()->updateExistingPivot(Auth::id(), ['priority' => $request->get('priority')]);
+            $appointment->trainer()->updateExistingPivot(Auth::id(), ['reminder' => $request->get('reminder')]);
         } else {
             if($appointment->trainer->contains(Auth::id()))
             {

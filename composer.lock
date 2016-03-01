@@ -670,6 +670,18 @@
         },
         {
             "name": "laravel/framework",
+<<<<<<< HEAD
+            "version": "v5.1.22",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/framework.git",
+                "reference": "11d9627c7cd4d12b6e884b87daa7a2f898cf54cb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/11d9627c7cd4d12b6e884b87daa7a2f898cf54cb",
+                "reference": "11d9627c7cd4d12b6e884b87daa7a2f898cf54cb",
+=======
             "version": "v5.1.24",
             "source": {
                 "type": "git",
@@ -680,6 +692,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/framework/zipball/875baf2d1645ce23e2ec0bf94fa7bb3e7fbfd6ed",
                 "reference": "875baf2d1645ce23e2ec0bf94fa7bb3e7fbfd6ed",
+>>>>>>> dev
                 "shasum": ""
             },
             "require": {
@@ -693,9 +706,15 @@
                 "monolog/monolog": "~1.11",
                 "mtdowling/cron-expression": "~1.0",
                 "nesbot/carbon": "~1.19",
+<<<<<<< HEAD
+                "paragonie/random_compat": "^1.0.6",
+                "php": ">=5.5.9",
+                "psy/psysh": "~0.5.1",
+=======
                 "paragonie/random_compat": "~1.1",
                 "php": ">=5.5.9",
                 "psy/psysh": "0.6.*",
+>>>>>>> dev
                 "swiftmailer/swiftmailer": "~5.1",
                 "symfony/console": "2.7.*",
                 "symfony/css-selector": "2.7.*",
@@ -795,7 +814,11 @@
                 "framework",
                 "laravel"
             ],
+<<<<<<< HEAD
+            "time": "2015-10-28 21:58:18"
+=======
             "time": "2015-11-11 22:45:42"
+>>>>>>> dev
         },
         {
             "name": "league/flysystem",
@@ -1096,6 +1119,18 @@
         },
         {
             "name": "paragonie/random_compat",
+<<<<<<< HEAD
+            "version": "1.0.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/random_compat.git",
+                "reference": "2fa50aa2f17066fa74ba00d943e8cee1a98284af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/2fa50aa2f17066fa74ba00d943e8cee1a98284af",
+                "reference": "2fa50aa2f17066fa74ba00d943e8cee1a98284af",
+=======
             "version": "1.1.0",
             "source": {
                 "type": "git",
@@ -1106,14 +1141,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/paragonie/random_compat/zipball/19f765b66c6fbb56ee3b11bc16d52e38eebdc295",
                 "reference": "19f765b66c6fbb56ee3b11bc16d52e38eebdc295",
+>>>>>>> dev
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.0"
             },
+<<<<<<< HEAD
+=======
             "require-dev": {
                 "phpunit/phpunit": "4.*|5.*"
             },
+>>>>>>> dev
             "suggest": {
                 "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
             },
@@ -1140,6 +1179,9 @@
                 "pseudorandom",
                 "random"
             ],
+<<<<<<< HEAD
+            "time": "2015-10-23 13:21:37"
+=======
             "time": "2015-11-10 00:45:41"
         },
         {
@@ -1224,6 +1266,7 @@
                 "response"
             ],
             "time": "2015-05-04 20:22:00"
+>>>>>>> dev
         },
         {
             "name": "psr/log",
@@ -1265,6 +1308,18 @@
         },
         {
             "name": "psy/psysh",
+<<<<<<< HEAD
+            "version": "v0.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bobthecow/psysh.git",
+                "reference": "aaf8772ade08b5f0f6830774a5d5c2f800415975"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/aaf8772ade08b5f0f6830774a5d5c2f800415975",
+                "reference": "aaf8772ade08b5f0f6830774a5d5c2f800415975",
+=======
             "version": "v0.6.1",
             "source": {
                 "type": "git",
@@ -1275,12 +1330,17 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/bobthecow/psysh/zipball/0f04df0b23663799a8941fae13cd8e6299bde3ed",
                 "reference": "0f04df0b23663799a8941fae13cd8e6299bde3ed",
+>>>>>>> dev
                 "shasum": ""
             },
             "require": {
                 "dnoegel/php-xdg-base-dir": "0.1",
                 "jakub-onderka/php-console-highlighter": "0.3.*",
+<<<<<<< HEAD
+                "nikic/php-parser": "^1.2.1",
+=======
                 "nikic/php-parser": "^1.2.1|~2.0",
+>>>>>>> dev
                 "php": ">=5.3.9",
                 "symfony/console": "~2.3.10|^2.4.2|~3.0",
                 "symfony/var-dumper": "~2.7|~3.0"
@@ -1303,7 +1363,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
+<<<<<<< HEAD
+                    "dev-develop": "0.6.x-dev"
+=======
                     "dev-develop": "0.7.x-dev"
+>>>>>>> dev
                 }
             },
             "autoload": {
@@ -1333,7 +1397,11 @@
                 "interactive",
                 "shell"
             ],
+<<<<<<< HEAD
+            "time": "2015-07-16 15:26:57"
+=======
             "time": "2015-11-12 16:18:56"
+>>>>>>> dev
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -2792,6 +2860,18 @@
         },
         {
             "name": "phpunit/phpunit",
+<<<<<<< HEAD
+            "version": "4.8.16",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sebastianbergmann/phpunit.git",
+                "reference": "625f8c345606ed0f3a141dfb88f4116f0e22978e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/625f8c345606ed0f3a141dfb88f4116f0e22978e",
+                "reference": "625f8c345606ed0f3a141dfb88f4116f0e22978e",
+=======
             "version": "4.8.18",
             "source": {
                 "type": "git",
@@ -2802,6 +2882,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fa33d4ad96481b91df343d83e8c8aabed6b1dfd3",
                 "reference": "fa33d4ad96481b91df343d83e8c8aabed6b1dfd3",
+>>>>>>> dev
                 "shasum": ""
             },
             "require": {
@@ -2860,7 +2941,11 @@
                 "testing",
                 "xunit"
             ],
+<<<<<<< HEAD
+            "time": "2015-10-23 06:48:33"
+=======
             "time": "2015-11-11 11:32:49"
+>>>>>>> dev
         },
         {
             "name": "phpunit/phpunit-mock-objects",

@@ -188,6 +188,7 @@
                 $('#end-picker').data().DateTimePicker.format = 'DD.MM.YYYY hh:MM';
                 $('#start-picker').data().DateTimePicker.setDate(event.target.getAttribute('data-date'));
                 $('#end-picker').data().DateTimePicker.setDate(event.target.getAttribute('data-date'));
+                $('#trainer-section').addClass('hidden');
                 $('#appointment-create-dialog').modal('show');
 
                 $('[data-toggle="tooltip"]').tooltip()

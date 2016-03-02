@@ -55,7 +55,7 @@
 <div id="trainer-section">
     <div class="form-group">
         {!! Form::label('train', 'Trainer', ['class' => 'col-md-4 control-label']) !!}
-        <label class="col-md-6">
+        <div class="col-md-6">
             @if(isset($trainer) && count($trainer))
                 <ul>
                     @foreach($trainer as $train)
@@ -69,9 +69,13 @@
             @endif
             <div class="checkbox" id="allDay-wrapper">
                 <label>
-                    {!! Form::checkbox('train', 1, $trainChecked) !!} Training geben? {!! Form::select('priority', array(0 => 'Nicht möglich', 1 => 'Niedrig', 2 => 'Normal', 3 => 'Hoch'), $prioSelect, ['class' => 'form-control']) !!}
+                    {!! Form::checkbox('train', 1, $trainChecked) !!} Training geben?
                 </label>
             </div>
+                <label>
+                    Priorität: {!! Form::select('priority', array(0 => 'Nicht möglich', 1 => 'Niedrig', 2 => 'Normal', 3 => 'Hoch'), $prioSelect, ['class' => 'form-control']) !!}
+                </label>
+
                 <label>
                     Erinnerung: {!! Form::select('reminder', array(0 => 'Keine Erinnerung', 12 => '12 Stunden vorher', 24 => '24 Stunden vorher'), $reminderSelect, ['class' => 'form-control', 'id' => 'type-select']) !!}
                 </label>

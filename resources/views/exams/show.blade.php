@@ -49,7 +49,7 @@
             </thead>
             <tbody id="userslist">
             @foreach($users as $user)
-                <tr class="clickable-row" data-href="{{ action('UserController@show', [$user->id]) }}">
+                <tr class="clickable-row" data-href="{{ action('UserController@show', [$user->user_id]) }}">
                     <td>{!! $user->firstname !!}</td>
                     <td>{!! $user->lastname !!}</td>
                     <td>{!! $user->result !!}</td>

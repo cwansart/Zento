@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \Zento\Console\Commands\Inspire::class,
+        '\Zento\Console\Commands\AppointmentReminder'
     ];
 
     /**
@@ -27,11 +27,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(function () {
-            Log::info('Schedule started');
-            // Look for reminders
-            $appointments = Appointment::where('start', '>', Carbon::now())
-                ->where('start', '<', Carbon::now()->addHour(24));
-        })->everyMinute();
+        $schedule->command('email:reminder')->everyFiveMinutes();
     }
 }

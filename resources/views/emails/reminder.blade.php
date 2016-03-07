@@ -20,7 +20,7 @@
     @if(!is_null($appointment->description))
         <p>{!! $appointment->description !!}</p>
     @endif
-    <p>{!! $priority !!}</p>
+    <p>Deine Priorität: {!! $priority !!}</p>
     <p>
         Dies ist eine automatisch generierte E-Mail, erstellt mit Hilfe von <a href="{!! URL::to('/') !!}">Zento</a>.
         Bitte nicht antworten.

@@ -288,6 +288,7 @@ class AppointmentController extends Controller
     public function destroy($id)
     {
         $appointment = Appointment::findOrFail($id);
+        $appointment->trainer()->detach();
         $appointment->delete();
         return redirect(action('AppointmentController@index'))
             ->with('status', 'Termin erfolgreich gelöscht!');

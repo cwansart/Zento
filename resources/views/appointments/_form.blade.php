@@ -72,13 +72,20 @@
                     {!! Form::checkbox('train', 1, $trainChecked) !!} Training geben?
                 </label>
             </div>
-                <label>
-                    Priorität: {!! Form::select('priority', array(0 => 'Nicht möglich', 1 => 'Niedrig', 2 => 'Normal', 3 => 'Hoch'), $prioSelect, ['class' => 'form-control']) !!}
-                </label>
+        </div>
+    </div>
 
-                <label>
-                    Erinnerung: {!! Form::select('reminder', array(0 => 'Keine Erinnerung', 12 => '12 Stunden vorher', 24 => '24 Stunden vorher'), $reminderSelect, ['class' => 'form-control', 'id' => 'type-select']) !!}
-                </label>
+    <div class="form-group">
+        {!! Form::label('priority', 'Priorität', ['class' => 'col-md-4 control-label']) !!}
+        <div class="col-md-6">
+            {!! Form::select('priority', array(0 => 'Nicht möglich', 1 => 'Niedrig', 2 => 'Normal', 3 => 'Hoch'), $prioSelect, ['class' => 'form-control']) !!}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {!! Form::label('reminder', 'Erinnerung', ['class' => 'col-md-4 control-label']) !!}
+        <div class="col-md-6">
+            {!! Form::select('reminder', array(0 => 'Keine Erinnerung', 12 => '12 Stunden vorher', 24 => '24 Stunden vorher'), $reminderSelect, ['class' => 'form-control', 'id' => 'type-select']) !!}
         </div>
     </div>
 </div>

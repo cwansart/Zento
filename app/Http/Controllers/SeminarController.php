@@ -171,6 +171,7 @@ class SeminarController extends Controller
     public function destroy($id)
     {
         $seminar = Seminar::findOrFail($id);
+        $seminar->users()->detach();
         $seminar->delete();
         return redirect(action('SeminarController@index'))
             ->with('status', 'Seminar erfolgreich gelöscht!');

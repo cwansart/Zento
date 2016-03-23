@@ -98,6 +98,7 @@ class ListController extends Controller
     public function generateList(Request $request) {
         $currentColumns = $request->get('currentColumns');
         $emptyColumns = $request->get('emptyColumns');
+        $orderBy = $request->get('orderBy');
         $emptyColumnsId = 0;
         $shaId = sha1(implode(',', $currentColumns));
 
@@ -154,7 +155,7 @@ EOF;
         $tableHead .= '</tr></thead>';
 
         // Tabellenkörper erstellen
-        $users = User::all();
+        $users = User::getOrdered($orderBy)->get();
         // Tabellenkopf erstellen
         $tableBody = "<tbody>";
         foreach($users as $user) {

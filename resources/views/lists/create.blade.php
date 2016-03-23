@@ -26,8 +26,8 @@
         <table class="table table-hover table-user" id="list-table">
             <thead>
             <tr>
-                <th>Vorname <a href="#"><span class="glyphicon {!! $sortBy == 'firstname:ASC' ? 'glyphicon glyphicon-sort-by-attributes-alt' : 'glyphicon glyphicon-sort-by-attributes' !!}" aria-hidden="true"></span></a></th>
-                <th>Nachname <a href="#"><span class="glyphicon {!! $sortBy == 'firstname:ASC' ? 'glyphicon glyphicon-sort-by-attributes-alt' : 'glyphicon glyphicon-sort-by-attributes' !!}" aria-hidden="true"></span></a></th>
+                <th>Vorname <a id="sortFirstname" href="#"><span class="glyphicon {!! $sortBy == 'firstname:ASC' ? 'glyphicon glyphicon-sort-by-attributes-alt' : 'glyphicon glyphicon-sort-by-attributes' !!}" aria-hidden="true"></span></a></th>
+                <th>Nachname <a id="sortLastname" href="#"><span class="glyphicon {!! $sortBy == 'lastname:ASC' ? 'glyphicon glyphicon-sort-by-attributes-alt' : 'glyphicon glyphicon-sort-by-attributes' !!}" aria-hidden="true"></span></a></th>
             </tr>
             </thead>
             <tbody>
@@ -131,6 +131,53 @@
             });
         }
 
+        // Lädt die Benutzertabelle mit der übergebenen Sortierung neu
+        function reloadTableOrderedBy(columns, orderBy) {
+            var locationIds = new Array();
+            $.getJSON('{!! action('UserController@index', ['orderBy', '']) !!}=' + orderBy, function(users) {
+                console.log(orderBy);
+                console.log(users);
+                var newTable = $('<tbody/>').hide();
+
+                // Auslesen der Nutzerdaten und Erstellen einer neuen Tabelle
+                users.data.forEach(function(user) {
+                    var newRow = $('<tr/>').appendTo(newTable);
+                    columns.forEach(function(columnId) {
+                        var newColumn = $('<td/>').appendTo(newRow);
+                        switch (columnId) {
+                            case 'empty': // Hier muss das td leer bleiben
+                                break;
+                            case 'address': // Die IDs sammeln zum späteren umwandeln
+                                newColumn.attr('data-locid', user['location_id']);
+                                locationIds.push(user['location_id']);
+                                break;
+                            case 'group':
+                                newColumn.append(user.group_id == 1 ? 'Erwachsene' : 'Kinder');
+                                break;
+                            default: // Einfach Inhalt einfügen
+                                newColumn.append(user[columnId]);
+                        }
+                    });
+                });
+
+                // Einfügen der Locations
+                locationIds.forEach(function(locationId) {
+                    var getAddressRoute = '{!! action('UserController@getAddress', '') !!}/' + locationId;
+                    $.get(getAddressRoute, function(address) {
+                        $('#list-table > tbody [data-locid='+locationId+']').append(address).removeAttr('data-locid');
+                    });
+                });
+
+                var oldBody = $('#list-table > tbody');
+                $('#list-table').append(newTable);
+                oldBody.hide(400, function() {
+                    newTable.show(400);
+                    newHead.show(400);
+                    $(this).remove();
+                });
+            });
+        }
+
         $(function() {
             // Enthält die aktuell ausgewählten Spalten mit ihren IDs.
             var currentColumns = new Array('firstname', 'lastname');
@@ -176,6 +223,9 @@
                 $('#myModal').modal('show');
             });
 
+            // Speichert die aktuelle Sortierung, damit diese in den ListController übertragen werden kann.
+            var orderBy = 'firstname:ASC';
+
             // Startet den Download
             $('#list-download-button').on('click', function() {
                 emptyColumns = [];
@@ -185,9 +235,40 @@
 
                 var downloadUrl = '{!! action('ListController@generateList') !!}?'
                         + $.param({ 'currentColumns[]': currentColumns })
-                        + '&' + $.param({ 'emptyColumns[]': emptyColumns });
+                        + '&' + $.param({ 'emptyColumns[]': emptyColumns })
+                        + '&' + $.param({ 'orderBy': orderBy });
                 $('#download_iframe').attr('src', downloadUrl);
 
+            });
+
+            $('#sortFirstname').on('click', function () {
+                var sortIcon = $($(this).children()[0]);
+                if(sortIcon.hasClass('glyphicon-sort-by-attributes')) {
+                    sortIcon.removeClass('glyphicon-sort-by-attributes');
+                    sortIcon.addClass('glyphicon-sort-by-attributes-alt');
+                    orderBy = 'firstname:DESC';
+                    reloadTableOrderedBy(currentColumns, orderBy);
+                } else {
+                    sortIcon.removeClass('glyphicon-sort-by-attributes-alt');
+                    sortIcon.addClass('glyphicon-sort-by-attributes');
+                    orderBy = 'firstname:ASC';
+                    reloadTableOrderedBy(currentColumns, orderBy);
+                }
+            });
+
+            $('#sortLastname').on('click', function () {
+                var sortIcon = $($(this).children()[0]);
+                if(sortIcon.hasClass('glyphicon-sort-by-attributes')) {
+                    sortIcon.removeClass('glyphicon-sort-by-attributes');
+                    sortIcon.addClass('glyphicon-sort-by-attributes-alt');
+                    orderBy = 'lastname:DESC';
+                    reloadTableOrderedBy(currentColumns, orderBy);
+                } else {
+                    sortIcon.removeClass('glyphicon-sort-by-attributes-alt');
+                    sortIcon.addClass('glyphicon-sort-by-attributes');
+                    orderBy = 'lastname:ASC';
+                    reloadTableOrderedBy(currentColumns, orderBy);
+                }
             });
         });
     </script>

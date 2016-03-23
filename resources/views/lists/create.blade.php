@@ -9,7 +9,6 @@
 
         <button id="submit-list-button" class="pull-right btn btn-primary ">Liste erzeugen</button>
 
-
         <div class="btn-group pull-right btn-space-right ">
             <button type="button" id="add-new-column-button" class=" btn btn-default btn-no-border dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Spalte hinzufügen <span class="caret"></span>
@@ -21,6 +20,12 @@
                 <li><a href="#" id="add-col-group">Gruppe</a></li>
                 <li><a href="#" id="add-col-empty">Leere Spalte</a></li>
             </ul>
+        </div>
+
+        <div class="form-inline">
+            <div class="input-group">
+                {!! Form::text('listtitle', null, ['class' => 'form-control', 'id' => 'listtitle', 'placeholder' => 'Listentitel']) !!}
+            </div>
         </div>
 
         <table class="table table-hover table-user" id="list-table">
@@ -233,10 +238,17 @@
                     emptyColumns.push(element.value);
                 });
 
+
                 var downloadUrl = '{!! action('ListController@generateList') !!}?'
-                        + $.param({ 'currentColumns[]': currentColumns })
+                        + '&' + $.param({ 'currentColumns[]': currentColumns })
                         + '&' + $.param({ 'emptyColumns[]': emptyColumns })
                         + '&' + $.param({ 'orderBy': orderBy });
+
+                // Füge Listentitel hinzu, falls Eingabefeld nicht leer ist.
+                if($('#listtitle').val().length > 0) {
+                    downloadUrl += '&' + $.param({ 'listtitle': $('#listtitle').val() });
+                }
+
                 $('#download_iframe').attr('src', downloadUrl);
 
             });

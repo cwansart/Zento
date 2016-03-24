@@ -18,7 +18,14 @@ class ListController extends Controller
      */
     public function index(Request $request)
     {
-        return view('lists.index');
+        //return view('lists.index');
+
+        $sortBy = $request->has('orderBy') ? $request->orderBy : 'user_id:ASC';
+        $users = User::getOrdered($sortBy)->paginate(15);
+
+        return view('lists.create')
+            ->with('sortBy', 'lastname:ASC')
+            ->with('users', $users);
     }
 
     /**

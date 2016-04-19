@@ -203,7 +203,7 @@ EOF;
         $tableBody .= "</tbody>";
 
         // Tabelle zusammenfügen
-        $table = $request->get('listtitle') != null ? '<h1>'.$request->get('listtitle').'</h1>' : '';
+        $table = $request->get('listtitle') != null ? '<h1>'.$request->get('listtitle').'</h1>' : '<h1>&nbsp;</h1>';
         $table .= $css.'<table>'.$tableHead.$tableBody.'</table>';
 
         // PDF erzeugen

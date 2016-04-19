@@ -120,7 +120,7 @@
             $('[data-toggle="tooltip"]').tooltip();
 
             $('#appointment-tooltip').click(function () {
-                $('#appointment-tooltip').removeClass('in');
+                $('#appointment-tooltip').removeClass('in make-block');
             });
 
             $('.zc-event, .zc-event-left, .zc-event-middle, .zc-event-right').click(function (event) {
@@ -129,7 +129,7 @@
                 that.appointmentRoute = '{!! action('AppointmentController@show', null) !!}/' + event.target.getAttribute('data-id');
 
                 // these two lines enable the "fade out" effect
-                $('#appointment-tooltip').removeClass('in');
+                $('#appointment-tooltip').removeClass('in make-block');
                 window.setTimeout(function () {
                     $.getJSON(that.appointmentRoute, function (appointment) {
                         var editRoute = ('{!! action('AppointmentController@edit', ['id' => '%7Bappointments%7D']) !!}').replace('%7Bappointments%7D', event.target.getAttribute('data-id'));
@@ -172,7 +172,7 @@
                         });
 
                         var tooltipCenter = $('#appointment-tooltip').width() / 2;
-                        $('#appointment-tooltip').addClass('in').css('top', event.pageY).css('left', event.pageX - tooltipCenter);
+                        $('#appointment-tooltip').addClass('in make-block').css('top', event.pageY).css('left', event.pageX - tooltipCenter);
                     });
                 }, 50);
             });
@@ -191,7 +191,7 @@
                 $('#trainer-section').addClass('hidden');
                 $('#appointment-create-dialog').modal('show');
 
-                $('[data-toggle="tooltip"]').tooltip()
+                $('[data-toggle="tooltip"]').tooltip();
             });
 
             $('#show-create-dialog-button').on('click', function () {

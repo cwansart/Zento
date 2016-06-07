@@ -4,6 +4,7 @@ namespace Zento\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Validator;
 use Zento\Http\Requests\AppointmentRequest;
 
 use Carbon\Carbon;
@@ -175,9 +176,12 @@ class AppointmentController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('appointments.create');
+        return view('appointments.create')
+            ->with('trainChecked', $request->get('trainChecked'))
+            ->with('prioSelect', $request->get('prioSelect'))
+            ->with('reminderSelect', $request->get('reminderSelect'));
     }
 
     /**
@@ -186,9 +190,21 @@ class AppointmentController extends Controller
      * @param AppointmentRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(AppointmentRequest $request)
+    public function store(Request $request)
     {
-        // If allDay is checked then end and start date are the same!
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|min:3',
+            'start' => 'required|regex:/\d{2}\.\d{2}\.\d{4}( \d{2}:\d{2})?/|check_before:end',
+            'end' => 'required|regex:/\d{2}\.\d{2}\.\d{4}( \d{2}:\d{2})?/',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('appointments/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        // If allDay is checked then the format differs
         if($request->has('allDay')) {
             $request['start'] = Carbon::createFromFormat('d.m.Y', $request->get('start'));
             $request['end'] = Carbon::createFromFormat('d.m.Y', $request->get('end'));

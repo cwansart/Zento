@@ -74,6 +74,7 @@ return [
     "timezone"         => ":attribute muss eine gültige Zeitzone sein.",
     "unique"           => ":attribute ist schon vergeben.",
     "url"              => "Das Format von :attribute ist ungültig.",
+    "check_before"      => "„Von“ muss vor „Bis“ liegen.",
 
     /*
     |--------------------------------------------------------------------------
@@ -121,6 +122,8 @@ return [
         'end_time' => 'End-Zeitpunkt',
         'title' => 'Titel',
         'priority' => 'Priorität',
+        'start' => '„Von“',
+        'end' => '„Bis“'
     ],
 
 ];

@@ -152,6 +152,7 @@ return [
         Zento\Providers\AppServiceProvider::class,
         Zento\Providers\EventServiceProvider::class,
         Zento\Providers\RouteServiceProvider::class,
+        Zento\Providers\CheckGermanDateBeforeProvider::class,
 
         Collective\Html\HtmlServiceProvider::class,
         \Zento\Providers\MacroServiceProvider::class,

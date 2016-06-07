@@ -196,6 +196,7 @@
 
             $('#show-create-dialog-button').on('click', function () {
                 $('.form-horizontal')[0].reset();
+                $('#trainer-section').addClass('hidden');
                 $('#appointment-create-dialog').modal('show');
             });
         });

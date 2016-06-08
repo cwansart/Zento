@@ -366,6 +366,17 @@
             });
 
             $('#set-filter-btn').on('click', function () {
+                filter();
+            });
+
+            $('#filterS').keypress(function (e) {
+                if (e.which == 13) {
+                    filter();
+                    return false;
+                }
+            });
+            
+            function filter() {
                 var active = parseInt($('#filterA').val());
                 var group = parseInt($('#filterG').val());
                 var searchterm = $('#filterS').val();
@@ -374,7 +385,7 @@
                 if (group >= 0) searchParameters += '&g=' + group;
                 if (searchterm.length > 0) searchParameters += '&q=' + searchterm;
                 reloadTableSearch(currentColumns, orderBy, searchParameters);
-            });
+            }
         });
     </script>
 

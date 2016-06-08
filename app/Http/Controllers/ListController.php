@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Zento\Http\Requests;
 use Zento\Http\Controllers\Controller;
 use Zento\User;
+use Zento\Group;
 use PDF;
 
 class ListController extends Controller
@@ -25,7 +26,8 @@ class ListController extends Controller
 
         return view('lists.create')
             ->with('sortBy', 'lastname:ASC')
-            ->with('users', $users);
+            ->with('users', $users)
+            ->with('groups', Group::groupsArray());
     }
 
     /**
@@ -56,7 +58,7 @@ class ListController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function show($id)
@@ -67,7 +69,7 @@ class ListController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function edit($id)
@@ -78,7 +80,7 @@ class ListController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function update($id)
@@ -89,7 +91,7 @@ class ListController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return Response
      */
     public function destroy($id)
@@ -102,7 +104,8 @@ class ListController extends Controller
      * @param Request $request
      * @return Listen-ID
      */
-    public function generateList(Request $request) {
+    public function generateList(Request $request)
+    {
         $currentColumns = $request->get('currentColumns');
         $emptyColumns = $request->get('emptyColumns');
         $orderBy = $request->get('orderBy');
@@ -110,7 +113,7 @@ class ListController extends Controller
         $shaId = sha1(implode(',', $currentColumns));
 
         // Tabellen-CSS
-        $cellWidth = (1.0/count($currentColumns)) * 100;
+        $cellWidth = (1.0 / count($currentColumns)) * 100;
         $css = <<<EOF
 <style>
 body {
@@ -141,8 +144,8 @@ EOF;
 
         // Tabellenkopf erstellen
         $tableHead = "<thead><tr>";
-        foreach($currentColumns as $column) {
-            switch($column) {
+        foreach ($currentColumns as $column) {
+            switch ($column) {
                 case 'firstname':
                     $tableHead .= '<th>Vorname</th>';
                     break;
@@ -168,10 +171,33 @@ EOF;
         $tableHead .= '</tr></thead>';
 
         // Tabellenkörper erstellen
-        $users = User::getOrdered($orderBy)->get();
+        $users = User::getOrdered($orderBy);
+        if($request->has('g')) {
+            if(is_numeric($request->get('g')) && $request->get('g') > 0)
+            {
+                $users = $users->where('group_id', '=', $request->get('g'));
+            }
+        }
+
+        if($request->has('a')) {
+            if(is_numeric($request->get('a')) && $request->get('a') >= 0)
+            {
+                $users = $users->where('active', '=', (bool)$request->get('a'));
+            }
+        }
+
+        if($request->has('q')) {
+            $users = $users->where(function ($query) use ($request) {
+                $query->where('firstname', 'LIKE', '%' . $request->get('q') . '%')
+                    ->orWhere('lastname', 'LIKE', '%' . $request->get('q') . '%')
+                    ->orWhere('email', 'LIKE', '%' . $request->get('q') . '%');
+            });
+        }
+        $users = $users->get();
+
         // Tabellenkopf erstellen
         $tableBody = "<tbody>";
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $tableBody .= '<tr>';
             foreach ($currentColumns as $column) {
                 $tableBody .= '<td>';
@@ -203,8 +229,8 @@ EOF;
         $tableBody .= "</tbody>";
 
         // Tabelle zusammenfügen
-        $table = $request->get('listtitle') != null ? '<h1>'.$request->get('listtitle').'</h1>' : '<h1>&nbsp;</h1>';
-        $table .= $css.'<table>'.$tableHead.$tableBody.'</table>';
+        $table = $request->get('listtitle') != null ? '<h1>' . $request->get('listtitle') . '</h1>' : '<h1>&nbsp;</h1>';
+        $table .= $css . '<table>' . $tableHead . $tableBody . '</table>';
 
         // PDF erzeugen
         return PDF::loadHTML($table)->setPaper('a4')->setOrientation('landscape')->setWarnings(false)->download();

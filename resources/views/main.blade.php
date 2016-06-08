@@ -66,7 +66,8 @@
         </div>
     @endif
 
-    @if (session('first_login'))
+        <!--session('first_login')-->
+    @if (true)
             <div class="modal fade" id="firstLogin" role="dialog">
                 <div class="modal-dialog">
 
@@ -77,9 +78,29 @@
                             <h4 class="modal-title">Willkommen bei Zento</h4>
                         </div>
                         <div class="modal-body">
-                            <p>Was ist Zento?</p>
+                            <p style="font-weight: bold">Was ist Zento?</p>
 
                             <p>Zento ist ein Online Tool zum Verwalten eurer Mitglieder, Prüfungen, Seminare und Termine.</p>
+
+                            <p style="font-weight: bold">Was kannst du mit Zento machen?</p>
+
+                            <p>
+                            @if (Auth::user()->is_admin)
+                                Mit Zento bist du in der Lage, Mitglieder, Prüfungen, Seminare und Termine anzulegen und
+                                zu verwalten. Zum Beispiel lassen sich angelegte Mitglieder zu einer Prüfung oder einem
+                                Seminar hinzufügen, um so den Überblick über vergangene Prüfungen zu behalten.
+                            @else
+                                Mit Zento bist du in der Lage, Mitglieder, Prüfungen und Seminare aus der Vergangenheit
+                                einzusehen und den Trainingsverlauf der einzelnen Mitglieder nachzuvollziehen.
+                            @endif
+                            </p>
+                            <p>
+                                Mit Hilfe des Tabs <i>Listen</i> lassen sich ganz einfach Listen für verschiedene Zwecke, zum
+                                Beispiel zru Planung eines Seminars, generieren und ausdrucken. Zusätzlichen können
+                                Termine angelegt und gepflegt werden. Dabei ermöglicht der Termintyp <i>Training</i> eine
+                                zuverlässige Planung von Trainingsterminen und der anwesenden Trainer.
+                            </p>
+                            <p>Viel Spaß!</p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default btn-no-border" data-dismiss="modal">Schließen</button>

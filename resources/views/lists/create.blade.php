@@ -41,7 +41,7 @@
 
         <div class="form-inline">
             <div class="input-group">
-                {!! Form::text('listtitle', null, ['class' => 'form-control', 'id' => 'listtitle', 'placeholder' => 'Listentitel']) !!}
+                {!! Form::text('listtitle', null, ['maxlength' => 50, 'class' => 'form-control', 'id' => 'listtitle', 'placeholder' => 'Listentitel']) !!}
             </div>
         </div>
 

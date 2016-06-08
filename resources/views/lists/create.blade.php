@@ -11,37 +11,39 @@
 
         <div class="form-inline">
             <div class="input-group">
-                {!! Form::select('a', array(-1 => 'Alle Mitglieder', 0 => 'Nur Inaktive', 1 => 'Nur Aktive'), -1, ['class' => 'form-control', 'id' => 'filterA']) !!}
+                {!! Form::select('a', array(-1 => 'Alle Mitglieder', 0 => 'Nur Inaktive', 1 => 'Nur Aktive'), $filterStatus, ['class' => 'form-control', 'id' => 'filterA']) !!}
             </div>
 
             <div class="input-group">
-                {!! Form::select('g_id', array_merge(array(-1 => 'Alle Gruppen'), $groups), -1, ['class' => 'form-control', 'id' => 'filterG']) !!}
+                {!! Form::select('g_id', array_merge(array(-1 => 'Alle Gruppen'), $groups), $filterGroup, ['class' => 'form-control', 'id' => 'filterG']) !!}
             </div>
             <div class="input-group">
-                {!! Form::input('text', 's', '', ['class' => 'form-control', 'id' => 'filterS', 'placeholder' => 'Suche...']) !!}
+                {!! Form::input('text', 's', $filterSearch, ['class' => 'form-control', 'id' => 'filterS', 'placeholder' => 'Suche...']) !!}
                 <span class="input-group-btn">
                 <button class="btn btn-default" type="button" id="set-filter-btn">Suchen</button>
             </span>
             </div>
         </div>
 
-        <div class="btn-group pull-right btn-space-right ">
-            <button type="button" id="add-new-column-button" class=" btn btn-default btn-no-border dropdown-toggle"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Spalte hinzufügen <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a href="#" id="add-col-address">Adresse</a></li>
-                <li><a href="#" id="add-col-birthday">Geburtstag</a></li>
-                <li><a href="#" id="add-col-entrydate">Eintrittsdatum</a></li>
-                <li><a href="#" id="add-col-group">Gruppe</a></li>
-                <li><a href="#" id="add-col-empty">Leere Spalte</a></li>
-            </ul>
-        </div>
+        <div style="margin-top: 22px">
+            <div class="btn-group pull-right btn-space-right ">
+                <button type="button" id="add-new-column-button" class=" btn btn-default btn-no-border dropdown-toggle"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Spalte hinzufügen <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#" id="add-col-address">Adresse</a></li>
+                    <li><a href="#" id="add-col-birthday">Geburtstag</a></li>
+                    <li><a href="#" id="add-col-entrydate">Eintrittsdatum</a></li>
+                    <li><a href="#" id="add-col-group">Gruppe</a></li>
+                    <li><a href="#" id="add-col-empty">Leere Spalte</a></li>
+                </ul>
+            </div>
 
-        <div class="form-inline">
-            <div class="input-group">
-                {!! Form::text('listtitle', null, ['maxlength' => 50, 'class' => 'form-control', 'id' => 'listtitle', 'placeholder' => 'Listentitel']) !!}
+            <div class="form-inline">
+                <div class="input-group">
+                    {!! Form::text('listtitle', null, ['maxlength' => 50, 'class' => 'form-control', 'id' => 'listtitle', 'placeholder' => 'Listentitel', 'style' => 'width: 370px;']) !!}
+                </div>
             </div>
         </div>
 
@@ -364,6 +366,17 @@
             });
 
             $('#set-filter-btn').on('click', function () {
+                filter();
+            });
+
+            $('#filterS').keypress(function (e) {
+                if (e.which == 13) {
+                    filter();
+                    return false;
+                }
+            });
+            
+            function filter() {
                 var active = parseInt($('#filterA').val());
                 var group = parseInt($('#filterG').val());
                 var searchterm = $('#filterS').val();
@@ -372,7 +385,7 @@
                 if (group >= 0) searchParameters += '&g=' + group;
                 if (searchterm.length > 0) searchParameters += '&q=' + searchterm;
                 reloadTableSearch(currentColumns, orderBy, searchParameters);
-            });
+            }
         });
     </script>
 

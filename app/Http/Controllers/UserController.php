@@ -36,7 +36,9 @@ class UserController extends Controller
     {
         $users = User::query();
 
+        $listParameters = '';
         if($request->has('g')) {
+            $listParameters .= '&g=' . $request->get('g');
             if(is_numeric($request->get('g')) && $request->get('g') > 0)
             {
                 $users = $users->where('group_id', '=', $request->get('g'));
@@ -44,6 +46,7 @@ class UserController extends Controller
         }
 
         if($request->has('a')) {
+            $listParameters .= '&a=' . $request->get('a');
             if(is_numeric($request->get('a')) && $request->get('a') >= 0)
             {
                 $users = $users->where('active', '=', (bool)$request->get('a'));
@@ -51,11 +54,16 @@ class UserController extends Controller
         }
 
         if($request->has('q')) {
+            $listParameters .= '&q=' . $request->get('q');
             $users = $users->where(function ($query) use ($request) {
                 $query->where('firstname', 'LIKE', '%' . $request->get('q') . '%')
                     ->orWhere('lastname', 'LIKE', '%' . $request->get('q') . '%')
                     ->orWhere('email', 'LIKE', '%' . $request->get('q') . '%');
             });
+        }
+
+        if(!empty($listParameters) && $listParameters[0] == '&') {
+            $listParameters[0] = '?';
         }
 
         // returns users as JSON if requested by $.getJSON
@@ -67,7 +75,8 @@ class UserController extends Controller
                 ->with('sortBy', $request->has('orderBy') ? $request->get('orderBy') : 'firstname:ASC')
                 ->with('filterSearch', $request->has('q') ? $request->get('q') : '')
                 ->with('filterGroup', $request->has('g') ? $request->get('g') : '-1')
-                ->with('filterStatus', $request->has('a') ? $request->get('a') : '-1');
+                ->with('filterStatus', $request->has('a') ? $request->get('a') : '-1')
+                ->with('listParameters', $listParameters);
     }
 
     /**

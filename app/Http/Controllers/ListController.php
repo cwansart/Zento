@@ -19,15 +19,38 @@ class ListController extends Controller
      */
     public function index(Request $request)
     {
-        //return view('lists.index');
+        $users = User::query();
 
-        $sortBy = $request->has('orderBy') ? $request->orderBy : 'user_id:ASC';
-        $users = User::getOrdered($sortBy)->paginate(15);
+        if ($request->has('g')) {
+            if (is_numeric($request->get('g')) && $request->get('g') > 0) {
+                $users = $users->where('group_id', '=', $request->get('g'));
+            }
+        }
+
+        if ($request->has('a')) {
+            if (is_numeric($request->get('a')) && $request->get('a') >= 0) {
+                $users = $users->where('active', '=', (bool)$request->get('a'));
+            }
+        }
+
+        if ($request->has('q')) {
+            $users = $users->where(function ($query) use ($request) {
+                $query->where('firstname', 'LIKE', '%' . $request->get('q') . '%')
+                    ->orWhere('lastname', 'LIKE', '%' . $request->get('q') . '%')
+                    ->orWhere('email', 'LIKE', '%' . $request->get('q') . '%');
+            });
+        }
+
+        // returns users as JSON if requested by $.getJSON
+        $users = $users->getOrdered($request->get('orderBy'))->paginate(15);
 
         return view('lists.create')
             ->with('sortBy', 'lastname:ASC')
             ->with('users', $users)
-            ->with('groups', Group::groupsArray());
+            ->with('groups', Group::groupsArray())
+            ->with('filterSearch', $request->has('q') ? $request->get('q') : '')
+            ->with('filterGroup', $request->has('g') ? $request->get('g') : '-1')
+            ->with('filterStatus', $request->has('a') ? $request->get('a') : '-1');
     }
 
     /**
@@ -172,21 +195,19 @@ EOF;
 
         // Tabellenkörper erstellen
         $users = User::getOrdered($orderBy);
-        if($request->has('g')) {
-            if(is_numeric($request->get('g')) && $request->get('g') > 0)
-            {
+        if ($request->has('g')) {
+            if (is_numeric($request->get('g')) && $request->get('g') > 0) {
                 $users = $users->where('group_id', '=', $request->get('g'));
             }
         }
 
-        if($request->has('a')) {
-            if(is_numeric($request->get('a')) && $request->get('a') >= 0)
-            {
+        if ($request->has('a')) {
+            if (is_numeric($request->get('a')) && $request->get('a') >= 0) {
                 $users = $users->where('active', '=', (bool)$request->get('a'));
             }
         }
 
-        if($request->has('q')) {
+        if ($request->has('q')) {
             $users = $users->where(function ($query) use ($request) {
                 $query->where('firstname', 'LIKE', '%' . $request->get('q') . '%')
                     ->orWhere('lastname', 'LIKE', '%' . $request->get('q') . '%')

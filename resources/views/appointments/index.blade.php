@@ -197,10 +197,10 @@
 
             $('.zc-day').click(function (event) {
                 $('.form-horizontal')[0].reset();
-                $('#start-picker').data().DateTimePicker.format = 'DD.MM.YYYY hh:MM';
-                $('#end-picker').data().DateTimePicker.format = 'DD.MM.YYYY hh:MM';
-                $('#start-picker').data().DateTimePicker.setDate(event.target.getAttribute('data-date'));
-                $('#end-picker').data().DateTimePicker.setDate(event.target.getAttribute('data-date'));
+                $('#start-picker').data().DateTimePicker.format = 'DD.MM.YYYY HH:mm';
+                $('#end-picker').data().DateTimePicker.format = 'DD.MM.YYYY HH:mm';
+                $('#start-picker').data().DateTimePicker.setDate(event.target.getAttribute('data-date')+" 14:00");
+                $('#end-picker').data().DateTimePicker.setDate(event.target.getAttribute('data-date')+" 16:00");
                 $('#trainer-section').addClass('hidden');
                 $('#appointment-create-dialog').modal('show');
 

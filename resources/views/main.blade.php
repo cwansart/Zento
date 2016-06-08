@@ -65,9 +65,8 @@
             {{ session('status') }}
         </div>
     @endif
-
-        <!--session('first_login')-->
-    @if (true)
+        
+    @if (session('first_login'))
             <div class="modal fade" id="firstLogin" role="dialog">
                 <div class="modal-dialog">
 

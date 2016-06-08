@@ -8,8 +8,11 @@
 
 
         <a class="btn btn-primary pull-right" id="show-create-dialog-button">Termin erstellen</a>
-        <a class="btn btn-default pull-right btn-space-right btn-no-border" href="{!! action('AppointmentController@notifyTrainer') !!}"
-           data-toggle="tooltip"  data-placement="bottom" title="Trainer werden über ausstehende Termine ohne eingetragenen Trainer benachrichtigt">Benachrichtigung senden</a>
+        <a class="btn btn-default pull-right btn-space-right btn-no-border"
+           href="{!! action('AppointmentController@notifyTrainer') !!}"
+           data-toggle="tooltip" data-placement="bottom"
+           title="Trainer werden über ausstehende Termine ohne eingetragenen Trainer benachrichtigt">Benachrichtigung
+            senden</a>
         <br>
 
         @if($month > 1)
@@ -31,48 +34,55 @@
             </a>
         @endif
 
-        <table class="zento-calendar">
-            <tr>
-                <!-- Table headers -->
-                @foreach(\Zento\Appointment::$weekdays as $weekday)
-                    <th class="zc-header">{!! $weekday !!}</th>
-                @endforeach
-            </tr>
-            @for($i = 0; $i < count($calendar_days); $i++)
-                @if($i % 7 == 0)
+        <div class="row">
+            <div class="col-md-11">
+                <table class="zento-calendar">
                     <tr>
-                @endif
-                <td class="{!! $calendar_days[$i]["class"] !!}"
-                    data-date="{!! $calendar_days[$i]["data-date"] !!}">
-                    {!! $calendar_days[$i]["num"] !!}
-                    @foreach($calendar_days[$i]["appointments"] as $appointment)
-                        <div class="{!! $appointment["class"] !!}" data-id="{!! $appointment["id"] !!}">
-                            <span class="{!! $appointment["trainer"] !!}"></span>{{ $appointment["title"] }}
-                        </div>
-                    @endforeach
-                    @foreach($calendar_days[$i]["birthdays"] as $birthday)
-                        <div class="zc-event-birthday"
-                             data-href="{!! action('UserController@show', [$birthday["id"]]) !!}">
-                            {!! $birthday["name"]." (".strval($calendar_days[$i]["year"] - $birthday["year"]).")" !!}
-                        </div>
-                    @endforeach
-                </td>
-                @if(($i + 1) % 7 == 0)
+                        <!-- Table headers -->
+                        @foreach(\Zento\Appointment::$weekdays as $weekday)
+                            <th class="zc-header">{!! $weekday !!}</th>
+                        @endforeach
                     </tr>
-                @endif
-            @endfor
-        </table>
+                    @for($i = 0; $i < count($calendar_days); $i++)
+                        @if($i % 7 == 0)
+                            <tr>
+                                @endif
+                                <td class="{!! $calendar_days[$i]["class"] !!}"
+                                    data-date="{!! $calendar_days[$i]["data-date"] !!}">
+                                    {!! $calendar_days[$i]["num"] !!}
+                                    @foreach($calendar_days[$i]["appointments"] as $appointment)
+                                        <div class="{!! $appointment["class"] !!}" data-id="{!! $appointment["id"] !!}">
+                                            <span class="{!! $appointment["trainer"] !!}"></span>{{ $appointment["title"] }}
+                                        </div>
+                                    @endforeach
+                                    @foreach($calendar_days[$i]["birthdays"] as $birthday)
+                                        <div class="zc-event-birthday"
+                                             data-href="{!! action('UserController@show', [$birthday["id"]]) !!}">
+                                            {!! $birthday["name"]." (".strval($calendar_days[$i]["year"] - $birthday["year"]).")" !!}
+                                        </div>
+                                    @endforeach
+                                </td>
+                                @if(($i + 1) % 7 == 0)
+                            </tr>
+                        @endif
+                    @endfor
+                </table>
+            </div>
 
-        <table>
-            <tr>
-                <td width="120px"><div class="zc-event zc-event-training">Training</div></td>
-                <td width="120px"><div class="zc-event zc-event-training"><span class="glyphicon glyphicon-question-sign zc-red"></span>Kein Trainer</div></td>
-                <td width="120px"><div class="zc-event zc-event-seminar">Lehrgang</div></td>
-                <td width="120px"><div class="zc-event zc-event-exam">Prüfung</div></td>
-                <td width="120px"><div class="zc-event">Allgemein</div></td>
-                <td width="120px"><div class="zc-event zc-event-birthday">Geburtstag</div></td>
-            </tr>
-        </table>
+            <div class="col-md-1" style="margin-top: 10px">
+                <div class="center-block" style="width: 120px">
+                    <h4 style="width: 80px; margin: 0 auto">Legende</h4>
+                    <div class="zc-event zc-event-training">Training</div>
+                    <div class="zc-event zc-event-training"><span
+                                class="glyphicon glyphicon-question-sign zc-red"></span>Kein Trainer
+                    </div>
+                    <div class="zc-event zc-event-seminar">Lehrgang</div>
+                    <div class="zc-event zc-event-exam">Prüfung</div>
+                    <div class="zc-event">Allgemein</div>
+                    <div class="zc-event zc-event-birthday">Geburtstag</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="modal fade" id="appointment-create-dialog" role="dialog">
@@ -105,18 +115,21 @@
                 <span class="end"></span>
             </div>
             <div class="description"></div>
-            <div class="trainer-div hidden">Trainer (Priorität): <ul class="actual-trainer"></ul></div>
+            <div class="trainer-div hidden">Trainer (Priorität):
+                <ul class="actual-trainer"></ul>
+            </div>
         </div>
         <div class="popover-controls">
             <div style="margin: 0; padding: 0; line-height: 22px;">
                 <a href="#" class="edit" title="Termin bearbeiten" data-toggle="tooltip" data-placement="right"></a>
-                <a href="#" class="delete delete-confirm" title="Termin löschen" data-toggle="tooltip" data-placement="right"></a>
+                <a href="#" class="delete delete-confirm" title="Termin löschen" data-toggle="tooltip"
+                   data-placement="right"></a>
             </div>
         </div>
     </div>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
 
             $('#appointment-tooltip').click(function () {
@@ -162,7 +175,7 @@
                                 for (i = 0; i < trainer.length; i++) {
                                     var prio = ["Nicht möglich", "Niedrig", "Normal", "Hoch"];
                                     trainerList += "<li>" + trainer[i].firstname + " " + trainer[i].lastname;
-                                    trainerList += " (" + prio[trainer[i].pivot.priority] + ")"+ "</li>";
+                                    trainerList += " (" + prio[trainer[i].pivot.priority] + ")" + "</li>";
                                 }
                                 $('#appointment-tooltip .actual-trainer').html(trainerList);
                                 $('#appointment-tooltip .trainer-div').removeClass('hidden');

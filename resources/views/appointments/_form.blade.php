@@ -69,7 +69,7 @@
             @endif
             <div class="checkbox" id="allDay-wrapper">
                 <label>
-                    {!! Form::checkbox('train', 1, $trainChecked) !!} Training geben?
+                    {!! Form::checkbox('train', 1, $trainChecked, array('onchange' => 'updateTrain(this)', 'id' => 'train-checkbox')) !!} Training geben?
                 </label>
             </div>
         </div>
@@ -82,10 +82,12 @@
         </div>
     </div>
 
-    <div class="form-group">
-        {!! Form::label('reminder', 'Erinnerung', ['class' => 'col-md-4 control-label']) !!}
-        <div class="col-md-6">
-            {!! Form::select('reminder', array(0 => 'Keine Erinnerung', 12 => '12 Stunden vorher', 24 => '24 Stunden vorher'), $reminderSelect, ['class' => 'form-control', 'id' => 'type-select']) !!}
+    <div id="reminder-selection">
+        <div class="form-group">
+            {!! Form::label('reminder', 'Erinnerung', ['class' => 'col-md-4 control-label']) !!}
+            <div class="col-md-6">
+                {!! Form::select('reminder', array(0 => 'Keine Erinnerung', 12 => '12 Stunden vorher', 24 => '24 Stunden vorher'), $reminderSelect, ['class' => 'form-control', 'id' => 'reminder-select']) !!}
+            </div>
         </div>
     </div>
 </div>
@@ -156,6 +158,7 @@
         });
 
         $(function() {
+            updateTrain(document.getElementById('train-checkbox'));
             if($('#type-select option:selected').text() != 'Training')
             {
                 $('#trainer-section').addClass('hidden');
@@ -164,6 +167,15 @@
             }
         });
     });
+
+    function updateTrain(element) {
+        if(element.checked == true)
+        {
+            document.getElementById('reminder-select').disabled = false;
+        } else {
+            document.getElementById('reminder-select').disabled = true;
+        }
+    }
 
     /**
      * Changes the DateTimePicker format and updates the current dates.

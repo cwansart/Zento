@@ -206,6 +206,7 @@
                 $('#start-picker').data().DateTimePicker.setDate(event.target.getAttribute('data-date')+" 14:00");
                 $('#end-picker').data().DateTimePicker.setDate(event.target.getAttribute('data-date')+" 16:00");
                 $('#trainer-section').addClass('hidden');
+                document.getElementById('reminder-select').disabled = true;
                 $('#appointment-create-dialog').modal('show');
 
                 $('[data-toggle="tooltip"]').tooltip();

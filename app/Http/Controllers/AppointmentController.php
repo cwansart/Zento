@@ -58,6 +58,7 @@ class AppointmentController extends Controller
                 }
 
                 $trainer = '';
+                $reminder = '';
                 if($result->type == 'Training')
                 {
                     $class = $class.' zc-event-training';
@@ -65,6 +66,11 @@ class AppointmentController extends Controller
                     if(!count(\DB::select( \DB::raw("SELECT * FROM appointment_user WHERE appointment_id = '$result->id' AND priority > '0'"))))
                     {
                         $trainer = 'glyphicon glyphicon-question-sign zc-red';
+                    }
+
+                    if(count(\DB::select( \DB::raw("SELECT * FROM appointment_user WHERE appointment_id = '$result->id' AND user_id = '".Auth::id()."' AND reminder > '0'"))))
+                    {
+                        $reminder = 'glyphicon glyphicon-envelope zc-red';
                     }
                 }
                 elseif($result->type == 'Lehrgang')
@@ -80,7 +86,8 @@ class AppointmentController extends Controller
                     'id' => $result->id,
                     'title' => $result->title,
                     'class' => $class,
-                    'trainer' => $trainer
+                    'trainer' => $trainer,
+                    'reminder' => $reminder
                 ];
                 $start_new->addDay(1);
             }

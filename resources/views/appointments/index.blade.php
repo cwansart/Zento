@@ -53,6 +53,7 @@
                                     @foreach($calendar_days[$i]["appointments"] as $appointment)
                                         <div class="{!! $appointment["class"] !!}" data-id="{!! $appointment["id"] !!}">
                                             <span class="{!! $appointment["trainer"] !!}"></span>{{ $appointment["title"] }}
+                                            <span class="{!! $appointment["reminder"] !!}"></span>
                                         </div>
                                     @endforeach
                                     @foreach($calendar_days[$i]["birthdays"] as $birthday)
@@ -74,7 +75,10 @@
                     <h4 style="width: 80px; margin: 0 auto">Legende</h4>
                     <div class="zc-event zc-event-training">Training</div>
                     <div class="zc-event zc-event-training"><span
-                                class="glyphicon glyphicon-question-sign zc-red"></span>Kein Trainer
+                                class="glyphicon glyphicon-question-sign zc-red"></span> Kein Trainer
+                    </div>
+                    <div class="zc-event zc-event-training">Erinnerung <span
+                                class="glyphicon glyphicon-envelope zc-red"></span>
                     </div>
                     <div class="zc-event zc-event-seminar">Lehrgang</div>
                     <div class="zc-event zc-event-exam">Prüfung</div>

@@ -65,7 +65,7 @@
             {{ session('status') }}
         </div>
     @endif
-        
+
     @if (session('first_login'))
             <div class="modal fade" id="firstLogin" role="dialog">
                 <div class="modal-dialog">
@@ -95,7 +95,7 @@
                             </p>
                             <p>
                                 Mit Hilfe des Tabs <i>Listen</i> lassen sich ganz einfach Listen für verschiedene Zwecke, zum
-                                Beispiel zru Planung eines Seminars, generieren und ausdrucken. Zusätzlichen können
+                                Beispiel zur Planung eines Seminars, generieren und ausdrucken. Zusätzlichen können
                                 Termine angelegt und gepflegt werden. Dabei ermöglicht der Termintyp <i>Training</i> eine
                                 zuverlässige Planung von Trainingsterminen und der anwesenden Trainer.
                             </p>

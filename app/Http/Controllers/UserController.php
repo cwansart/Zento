@@ -251,7 +251,7 @@ class UserController extends Controller
         $user->update(['password' => $request['password']]);
 
         return redirect(action('UserController@index'))
-            ->with('status', 'Password für '.$user->firstname.' '.$user->lastname.' gesetzt.');
+            ->with('status', 'Passwort für '.$user->firstname.' '.$user->lastname.' gesetzt.');
     }
 
     /**

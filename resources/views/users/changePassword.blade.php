@@ -46,6 +46,23 @@
 
             </div>
         </div>
+
+        @if(Auth::user()->id != $user->id)
+        <h2>Passwort löschen</h2>
+        <div class="container-fluid">
+            <div class="row">
+                {!! Form::open(array('class' => 'form-horizontal', 'method' => 'DELETE', 'action' => ['UserController@destroyPassword', $user->id])) !!}
+                <div class="form-group">
+                    <div class="col-md-6 col-md-offset-4">
+                        <p class="help-block">Wenn das Passwort gelöscht wird, kann der Benutzer sich nicht mehr am System anmelden.</p>
+                        {!! Form::submit('Passwort löschen', ['class' => 'btn btn-primary']) !!}
+                    </div>
+                </div>
+                {!! Form::close() !!}
+
+            </div>
+        </div>
+        @endif
 		<hr>
 	{!! HTML::link('#', 'Zurück', array('class' => 'btn btn-default', 'onClick="javascript:history.back();return false;"'))!!}
 

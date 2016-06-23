@@ -20,6 +20,7 @@ Route::put('edit_profile', 'UserController@updateProfile');
 
 Route::get('users/{id}/change_password', 'UserController@changePassword');
 Route::put('users/{id}/change_password', 'UserController@updatePassword');
+Route::delete('users/{id}/destroy_password', 'UserController@destroyPassword');
 
 Route::get('users/get_address/{id}', 'UserController@getAddress');
 

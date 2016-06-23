@@ -37,23 +37,21 @@ class UserController extends Controller
         $users = User::query();
 
         $listParameters = '';
-        if($request->has('g')) {
+        if ($request->has('g')) {
             $listParameters .= '&g=' . $request->get('g');
-            if(is_numeric($request->get('g')) && $request->get('g') > 0)
-            {
+            if (is_numeric($request->get('g')) && $request->get('g') > 0) {
                 $users = $users->where('group_id', '=', $request->get('g'));
             }
         }
 
-        if($request->has('a')) {
+        if ($request->has('a')) {
             $listParameters .= '&a=' . $request->get('a');
-            if(is_numeric($request->get('a')) && $request->get('a') >= 0)
-            {
+            if (is_numeric($request->get('a')) && $request->get('a') >= 0) {
                 $users = $users->where('active', '=', (bool)$request->get('a'));
             }
         }
 
-        if($request->has('q')) {
+        if ($request->has('q')) {
             $listParameters .= '&q=' . $request->get('q');
             $users = $users->where(function ($query) use ($request) {
                 $query->where('firstname', 'LIKE', '%' . $request->get('q') . '%')
@@ -62,7 +60,7 @@ class UserController extends Controller
             });
         }
 
-        if(!empty($listParameters) && $listParameters[0] == '&') {
+        if (!empty($listParameters) && $listParameters[0] == '&') {
             $listParameters[0] = '?';
         }
 
@@ -102,7 +100,7 @@ class UserController extends Controller
         $request['location_id'] = $location->id;
         $user = User::create($request->all());
 
-        return redirect(action('UserController@index'))->with('status', 'Benutzer '.$user->firstname.' '.$user->lastname.' wurde hinzugefügt.');
+        return redirect(action('UserController@index'))->with('status', 'Benutzer ' . $user->firstname . ' ' . $user->lastname . ' wurde hinzugefügt.');
     }
 
     /**
@@ -121,8 +119,8 @@ class UserController extends Controller
         // so it'll be displayed in the browser.
         try {
             $user = User::findOrFail($id);
-        } catch(ModelNotFoundException $e) {
-            if($request->ajax()) {
+        } catch (ModelNotFoundException $e) {
+            if ($request->ajax()) {
                 return [];
             }
 
@@ -168,7 +166,7 @@ class UserController extends Controller
         $user->update($request->all());
 
         return redirect(action('UserController@index'))
-            ->with('status', 'Profil von '.$user->firstname.' '.$user->lastname.' aktualisiert!');
+            ->with('status', 'Profil von ' . $user->firstname . ' ' . $user->lastname . ' aktualisiert!');
     }
 
     /**
@@ -179,7 +177,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        if(Auth::user()->id == $id) {
+        if (Auth::user()->id == $id) {
             return redirect(action('UserController@index'))
                 ->withErrors('Das eigene Benutzerkonto kann nicht gelöscht werden!');
         }
@@ -248,10 +246,12 @@ class UserController extends Controller
 
         // To ensure that nobody passes an email as well (since we're using an
         // UpdateProfileRequest) we'll pass an array solely with the password.
-        $user->update(['password' => $request['password']]);
+        $user->update(['password' => $request->get('password')]);
+
+        dd($user);
 
         return redirect(action('UserController@index'))
-            ->with('status', 'Passwort für '.$user->firstname.' '.$user->lastname.' gesetzt.');
+            ->with('status', 'Passwort für ' . $user->firstname . ' ' . $user->lastname . ' gesetzt.');
     }
 
     /**
@@ -260,8 +260,25 @@ class UserController extends Controller
      * @param $id
      * @return mixed
      */
-    public function getAddress($id) {
+    public function getAddress($id)
+    {
         $user = User::findOrFail($id);
         return $user->addressStr();
+    }
+
+    /**
+     * Deletes the password for the specified user.
+     *
+     * @param User $users
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroyPassword($id)
+    {
+        $user = User::findOrFail($id);
+        $user->update(['password' => null]);
+        dd($user);
+
+        return redirect(action('UserController@index'))
+            ->with('status', 'Passwort für ' . $user->firstname . ' ' . $user->lastname . ' wurde gelöscht.');
     }
 }

@@ -95,7 +95,7 @@ class AppointmentController extends Controller
         }
 
         // Get birthdays of month
-        $results = \DB::select( \DB::raw("SELECT * FROM users WHERE (MONTH(birthday) = '$month') OR (MONTH(birthday) = '$month' - 1) OR (MONTH(birthday) = '$month' + 1)"));
+        $results = \DB::select( \DB::raw("SELECT * FROM users WHERE ((MONTH(birthday) = '$month') OR (MONTH(birthday) = '$month' - 1) OR (MONTH(birthday) = '$month' + 1)) AND (YEAR(birthday) < '$year') AND active = true"));
         $birthdays_raw = [];
         foreach ($results as $result)
         {

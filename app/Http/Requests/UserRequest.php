@@ -2,6 +2,7 @@
 
 namespace Zento\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 use Zento\Http\Requests\Request;
 use Route;
@@ -45,8 +46,8 @@ class UserRequest extends Request
             'lastname' => 'required|min:2|alpha',
             'email' => 'required|email|unique:users,email' . ($this->route()->users != null ? ','.$this->route()->users : ''),
             'password' => 'min:4',
-            'birthday' => 'date|required',
-            'entry_date' => 'date|required',
+            'birthday' => 'date|required|before:'.Carbon::now()->toDateString(),
+            'entry_date' => 'date|required|before:'.Carbon::now()->addDay()->toDateString(),
             'is_admin' => 'boolean',
             'active' => 'boolean'
         ];

@@ -74,7 +74,8 @@ class UserController extends Controller
                 ->with('filterSearch', $request->has('q') ? $request->get('q') : '')
                 ->with('filterGroup', $request->has('g') ? $request->get('g') : '-1')
                 ->with('filterStatus', $request->has('a') ? $request->get('a') : '-1')
-                ->with('listParameters', $listParameters);
+                ->with('listParameters', $listParameters)
+                ->with('active_state', true);
     }
 
     /**
@@ -85,7 +86,8 @@ class UserController extends Controller
     public function create()
     {
         return view('users.create')
-            ->with('groups', Group::groupsArray());
+            ->with('groups', Group::groupsArray())
+            ->with('active_state', false); // Just for initiate the variable. Field 'active' is filled correctly
     }
 
     /**
@@ -98,6 +100,7 @@ class UserController extends Controller
     {
         $location = Location::findOrCreate($request->all());
         $request['location_id'] = $location->id;
+        $request->request->set('active', $request->has('active'));
         $user = User::create($request->all());
 
         return redirect(action('UserController@index'))->with('status', 'Benutzer ' . $user->firstname . ' ' . $user->lastname . ' wurde hinzugefügt.');
@@ -148,7 +151,8 @@ class UserController extends Controller
 
         return view('users.edit')
             ->with('user', $user)
-            ->with('groups', Group::groupsArray());
+            ->with('groups', Group::groupsArray())
+            ->with('active_state', $user->active);
     }
 
     /**
@@ -162,6 +166,7 @@ class UserController extends Controller
     {
         $location = Location::findOrCreate($request->all());
         $request['location_id'] = $location->id;
+        $request->request->set('active', $request->has('active'));
         $user = User::findOrFail($id);
         $user->update($request->all());
 

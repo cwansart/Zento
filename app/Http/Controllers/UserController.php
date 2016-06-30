@@ -253,8 +253,6 @@ class UserController extends Controller
         // UpdateProfileRequest) we'll pass an array solely with the password.
         $user->update(['password' => $request->get('password')]);
 
-        dd($user);
-
         return redirect(action('UserController@index'))
             ->with('status', 'Passwort für ' . $user->firstname . ' ' . $user->lastname . ' gesetzt.');
     }
@@ -281,7 +279,6 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->update(['password' => null]);
-        dd($user);
 
         return redirect(action('UserController@index'))
             ->with('status', 'Passwort für ' . $user->firstname . ' ' . $user->lastname . ' wurde gelöscht.');

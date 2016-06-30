@@ -28,7 +28,7 @@ class UserRequest extends Request
      */
     protected function getRedirectUrl()
     {
-        if($this->method() == 'POST') {
+        if ($this->method() == 'POST') {
             return action('UserController@create');
         }
         return parent::getRedirectUrl();
@@ -44,10 +44,10 @@ class UserRequest extends Request
         return [
             'firstname' => 'required|min:2|alpha',
             'lastname' => 'required|min:2|alpha',
-            'email' => 'required|email|unique:users,email' . ($this->route()->users != null ? ','.$this->route()->users : ''),
+            'email' => 'required|email|unique:users,email' . ($this->route()->users != null ? ',' . $this->route()->users : ''),
             'password' => 'min:4',
-            'birthday' => 'date|required|before:'.Carbon::now()->toDateString(),
-            'entry_date' => 'date|required|before:'.Carbon::now()->addDay()->toDateString(),
+            'birthday' => 'date|required|before:' . Carbon::now()->format('d.m.Y'),
+            'entry_date' => 'date|required|before:' . Carbon::now()->addDay()->format('d.m.Y'),
             'is_admin' => 'boolean',
             'active' => 'boolean'
         ];

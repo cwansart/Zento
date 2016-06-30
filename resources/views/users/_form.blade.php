@@ -13,7 +13,7 @@
 </div>
 
 <div class="form-group">
-    {!! Form::label('email', 'Email-Adresse', ['class' => 'col-md-4 control-label']) !!}
+    {!! Form::label('email', 'E-Mail-Adresse', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         {!! Form::input('email', 'email', null, ['class' => 'form-control', 'placeholder' => 'Email-Adresse', 'required']) !!}
     </div>

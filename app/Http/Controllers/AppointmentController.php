@@ -173,6 +173,7 @@ class AppointmentController extends Controller
             ->with('calendar_days', $calendar_days)
             ->with('month', $month)
             ->with('year', $year)
+            ->with('allDayChecked', false)
             ->with('trainChecked', false)
             ->with('prioSelect', 0)
             ->with('reminderSelect', 0);
@@ -186,6 +187,7 @@ class AppointmentController extends Controller
     public function create(Request $request)
     {
         return view('appointments.create')
+            ->with('allDayChecked', false)
             ->with('trainChecked', $request->get('trainChecked'))
             ->with('prioSelect', $request->get('prioSelect'))
             ->with('reminderSelect', $request->get('reminderSelect'));
@@ -219,6 +221,7 @@ class AppointmentController extends Controller
             $request['start'] = Carbon::createFromFormat('d.m.Y H:i', $request->get('start'));
             $request['end'] = Carbon::createFromFormat('d.m.Y H:i', $request->get('end'));
         }
+        $request->request->set('allDay', $request->has('allDay'));
 
         $appointment = Appointment::create($request->all());
 
@@ -260,6 +263,7 @@ class AppointmentController extends Controller
         return view('appointments.edit')
             ->with('appointment', $appointment)
             ->with('trainer', $appointment->trainer)
+            ->with('allDayChecked', $appointment->allDay)
             ->with('trainChecked', $appointment->trainer->contains(Auth::id()))
             ->with('prioSelect', $appointment->trainer->contains(Auth::id()) ? $appointment->trainer->find(Auth::id())->pivot->priority : 0)
             ->with('reminderSelect', $appointment->trainer->contains(Auth::id()) ? $appointment->trainer->find(Auth::id())->pivot->reminder : 0);
@@ -282,6 +286,8 @@ class AppointmentController extends Controller
             $request['start'] = Carbon::createFromFormat('d.m.Y H:i', $request->get('start'));
             $request['end'] = Carbon::createFromFormat('d.m.Y H:i', $request->get('end'));
         }
+
+        $request->request->set('allDay', $request->has('allDay'));
 
         $appointment= Appointment::findOrFail($id);
         $appointment->update($request->all());

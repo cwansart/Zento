@@ -46,7 +46,7 @@
     <div class="col-md-6">
         <div class="checkbox" id="allDay-wrapper">
             <label>
-                {!! Form::checkbox('allDay') !!} ganztägig?
+                {!! Form::checkbox('allDay', 1, $allDayChecked) !!} ganztägig?
             </label>
         </div>
     </div>
@@ -78,7 +78,7 @@
     <div class="form-group">
         {!! Form::label('priority', 'Priorität', ['class' => 'col-md-4 control-label']) !!}
         <div class="col-md-6">
-            {!! Form::select('priority', array(0 => 'Nicht möglich', 1 => 'Niedrig', 2 => 'Normal', 3 => 'Hoch'), $prioSelect, ['class' => 'form-control']) !!}
+            {!! Form::select('priority', array(0 => 'Nicht möglich', 1 => 'Niedrig', 2 => 'Normal', 3 => 'Hoch'), $prioSelect, ['class' => 'form-control', 'id' => 'prio-select']) !!}
         </div>
     </div>
 
@@ -171,8 +171,10 @@
     function updateTrain(element) {
         if(element.checked == true)
         {
+            document.getElementById('prio-select').disabled = false;
             document.getElementById('reminder-select').disabled = false;
         } else {
+            document.getElementById('prio-select').disabled = true;
             document.getElementById('reminder-select').disabled = true;
         }
     }

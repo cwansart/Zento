@@ -157,11 +157,11 @@
                         $('#appointment-tooltip .title').text(appointment.title);
                         $('#appointment-tooltip .description').text(appointment.description ? appointment.description : '');
 
-                        var format = appointment.allDay ? 'dd.mm.yyyy' : 'dd.mm.yyyy HH:MM';
+                        var format = appointment.allDay == 1 ? 'dd.mm.yyyy' : 'dd.mm.yyyy HH:MM';
                         var pattern = /(\d{2})\.(\d{2})\.(\d{4}).?(\d{2})?\:?(\d{2})?/;
                         var start;
                         var end;
-                        if (appointment.allDay) {
+                        if (appointment.allDay == 1) {
                             start = (new Date(appointment.start.replace(pattern, '$3-$2-$1'))).format(format);
                             end = (new Date(appointment.end.replace(pattern, '$3-$2-$1'))).format(format);
                         } else {

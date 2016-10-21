@@ -16,6 +16,11 @@ class CheckGermanDateBeforeProvider extends ServiceProvider
     public function boot()
     {
         Validator::extend('check_before', function($attribute, $value, $parameters, $validator) {
+            $regex = '/\d{2}\.\d{2}\.\d{4}( \d{2}:\d{2})?/';
+            if(!preg_match($regex, $validator->getData()[$parameters[0]]))
+            {
+                return false;
+            }
             if(strpos($value, ' '))
             {
                 $start = Carbon::createFromFormat('d.m.Y H:i', $value);
@@ -29,7 +34,7 @@ class CheckGermanDateBeforeProvider extends ServiceProvider
             } else {
                 $end = Carbon::createFromFormat('d.m.Y', $validator->getData()[$parameters[0]]);
             }
-            
+
             return $start <= $end;
         });
     }

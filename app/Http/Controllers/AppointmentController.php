@@ -278,6 +278,18 @@ class AppointmentController extends Controller
      */
     public function update(AppointmentRequest $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|min:3',
+            'start' => 'required|regex:/\d{2}\.\d{2}\.\d{4}( \d{2}:\d{2})?/|check_before:end',
+            'end' => 'required|regex:/\d{2}\.\d{2}\.\d{4}( \d{2}:\d{2})?/',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('appointments/'.$id.'/edit')
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         // If allDay is checked then end and start date are the same!
         if($request->has('allDay')) {
             $request['start'] = Carbon::createFromFormat('d.m.Y', $request->get('start'));
